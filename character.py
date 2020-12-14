@@ -23,8 +23,6 @@ class BrailleCharacter ():
 
         self.update_dots_hash()
 
-        GPIO.setmode(GPIO.BCM)  
-
     def refresh_dots(self):
         for d in range(0, 6):
             self.dots[d].update_value()
