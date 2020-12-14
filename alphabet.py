@@ -50,4 +50,4 @@ class Alphabet ():
         try:
             return self.braille_to_alphabet[braille]
         except KeyError:
-            return "NO CHAR FOUND"
+            return "_"
