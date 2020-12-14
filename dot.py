@@ -1,5 +1,5 @@
 
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 from random import randrange
 
 
@@ -12,8 +12,9 @@ class Dot ():
         self.braille_dot = dot
         self.gpio_pin = gpio_pin
 
-        # GPIO.setup(gpio_pin, GPIO.OUT)
-        # GPIO.output(gpio_pin, GPIO.LOW)
+        
+        GPIO.setup(gpio_pin, GPIO.OUT)
+        GPIO.output(gpio_pin, GPIO.LOW)
 
         self.update_value()
 
@@ -22,14 +23,15 @@ class Dot ():
 
     def update_value(self):
         # TODO : Read from the specified GPIO pin
-        self.value = randrange(2)
-        # current_val = GPIO.input(self.gpio_pin)
+        current_val = GPIO.input(self.gpio_pin)
 
-        # if current_val:
-        #     self.value = 1
-        # else:
-        #     self.value = 0
-        # self.value =
+        # print("Checking GPIO Pin {}".format(self.gpio_pin))
+
+        if current_val:
+             self.value = 1
+        else:
+             self.value = 0
+        
 
     def get_current_value(self):
         self.update_value()

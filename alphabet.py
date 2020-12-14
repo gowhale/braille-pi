@@ -46,13 +46,8 @@ class Alphabet ():
     def get_alphabet_to_braille(self):
         return self.alphabet_to_braille
 
-    def translate_braille_to_alphabet(self,braille):
+    def translate_braille_to_alphabet(self, braille):
         try:
             return self.braille_to_alphabet[braille]
         except KeyError:
             return "NO CHAR FOUND"
-
-test = Alphabet()
-# print(test.get_alphabet_to_braille())
-# print(test.get_braille_to_alphabet())
-print(test.translate_braille_to_alphabet("111000"))
