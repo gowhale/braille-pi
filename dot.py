@@ -12,7 +12,6 @@ class Dot ():
         self.braille_dot = dot
         self.gpio_pin = gpio_pin
 
-        
         GPIO.setup(gpio_pin, GPIO.OUT)
         GPIO.output(gpio_pin, GPIO.LOW)
 
@@ -28,10 +27,9 @@ class Dot ():
         # print("Checking GPIO Pin {}".format(self.gpio_pin))
 
         if current_val:
-             self.value = 0
+            self.value = 0
         else:
-             self.value = 1
-        
+            self.value = 1
 
     def get_current_value(self):
         self.update_value()

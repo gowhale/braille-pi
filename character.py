@@ -13,7 +13,6 @@ class BrailleCharacter ():
                        5: 26,
                        6: 21
                        }
-    
 
     def __init__(self):
 
@@ -40,4 +39,3 @@ class BrailleCharacter ():
         self.refresh_dots()
         self.update_dots_hash()
         return self.dots_hash
-
