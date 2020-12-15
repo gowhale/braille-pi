@@ -21,7 +21,7 @@ except pygame.error:
 
 for _ in range(1000):
     current_dots_hash = (current_char.get_current_dots_hash())
-    
+
     if show_gui:
         display.draw_dot_hash(current_dots_hash)
 
@@ -29,5 +29,3 @@ for _ in range(1000):
         current_dots_hash)
     print("{} : {}".format(current_dots_hash, braille_translation))
     sleep(1)
-
-

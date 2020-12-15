@@ -61,7 +61,7 @@ class Gui ():
         for index, dot in enumerate(dot_hash, start=1):
             print(index, dot)
             try:
-#                print(self.dot_locations[index])
+                #                print(self.dot_locations[index])
                 BLACK = (0, 0, 0)
                 if dot == "0":
                     pygame.draw.circle(
@@ -74,5 +74,3 @@ class Gui ():
                 print("Key Error")
 
         self.update()
-
-
