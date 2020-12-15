@@ -55,10 +55,13 @@ class Gui ():
         pygame.display.update()
 
     def draw_dot_hash(self, dot_hash):
+        WHITE = (255, 255, 255)
+        self.DISPLAY.fill(WHITE)
+
         for index, dot in enumerate(dot_hash, start=1):
             print(index, dot)
             try:
-                print(self.dot_locations[index])
+#                print(self.dot_locations[index])
                 BLACK = (0, 0, 0)
                 if dot == "0":
                     pygame.draw.circle(
@@ -73,10 +76,3 @@ class Gui ():
         self.update()
 
 
-# display = Gui()
-
-
-# for i in range(10):
-#     display.draw_dot_hash("101010")
-#     display.update()
-#     sleep(1)
