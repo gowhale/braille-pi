@@ -6,10 +6,10 @@ class BrailleCharacter ():
     dots = []  # List of Dot objects
     dots_hash = "000000"  # dots values concatanted, 1 means high, 0 means low
     # hashmap maps out which gpio represents which pin
-    dot_to_gpio_map = {1: 17,
-                       2: 27,
-                       3: 22,
-                       4: 16,
+    dot_to_gpio_map = {1: 27,
+                       2: 17,
+                       3: 16,
+                       4: 22,
                        5: 26,
                        6: 21
                        }

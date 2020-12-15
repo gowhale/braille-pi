@@ -28,9 +28,9 @@ class Dot ():
         # print("Checking GPIO Pin {}".format(self.gpio_pin))
 
         if current_val:
-             self.value = 1
-        else:
              self.value = 0
+        else:
+             self.value = 1
         
 
     def get_current_value(self):
