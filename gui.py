@@ -41,8 +41,7 @@ class Gui ():
     def __init__(self):
         pygame.init()
 
-        self.DISPLAY = pygame.display.set_mode(
-            (self.width, self.height), 0, 32)
+        self.DISPLAY = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         pygame.display.set_caption(self.window_caption)
         WHITE = (255, 255, 255)
         self.DISPLAY.fill(WHITE)
@@ -53,6 +52,10 @@ class Gui ():
                 pygame.quit()
                 sys.exit()
         pygame.display.update()
+        
+    def close_gui(self):
+        pygame.quit()
+        sys.exit()
 
     def draw_dot_hash(self, dot_hash):
         WHITE = (255, 255, 255)
