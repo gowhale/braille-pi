@@ -21,7 +21,7 @@ try:
 except pygame.error:
     print("No gui available")
     show_gui = False
-    
+
 previous_letter = "_"
 for _ in range(600):
     current_dots_hash = (current_char.get_current_dots_hash())
@@ -29,11 +29,8 @@ for _ in range(600):
     braille_translation = braille_alphabet.translate_braille_to_alphabet(
         current_dots_hash)
 
-
     if show_gui:
         display.draw_dot_hash(current_dots_hash, braille_translation)
-
-
 
     if previous_letter != braille_translation:
         speech.say(braille_translation)

@@ -36,4 +36,3 @@ for char in (chars_keys):
     speech.say(braille_translation)
 
     print("{} : {}".format(current_dots_hash, braille_translation))
-
