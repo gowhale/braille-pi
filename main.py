@@ -18,6 +18,8 @@ error_log = ErrorLogger()
 
 show_gui = True
 
+speech = Speech()
+
 try:
     display = Gui()
 
@@ -39,6 +41,7 @@ for _ in range(600):
     if previous_letter != braille_translation:
         speech.say(braille_translation)
         previous_letter = braille_translation
+
 
     print("{} : {}".format(current_dots_hash, braille_translation))
     sleep(0.1)
