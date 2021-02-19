@@ -5,6 +5,7 @@ from alphabet import Alphabet
 from gui import Gui
 import pygame
 from speech import Speech
+from error_logger import ErrorLogger
 
 GPIO.setmode(GPIO.BCM)
 
@@ -12,6 +13,8 @@ current_char = BrailleCharacter()
 braille_alphabet = Alphabet()
 
 speech = Speech()
+
+error_log = ErrorLogger()
 
 show_gui = True
 
@@ -21,6 +24,7 @@ try:
 except pygame.error:
     print("No gui available")
     show_gui = False
+    error_log.log_error("No gui available")
 
 previous_letter = "_"
 for _ in range(600):
