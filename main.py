@@ -42,7 +42,6 @@ for _ in range(600):
         speech.say(braille_translation)
         previous_letter = braille_translation
 
-
     print("{} : {}".format(current_dots_hash, braille_translation))
     sleep(0.1)
 
