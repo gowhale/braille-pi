@@ -6,6 +6,7 @@ from gui import Gui
 import pygame
 from speech import Speech
 from error_logger import ErrorLogger
+import time
 
 GPIO.setmode(GPIO.BCM)
 
@@ -29,20 +30,27 @@ except pygame.error:
     error_log.log_error("No gui available")
 
 previous_letter = "_"
+previous_time = time.time()
+
+
 for _ in range(600):
     current_dots_hash = (current_char.get_current_dots_hash())
 
     braille_translation = braille_alphabet.translate_braille_to_alphabet(
         current_dots_hash)
 
-    if show_gui:
-        display.draw_dot_hash(current_dots_hash, braille_translation)
+    now = time.time()
+    difference = float(previous_time - now)
+    if difference > 0.1:
+        previous_time = now
+        if show_gui:
+            display.draw_dot_hash(current_dots_hash, braille_translation)
 
-    if previous_letter != braille_translation:
-        speech.say(braille_translation)
-        previous_letter = braille_translation
+        if previous_letter != braille_translation:
+            speech.say(braille_translation)
+            previous_letter = braille_translation
 
-    print("{} : {}".format(current_dots_hash, braille_translation))
-    sleep(0.1)
+        print("{} : {}".format(current_dots_hash, braille_translation))
+        # sleep(0.1)
 
 display.close_gui()
