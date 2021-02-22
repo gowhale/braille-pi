@@ -14,6 +14,8 @@ try:
     from character import BrailleCharacter
 except ModuleNotFoundError as e:
     # If the system is unable to import the module it will revert to using the SDFJKL keys
+    print("KEYBOARD MODE ACTIVATED")
+    from keyboard_interface import check_keys
     using_raspberry_pi = False
     error_log.log_error(e)
     dot_has_test = {
@@ -57,50 +59,7 @@ while 1:
         current_dots_hash = (current_char.get_current_dots_hash())
     else:
         current_dots_hash = "000000"
-        events = pygame.event.get()
-        for event in events:
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_f:
-                    print("F")
-                    if dot_has_test["F"]:
-                        dot_has_test["F"] = 0
-                    else:
-                        dot_has_test["F"] = 1
-                if event.key == pygame.K_d:
-                    if dot_has_test["D"]:
-                        dot_has_test["D"] = 0
-                    else:
-                        dot_has_test["D"] = 1
-                    print("D")
-                if event.key == pygame.K_s:
-                    if dot_has_test["S"]:
-                        dot_has_test["S"] = 0
-                    else:
-                        dot_has_test["S"] = 1
-                    print("S")
-                if event.key == pygame.K_j:
-                    if dot_has_test["J"]:
-                        dot_has_test["J"] = 0
-                    else:
-                        dot_has_test["J"] = 1
-                    print("J")
-                if event.key == pygame.K_k:
-                    if dot_has_test["K"]:
-                        dot_has_test["K"] = 0
-                    else:
-                        dot_has_test["K"] = 1
-                    print("K")
-                if event.key == pygame.K_l:
-                    if dot_has_test["L"]:
-                        dot_has_test["L"] = 0
-                    else:
-                        dot_has_test["L"] = 1
-                    print("L")
-                if event.key == pygame.K_RIGHT:
-                    print("RIGHT")
-
-        current_dots_hash = str(dot_has_test["F"]) + str(dot_has_test["J"]) + str(
-            dot_has_test["D"]) + str(dot_has_test["K"]) + str(dot_has_test["S"]) + str(dot_has_test["L"])
+        current_dots_hash = check_keys(pygame, dot_has_test)
 
     now = time.time()
     difference = float(now-previous_time)
