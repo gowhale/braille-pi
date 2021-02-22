@@ -33,14 +33,15 @@ previous_letter = "_"
 previous_time = time.time()
 
 
-for _ in range(600):
+while 1:
     current_dots_hash = (current_char.get_current_dots_hash())
 
     braille_translation = braille_alphabet.translate_braille_to_alphabet(
         current_dots_hash)
 
     now = time.time()
-    difference = float(previous_time - now)
+    difference = float(now-previous_time)
+    print(difference)
     if difference > 0.1:
         previous_time = now
         if show_gui:
@@ -52,5 +53,6 @@ for _ in range(600):
 
         print("{} : {}".format(current_dots_hash, braille_translation))
         # sleep(0.1)
+
 
 display.close_gui()
