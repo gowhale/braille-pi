@@ -1,21 +1,39 @@
-import RPi.GPIO as GPIO
-from character import BrailleCharacter
-from time import sleep
-from alphabet import Alphabet
-from gui import Gui
-import pygame
-from speech import Speech
-from error_logger import ErrorLogger
 import time
+from speech import Speech
+import pygame
+from gui import Gui
+from alphabet import Alphabet
+from time import sleep
+from error_logger import ErrorLogger
+error_log = ErrorLogger()
+using_raspberry_pi = True
 
-GPIO.setmode(GPIO.BCM)
+try:
+    # Attempting to acces the GPIO Pins Module
+    import RPi.GPIO as GPIO
+    from character import BrailleCharacter
+except ModuleNotFoundError as e:
+    # If the system is unable to import the module it will revert to using the SDFJKL keys
+    using_raspberry_pi = False
+    error_log.log_error(e)
+    dot_has_test = {
+        "F": 0,
+        "D": 0,
+        "S": 0,
+        "J": 0,
+        "K": 0,
+        "L": 0
+    }
 
-current_char = BrailleCharacter()
+
+if using_raspberry_pi:
+    GPIO.setmode(GPIO.BCM)
+    current_char = BrailleCharacter()
+
 braille_alphabet = Alphabet()
 
 speech = Speech()
 
-error_log = ErrorLogger()
 
 show_gui = True
 
@@ -34,21 +52,69 @@ previous_time = time.time()
 
 
 while 1:
-    current_dots_hash = (current_char.get_current_dots_hash())
 
-    braille_translation = braille_alphabet.translate_braille_to_alphabet(
-        current_dots_hash)
+    if using_raspberry_pi:
+        current_dots_hash = (current_char.get_current_dots_hash())
+    else:
+        current_dots_hash = "000000"
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_f:
+                    print("F")
+                    if dot_has_test["F"]:
+                        dot_has_test["F"] = 0
+                    else:
+                        dot_has_test["F"] = 1
+                if event.key == pygame.K_d:
+                    if dot_has_test["D"]:
+                        dot_has_test["D"] = 0
+                    else:
+                        dot_has_test["D"] = 1
+                    print("D")
+                if event.key == pygame.K_s:
+                    if dot_has_test["S"]:
+                        dot_has_test["S"] = 0
+                    else:
+                        dot_has_test["S"] = 1
+                    print("S")
+                if event.key == pygame.K_j:
+                    if dot_has_test["J"]:
+                        dot_has_test["J"] = 0
+                    else:
+                        dot_has_test["J"] = 1
+                    print("J")
+                if event.key == pygame.K_k:
+                    if dot_has_test["K"]:
+                        dot_has_test["K"] = 0
+                    else:
+                        dot_has_test["K"] = 1
+                    print("K")
+                if event.key == pygame.K_l:
+                    if dot_has_test["L"]:
+                        dot_has_test["L"] = 0
+                    else:
+                        dot_has_test["L"] = 1
+                    print("L")
+                if event.key == pygame.K_RIGHT:
+                    print("RIGHT")
+
+        current_dots_hash = str(dot_has_test["F"]) + str(dot_has_test["J"]) + str(
+            dot_has_test["D"]) + str(dot_has_test["K"]) + str(dot_has_test["S"]) + str(dot_has_test["L"])
 
     now = time.time()
     difference = float(now-previous_time)
-    print(difference)
-    if difference > 0.1:
+    # print(difference)
+    if difference > 0.5:
+        braille_translation = braille_alphabet.translate_braille_to_alphabet(
+            current_dots_hash)
         previous_time = now
         if show_gui:
             display.draw_dot_hash(current_dots_hash, braille_translation)
 
         if previous_letter != braille_translation:
-            speech.say(braille_translation)
+            if braille_translation != "_":
+                speech.say(braille_translation)
             previous_letter = braille_translation
 
         print("{} : {}".format(current_dots_hash, braille_translation))
