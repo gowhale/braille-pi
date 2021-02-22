@@ -10,7 +10,7 @@ def inverse_value(hashmap, key):
 
 
 # Checks pygame's events to see what buttons have been pressed
-# Returns the dotset 
+# Returns the dotset
 def check_keys(pg, dot_has_test):
     events = pg.event.get()
     for event in events:

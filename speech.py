@@ -6,8 +6,6 @@ except ModuleNotFoundError:
     "OS Note found"
 
 
-    # Windows...
-
 class Speech:
 
     operating_system = ""
@@ -17,12 +15,10 @@ class Speech:
 
     def __init__(self):
         print("""Pi will say 'Now we can begin!'""")
-        
+
         self.operating_system = platform
 
         self.say("""Now we can begin!""")
-
-
 
     def say(self, text):
         current_os = self.operating_system
