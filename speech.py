@@ -30,6 +30,7 @@ class Speech:
             # OS X
         elif current_os == "win32":
             # Windows...
+            print("Windows edition coming soon")
             print("WINDOWS OS NOT FI=OUND")
 
 # speech = Speech()
