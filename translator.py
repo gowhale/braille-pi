@@ -39,9 +39,7 @@ class Translator ():
 
         # Initialising objects
         braille_alphabet = Alphabet()
-        speech = Speech()
-        print("Welcome to the translator!")
-        speech.say("Welcome to the translator!")
+        
 
         # Attempt to show GUI
         try:
@@ -54,6 +52,9 @@ class Translator ():
 
         previous_letter = "_"
         previous_time = time.time()
+
+        speech = Speech()
+        speech.say("Welcome to the translator!")
 
         # Forever loop which will ONLY exit if the program is ended
         while 1:
