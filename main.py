@@ -5,6 +5,8 @@ from lesson_one import LessonOne
 
 def main():
 
+    # TODO: this option value should be entered by the user in the future
+
     option = 2
 
     if option == 1:
