@@ -39,7 +39,6 @@ class Translator ():
 
         # Initialising objects
         braille_alphabet = Alphabet()
-        
 
         # Attempt to show GUI
         try:
@@ -88,5 +87,3 @@ class Translator ():
 
     def start_translating(self):
         print("Translating...")
-
-
