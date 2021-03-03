@@ -10,6 +10,15 @@ from error_logger import ErrorLogger
 
 class LessonOne ():
     # def __init__(self):
+
+    timeline = {
+        1: "Welcome to your first Braille lesson!",
+        5: "Braille changes lives. It gives thousands of people independence, learning, literacy, and the enjoyment of reading. Braille opens doors, and gives hope and inspiration.",
+        7: "Thanks for completing lesson 1!"
+    }
+
+    ordered_timings = list(timeline.keys()).sort()
+
     def __init__(self):
         error_log = ErrorLogger()
         using_raspberry_pi = True
@@ -43,9 +52,9 @@ class LessonOne ():
         speech = Speech()
 
         # Introduction to Lesson 1 and the importance of Braile...
-        speech.say("Welcome to your first Braille lesson!")
-        speech.say("Braille changes lives. It gives thousands of people independence, learning, literacy, and the enjoyment of reading. Braille opens doors, and gives hope and inspiration.")
-        speech.say("""Popular games (such as Bingo and Uno) are available in braille and others can be adapted by the addition of braille labels, enabling a blind or partially sighted individual to join in with family or friends in a wide range of leisure pursuits.""")
+        # speech.say("Welcome to your first Braille lesson!")
+        # speech.say("Braille changes lives. It gives thousands of people independence, learning, literacy, and the enjoyment of reading. Braille opens doors, and gives hope and inspiration.")
+        # speech.say("""Popular games (such as Bingo and Uno) are available in braille and others can be adapted by the addition of braille labels, enabling a blind or partially sighted individual to join in with family or friends in a wide range of leisure pursuits.""")
         # Content source: https://www.rnib.org.uk/braille-and-moon-%E2%80%93-tactile-codes-braille-past-present-and-future/modern-day-braille
         # Last accessed: 03/03/2021
 
@@ -60,37 +69,70 @@ class LessonOne ():
 
         previous_letter = "_"
         previous_time = time.time()
+        start_time = time.time()
 
         # Forever loop which will ONLY exit if the program is ended
-        while 1:
+        expired_events = []
 
-            if using_raspberry_pi:
-                # Get dot hash from pins
-                current_dots_hash = (current_char.get_current_dots_hash())
-            else:
-                # Get dot hash from keyboard
-                current_dots_hash = check_keys(pygame, dot_has_test)
-
+        # if the lesson is still live then this loop will continue
+        lesson_live = True
+        while lesson_live:
             # Check if enough time has passed to update GUI
             now = time.time()
             difference = float(now-previous_time)
+
+            # Checks timelines every 0.5 seconds
             if difference > 0.5:
                 # speech.say(current_dots_hash)
-                braille_translation = braille_alphabet.translate_braille_to_alphabet(
-                    current_dots_hash)
                 previous_time = now
-                if show_gui:
-                    graphical_user_interface.draw_dot_hash(
-                        current_dots_hash, "")
 
-                if previous_letter != braille_translation:
-                    if braille_translation != "_":
-                        speech.say(braille_translation)
-                    previous_letter = braille_translation
+                time_since_start = float(now - start_time)
+                print(difference, time_since_start)
 
-                print("{} : {}".format(current_dots_hash, braille_translation))
+                text_to_say, expired_events = self.check_timings(
+                    expired_events, time_since_start)
 
-        graphical_user_interface.close_gui()
+                if text_to_say != "":
+                    # Currently the timings don't include time it takes to say thigns
+                    # This is useful as different computers will speak at different times
+                    start_pause_timer = time.time()
+                    speech.say(text_to_say)
+                    end_pause_timer = time.time()
+                    elapsed_speech_time = end_pause_timer - start_pause_timer
+                    print("It took this long to say that: {}".format(
+                        elapsed_speech_time))
+                    start_time += elapsed_speech_time
+
+                if len(expired_events) == len(list(self.timeline.keys())):
+                    print("Lesson over...")
+                    lesson_live = False
 
     def play(self):
         print("Let's begin...")
+
+    # The following function checks to see what events in the timeline have executed and what need to be executed
+    def check_timings(self, events_executed, time_elapsed):
+        timeline_keys = set(self.timeline.keys())
+        events_to_go = list(timeline_keys - set(events_executed))
+
+        if len(events_to_go) > 0:
+
+            sorted_events = sorted((events_to_go))
+            print(sorted_events, time_elapsed)
+
+            first_event = sorted_events[0]
+
+            if time_elapsed > first_event:
+                print("{} is executing...".format(first_event))
+
+                new_expired_events = events_executed
+                new_expired_events.append(first_event)
+
+                return self.timeline[first_event], new_expired_events
+
+            else:
+
+                return "", events_executed
+
+        else:
+            return "", events_executed
