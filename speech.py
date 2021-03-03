@@ -14,13 +14,14 @@ class Speech:
     cmd_finish = '>/dev/null'
 
     def __init__(self):
-        print("""Pi will say 'Now we can begin!'""")
+        print("""Speech object initiated!'""")
 
         self.operating_system = platform
 
-        self.say("""Now we can begin!""")
+        # self.say("""Now we can begin!""")
 
     def say(self, text):
+        print("SAYING -> {}".format(text))
         current_os = self.operating_system
         text = text.replace(" ", "_")
         if current_os == "linux" or current_os == "linux2":
