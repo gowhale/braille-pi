@@ -13,8 +13,13 @@ class LessonOne ():
 
     timeline = {
         1: "Welcome to your first Braille lesson!",
-        5: "Braille changes lives. It gives thousands of people independence, learning, literacy, and the enjoyment of reading. Braille opens doors, and gives hope and inspiration.",
-        7: "Thanks for completing lesson 1!"
+        2: "Braille changes lives. It gives thousands of people independence, learning, literacy, and the enjoyment of reading. Braille opens doors, and gives hope and inspiration.",
+        3: "Braille is made up of 6 dots. Two Columns by Three rows",
+        4: "Feel the Braille-Pi to get familiar with how you can interact with the system.",
+        5: "You can press down on the six dots, they will lock in place.",
+        6: "To get you familiar with the six dots we will go through a tutorial where we will press them one by one.",
+        7: "Firstly, make sure all the dots have been pushed down.",
+        8: 1
     }
 
     ordered_timings = list(timeline.keys()).sort()
@@ -92,20 +97,56 @@ class LessonOne ():
                 text_to_say, expired_events = self.check_timings(
                     expired_events, time_since_start)
 
-                if text_to_say != "":
-                    # Currently the timings don't include time it takes to say thigns
-                    # This is useful as different computers will speak at different times
-                    start_pause_timer = time.time()
-                    speech.say(text_to_say)
-                    end_pause_timer = time.time()
-                    elapsed_speech_time = end_pause_timer - start_pause_timer
-                    print("It took this long to say that: {}".format(
-                        elapsed_speech_time))
-                    start_time += elapsed_speech_time
+                if text_to_say == 1:
 
-                if len(expired_events) == len(list(self.timeline.keys())):
-                    print("Lesson over...")
-                    lesson_live = False
+                    print("ACTIVITY TIME")
+
+                    if using_raspberry_pi:
+                        # Get dot hash from pins
+                        current_dots_hash = (
+                            current_char.get_current_dots_hash())
+                    else:
+                        # Get dot hash from keyboard
+                        current_dots_hash = check_keys(pygame, dot_has_test)
+
+                    while current_dots_hash != "000000":
+                        now = time.time()
+                        difference = float(now-previous_time)
+
+                        if using_raspberry_pi:
+                            # Get dot hash from pins
+                            current_dots_hash = (
+                                current_char.get_current_dots_hash())
+                        else:
+                            # Get dot hash from keyboard
+                            current_dots_hash = check_keys(
+                                pygame, dot_has_test)
+
+                        if difference > 0.5:
+                            braille_translation = braille_alphabet.translate_braille_to_alphabet(
+                                current_dots_hash)
+                            previous_time = now
+                            if show_gui:
+                                graphical_user_interface.draw_dot_hash(
+                                    current_dots_hash, braille_translation)
+                    speech.say("Awesome. it looks like you are ready to begin")
+
+                else:
+
+                    if text_to_say != "":
+                        # Currently the timings don't include time it takes to say thigns
+                        # This is useful as different computers will speak at different times
+                        start_pause_timer = time.time()
+                        speech.say(text_to_say)
+                        end_pause_timer = time.time()
+                        elapsed_speech_time = end_pause_timer - start_pause_timer
+                        print("It took this long to say that: {}".format(
+                            elapsed_speech_time))
+                        start_time += elapsed_speech_time
+
+                    if len(expired_events) == len(list(self.timeline.keys())):
+                        print("Lesson over...")
+                        lesson_live = False
 
     def play(self):
         print("Let's begin...")
