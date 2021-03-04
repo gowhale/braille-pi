@@ -161,15 +161,16 @@ class LessonOne ():
                 self.previous_time = previous_time
                 self.using_raspberry_pi = using_raspberry_pi
                 self.braille_alphabet = braille_alphabet
-                
+
                 if not using_raspberry_pi:
                     self.current_char = ""
                     self.check_keys = check_keys
                     self.dot_has_test = dot_has_test
-                
-                
+                else:
+                    self.current_char = current_char
+
                 self.show_gui = show_gui
-                if not show_gui:
+                if show_gui:
                     self.graphical_user_interface = graphical_user_interface
 
                 if text_to_say == 1:
