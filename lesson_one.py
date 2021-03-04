@@ -19,10 +19,47 @@ class LessonOne ():
         5: "You can press down on the six dots, they will lock in place.",
         6: "To get you familiar with the six dots we will go through a tutorial where we will press them one by one.",
         7: "Firstly, make sure all the dots have been pushed down.",
-        8: 1
+        8: 1,
+        9: "Awesome. it looks like you are ready to begin",
+        10: "The top left dot is known as dot 1. Please raise this dot now so that it is the only dot which is high.",
+        11: 2,
+        12: "Fantastic. This is dot 1.",
+
     }
 
     ordered_timings = list(timeline.keys()).sort()
+
+    def assert_answer(self, asserted_answer):
+        current_dots_hash = "INIT"
+
+        while current_dots_hash != asserted_answer:
+            now = time.time()
+            difference = float(now-self.previous_time)
+
+            if difference > 0.5:
+                now = time.time()
+                difference = float(now-self.previous_time)
+                self.previous_time = now
+
+                if self.using_raspberry_pi:
+                    # Get dot hash from pins
+                    current_dots_hash = (
+                        self.current_char.get_current_dots_hash())
+                else:
+                    # Get dot hash from keyboard
+                    current_dots_hash = self.check_keys(
+                        pygame, self.dot_has_test)
+                braille_translation = self.braille_alphabet.translate_braille_to_alphabet(
+                    current_dots_hash)
+                previous_time = now
+                if self.show_gui:
+                    self.graphical_user_interface.draw_dot_hash(
+                        current_dots_hash, "")
+
+        # speech.say("Awesome. it looks like you are ready to begin")
+
+        self.graphical_user_interface.draw_dot_hash(
+            current_dots_hash, "")
 
     def __init__(self):
         error_log = ErrorLogger()
@@ -88,6 +125,7 @@ class LessonOne ():
 
             # Checks timelines every 0.5 seconds
             if difference > 0.5:
+                print(difference)
                 # speech.say(current_dots_hash)
                 previous_time = now
 
@@ -97,39 +135,26 @@ class LessonOne ():
                 text_to_say, expired_events = self.check_timings(
                     expired_events, time_since_start)
 
+                self.previous_time = previous_time
+                self.using_raspberry_pi = using_raspberry_pi
+                self.current_char = ""
+                self.check_keys = check_keys
+                self.dot_has_test = dot_has_test
+                self.braille_alphabet = braille_alphabet
+                self.show_gui = show_gui
+                self.graphical_user_interface = graphical_user_interface
+
                 if text_to_say == 1:
 
-                    print("ACTIVITY TIME")
+                    print("ACTIVITY 1 Launching")
 
-                    if using_raspberry_pi:
-                        # Get dot hash from pins
-                        current_dots_hash = (
-                            current_char.get_current_dots_hash())
-                    else:
-                        # Get dot hash from keyboard
-                        current_dots_hash = check_keys(pygame, dot_has_test)
+                    self.assert_answer("000000")
 
-                    while current_dots_hash != "000000":
-                        now = time.time()
-                        difference = float(now-previous_time)
+                elif text_to_say == 2:
+                    
+                    print("ACTIVITY 2 Launching")
 
-                        if using_raspberry_pi:
-                            # Get dot hash from pins
-                            current_dots_hash = (
-                                current_char.get_current_dots_hash())
-                        else:
-                            # Get dot hash from keyboard
-                            current_dots_hash = check_keys(
-                                pygame, dot_has_test)
-
-                        if difference > 0.5:
-                            braille_translation = braille_alphabet.translate_braille_to_alphabet(
-                                current_dots_hash)
-                            previous_time = now
-                            if show_gui:
-                                graphical_user_interface.draw_dot_hash(
-                                    current_dots_hash, braille_translation)
-                    speech.say("Awesome. it looks like you are ready to begin")
+                    self.assert_answer("100000")
 
                 else:
 
