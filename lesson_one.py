@@ -18,12 +18,35 @@ class LessonOne ():
         4: "Feel the Braille-Pi to get familiar with how you can interact with the system.",
         5: "You can press down on the six dots, they will lock in place.",
         6: "To get you familiar with the six dots we will go through a tutorial where we will press them one by one.",
-        7: "Firstly, make sure all the dots have been pushed down.",
+        7: "Firstly, make sure all the dots have been pushed down. This is known as an empty cell.",
         8: 1,
         9: "Awesome. it looks like you are ready to begin",
         10: "The top left dot is known as dot 1. Please raise this dot now so that it is the only dot which is high.",
         11: 2,
         12: "Fantastic. This is dot 1.",
+        13: "Now as we did previously make sure all the dots are pressed down. An empty cell.",
+        14: 1,
+        15: "Great. The next dot is dot 2. Dot 2 is located on the left column, second row down.",
+        16: 3,
+        17: "Well done, this is dot 2.",
+        18: "Now as we did previously make sure all the dots are pressed down. An empty cell.",
+        19: 1,
+        20: "Great. The next dot is dot 3. Dot 3 is located at the bottum left of the cell.",
+        21: 4,
+        22: "Now as we did previously make sure all the dots are pressed down. An empty cell.",
+        23: 1,
+        24: "Great. The next dot is dot 4. Dot 4 is located at the top right of the cell.",
+        25: 5,
+        26: "Good work. Now as we did previously make sure all the dots are pressed down. An empty cell.",
+        27: 1,
+        28: "Great. The next dot is dot 5. Dot 5 is located on the right column, second row down.",
+        29: 6,
+        30: "Well done that was dot 5. Now as we did previously make sure all the dots are pressed down. An empty cell.",
+        31: 1,
+        32: "Well done thats the one. Last but not least is is dot 6. Dot 6 is located at the bottum right of the cell.",
+        33: 7,
+        34: "YOU DID IT. Your first braille lesson. Congratulations.",
+
 
     }
 
@@ -146,15 +169,45 @@ class LessonOne ():
 
                 if text_to_say == 1:
 
-                    print("ACTIVITY 1 Launching")
+                    print("ACTIVITY 1 -> Empty Cell activity")
 
                     self.assert_answer("000000")
 
                 elif text_to_say == 2:
-                    
-                    print("ACTIVITY 2 Launching")
+
+                    print("ACTIVITY 2 -> Dot 1 activity")
 
                     self.assert_answer("100000")
+
+                elif text_to_say == 3:
+
+                    print("ACTIVITY 3 -> Dot 2 activity")
+
+                    self.assert_answer("001000")
+
+                elif text_to_say == 4:
+
+                    print("ACTIVITY 4 -> Dot 3 activity")
+
+                    self.assert_answer("000010")
+
+                elif text_to_say == 5:
+
+                    print("ACTIVITY 5 -> Dot 4 activity")
+
+                    self.assert_answer("010000")
+
+                elif text_to_say == 6:
+
+                    print("ACTIVITY 6 -> Dot 5 activity")
+
+                    self.assert_answer("000100")
+
+                elif text_to_say == 7:
+
+                    print("ACTIVITY 7 -> Dot 6 activity")
+
+                    self.assert_answer("000001")
 
                 else:
 
