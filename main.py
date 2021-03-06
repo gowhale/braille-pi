@@ -1,19 +1,22 @@
 # Essential Imports
 from translator import Translator
-from lesson_one import LessonOne
+from lesson import Lesson
+from interaction_module import Interaction
 
 
 def main():
 
     # TODO: this option value should be entered by the user in the future
 
+    interaction_module = Interaction()
+
     option = 2
 
     if option == 1:
-        translator = Translator()
+        Translator(interaction_module)
 
     if option == 2:
-        lesson_one = LessonOne()
+        Lesson(interaction_module)
 
 
 if __name__ == "__main__":
