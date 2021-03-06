@@ -1,16 +1,9 @@
 # Essential Imports
 import time
-from speech import Speech
-import pygame
-from gui import Gui
-from alphabet import Alphabet
 from time import sleep
-from error_logger import ErrorLogger
 
 
-class LessonOne ():
-    # def __init__(self):
-
+class Lesson():
     timeline = {
         1: "Welcome to your first Braille lesson!",
         2: "Braille changes lives. It gives thousands of people independence, learning, literacy, and the enjoyment of reading. Braille opens doors, and gives hope and inspiration.",
@@ -52,96 +45,21 @@ class LessonOne ():
 
     ordered_timings = list(timeline.keys()).sort()
 
-    def assert_answer(self, asserted_answer):
-        current_dots_hash = "INIT"
-
-        while current_dots_hash != asserted_answer:
-            now = time.time()
-            difference = float(now-self.previous_time)
-
-            if difference > 0.5:
-                now = time.time()
-                difference = float(now-self.previous_time)
-                self.previous_time = now
-
-                if self.using_raspberry_pi:
-                    # Get dot hash from pins
-                    current_dots_hash = (
-                        self.current_char.get_current_dots_hash())
-                else:
-                    # Get dot hash from keyboard
-                    current_dots_hash = self.check_keys(
-                        pygame, self.dot_has_test)
-                braille_translation = self.braille_alphabet.translate_braille_to_alphabet(
-                    current_dots_hash)
-                previous_time = now
-                if self.show_gui:
-                    self.graphical_user_interface.draw_dot_hash(
-                        current_dots_hash, "")
-
-        # speech.say("Awesome. it looks like you are ready to begin")
-
-        self.graphical_user_interface.draw_dot_hash(
-            current_dots_hash, "")
-
-    def __init__(self):
-        error_log = ErrorLogger()
-        using_raspberry_pi = True
-
-        try:
-            # Attempting to acces the GPIO Pins Module
-            import RPi.GPIO as GPIO
-            from character import BrailleCharacter
-        except ModuleNotFoundError as e:
-            # If the system is unable to import the module it will revert to using the SDFJKL keys
-            print("KEYBOARD MODE ACTIVATED")
-            from keyboard_interface import check_keys
-            using_raspberry_pi = False
-            error_log.log_error(e)
-            dot_has_test = {
-                "F": 0,
-                "D": 0,
-                "S": 0,
-                "J": 0,
-                "K": 0,
-                "L": 0
-            }
-
-        # If the pi is being used initiate the pins
-        if using_raspberry_pi:
-            GPIO.setmode(GPIO.BCM)
-            current_char = BrailleCharacter()
-
-        # Initialising objects
-        braille_alphabet = Alphabet()
-        speech = Speech()
-
-        # Introduction to Lesson 1 and the importance of Braile...
-        # speech.say("Welcome to your first Braille lesson!")
-        # speech.say("Braille changes lives. It gives thousands of people independence, learning, literacy, and the enjoyment of reading. Braille opens doors, and gives hope and inspiration.")
-        # speech.say("""Popular games (such as Bingo and Uno) are available in braille and others can be adapted by the addition of braille labels, enabling a blind or partially sighted individual to join in with family or friends in a wide range of leisure pursuits.""")
-        # Content source: https://www.rnib.org.uk/braille-and-moon-%E2%80%93-tactile-codes-braille-past-present-and-future/modern-day-braille
-        # Last accessed: 03/03/2021
-
-        # Attempt to show GUI
-        try:
-            show_gui = True
-            graphical_user_interface = Gui()
-        except pygame.error:
-            print("No gui available")
-            show_gui = False
-            error_log.log_error("No gui available")
-
+    def play(self):
         previous_letter = "_"
+
         previous_time = time.time()
-        start_time = time.time()
+
+        self.previous_time = previous_time
+
+        self.start_time = time.time()
 
         # Forever loop which will ONLY exit if the program is ended
         expired_events = []
 
         # if the lesson is still live then this loop will continue
-        lesson_live = True
-        while lesson_live:
+        self.lesson_live = True
+        while self.lesson_live:
             # Check if enough time has passed to update GUI
             now = time.time()
             difference = float(now-previous_time)
@@ -152,20 +70,11 @@ class LessonOne ():
                 # speech.say(current_dots_hash)
                 previous_time = now
 
-                time_since_start = float(now - start_time)
+                time_since_start = float(now - self.start_time)
                 print(difference, time_since_start)
 
                 text_to_say, expired_events = self.check_timings(
                     expired_events, time_since_start)
-
-                self.previous_time = previous_time
-                self.using_raspberry_pi = using_raspberry_pi
-                self.current_char = ""
-                self.check_keys = check_keys
-                self.dot_has_test = dot_has_test
-                self.braille_alphabet = braille_alphabet
-                self.show_gui = show_gui
-                self.graphical_user_interface = graphical_user_interface
 
                 if text_to_say == 1:
 
@@ -211,25 +120,48 @@ class LessonOne ():
 
                 else:
 
-                    if text_to_say != "":
-                        # Currently the timings don't include time it takes to say thigns
-                        # This is useful as different computers will speak at different times
-                        start_pause_timer = time.time()
-                        speech.say(text_to_say)
-                        end_pause_timer = time.time()
-                        elapsed_speech_time = end_pause_timer - start_pause_timer
-                        print("It took this long to say that: {}".format(
-                            elapsed_speech_time))
-                        start_time += elapsed_speech_time
+                    self.say_text_event(text_to_say)
 
-                    if len(expired_events) == len(list(self.timeline.keys())):
-                        print("Lesson over...")
-                        lesson_live = False
+                self.check_if_lesson_over(expired_events)
 
-    def play(self):
-        print("Let's begin...")
+    def check_if_lesson_over(self, expired_events):
+        if len(expired_events) == len(list(self.timeline.keys())):
+            print("Lesson over...")
+            self.lesson_live = False
+
+    def say_text_event(self, text_to_say):
+        if text_to_say != "":
+            # Currently the timings don't include time it takes to say thigns
+            # This is useful as different computers will speak at different times
+            start_pause_timer = time.time()
+            self.speech.say(text_to_say)
+            end_pause_timer = time.time()
+            elapsed_speech_time = end_pause_timer - start_pause_timer
+            print("It took this long to say that: {}".format(
+                elapsed_speech_time))
+            self.start_time += elapsed_speech_time
+
+    def __init__(self, interaction_object):
+        self.speech = interaction_object.speech
+        self.using_raspberry_pi = interaction_object.using_raspberry_pi
+        self.braille_alphabet = interaction_object.braille_alphabet
+        self.pygame = interaction_object.pygame
+
+        if not interaction_object.using_raspberry_pi:
+            self.current_char = ""
+            self.check_keys = interaction_object.check_keys
+            self.dot_has_test = interaction_object.dot_has_test
+        else:
+            self.current_char = interaction_object.current_char
+
+        self.show_gui = interaction_object.show_gui
+        if interaction_object.show_gui:
+            self.graphical_user_interface = interaction_object.graphical_user_interface
+
+        self.play()
 
     # The following function checks to see what events in the timeline have executed and what need to be executed
+
     def check_timings(self, events_executed, time_elapsed):
         timeline_keys = set(self.timeline.keys())
         events_to_go = list(timeline_keys - set(events_executed))
@@ -255,3 +187,35 @@ class LessonOne ():
 
         else:
             return "", events_executed
+
+    def assert_answer(self, asserted_answer):
+        current_dots_hash = "INIT"
+
+        while current_dots_hash != asserted_answer:
+            now = time.time()
+            difference = float(now-self.previous_time)
+
+            if difference > 0.5:
+                now = time.time()
+                difference = float(now-self.previous_time)
+                self.previous_time = now
+
+                if self.using_raspberry_pi:
+                    # Get dot hash from pins
+                    current_dots_hash = (
+                        self.current_char.get_current_dots_hash())
+                else:
+                    # Get dot hash from keyboard
+                    current_dots_hash = self.check_keys(
+                        self.pygame, self.dot_has_test)
+                braille_translation = self.braille_alphabet.translate_braille_to_alphabet(
+                    current_dots_hash)
+                previous_time = now
+                if self.show_gui:
+                    self.graphical_user_interface.draw_dot_hash(
+                        current_dots_hash, "")
+
+        # speech.say("Awesome. it looks like you are ready to begin")
+
+        self.graphical_user_interface.draw_dot_hash(
+            current_dots_hash, "")
