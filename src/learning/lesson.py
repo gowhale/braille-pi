@@ -17,7 +17,7 @@ class Lesson():
         10: "The top left dot is known as dot 1. Please raise this dot now so that it is the only dot which is high.",
         11: 2,
         12: "Fantastic. This is dot 1.",
-        13: "Now as we did previously make sure all the dots are pressed down. An empty cell.",
+        13: "Now as we did previously make sure all the dots are pressed down. The empty cell.",
         14: 1,
         15: "Great. The next dot is dot 2. Dot 2 is located on the left column, second row down.",
         16: 3,
@@ -46,8 +46,6 @@ class Lesson():
     ordered_timings = list(timeline.keys()).sort()
 
     def play(self):
-        previous_letter = "_"
-
         previous_time = time.time()
 
         self.previous_time = previous_time
@@ -66,12 +64,11 @@ class Lesson():
 
             # Checks timelines every 0.5 seconds
             if difference > 0.5:
-                print(difference)
                 # speech.say(current_dots_hash)
                 previous_time = now
 
                 time_since_start = float(now - self.start_time)
-                print(difference, time_since_start)
+                # print(difference, time_since_start)
 
                 text_to_say, expired_events = self.check_timings(
                     expired_events, time_since_start)
@@ -137,7 +134,7 @@ class Lesson():
             self.speech.say(text_to_say)
             end_pause_timer = time.time()
             elapsed_speech_time = end_pause_timer - start_pause_timer
-            print("It took this long to say that: {}".format(
+            print("It took {} seconds to say that.".format(
                 elapsed_speech_time))
             self.start_time += elapsed_speech_time
 
@@ -169,12 +166,12 @@ class Lesson():
         if len(events_to_go) > 0:
 
             sorted_events = sorted((events_to_go))
-            print(sorted_events, time_elapsed)
+            # print(sorted_events, time_elapsed)
 
             first_event = sorted_events[0]
 
             if time_elapsed > first_event:
-                print("{} is executing...".format(first_event))
+                # print("{} is executing...".format(first_event))
 
                 new_expired_events = events_executed
                 new_expired_events.append(first_event)
@@ -197,7 +194,6 @@ class Lesson():
 
             if difference > 0.5:
                 now = time.time()
-                difference = float(now-self.previous_time)
                 self.previous_time = now
 
                 if self.using_raspberry_pi:
@@ -208,9 +204,7 @@ class Lesson():
                     # Get dot hash from keyboard
                     current_dots_hash = self.check_keys(
                         self.pygame, self.dot_has_test)
-                braille_translation = self.braille_alphabet.translate_braille_to_alphabet(
-                    current_dots_hash)
-                previous_time = now
+
                 if self.show_gui:
                     self.graphical_user_interface.draw_dot_hash(
                         current_dots_hash, "")

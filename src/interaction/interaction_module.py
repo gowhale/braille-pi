@@ -1,12 +1,12 @@
 # Essential Imports
 import time
-from speech import Speech
 import pygame
-from gui import Gui
-from alphabet import Alphabet
 from time import sleep
-from error_logger import ErrorLogger
 
+from src.interaction.speech import Speech
+from src.interaction.gui import Gui
+from src.braille.alphabet import Alphabet
+from src.error_reporting.error_logger import ErrorLogger
 
 class Interaction ():
     """A class which allows software to interact with the users enviroment. I.e. via audio, visuals and haptics.
@@ -23,7 +23,7 @@ class Interaction ():
         except ModuleNotFoundError as e:
             # If the system is unable to import the module it will revert to using the SDFJKL keys
             print("KEYBOARD MODE ACTIVATED")
-            from keyboard_interface import check_keys
+            from src.interaction.keyboard_interface import check_keys
             using_raspberry_pi = False
             error_log.log_error(e)
             dot_has_test = {
@@ -70,4 +70,3 @@ class Interaction ():
             self.dot_has_test = dot_has_test
             self.check_keys = check_keys
 
-# test = Interaction()

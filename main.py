@@ -1,7 +1,7 @@
 # Essential Imports
-from translator import Translator
-from lesson import Lesson
-from interaction_module import Interaction
+from src.learning.translator import Translator
+from src.learning.lesson import Lesson
+from src.interaction.interaction_module import Interaction
 
 
 def main():
