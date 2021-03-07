@@ -1,5 +1,5 @@
 import pytest
-from src.interaction.keyboard_interface import *
+from src.interaction.keyboard_interface import inverse_value, check_keys
 import pygame
 
 
