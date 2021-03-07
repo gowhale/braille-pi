@@ -16,9 +16,9 @@ If you are on raspberry pi and have correctly connected the 6 switches to the sy
 
 ## Breakdown of code
 
-In the src folder you will find different Python packages seperated by the main groups of braille, error_reporting, interaction, learning and tests. Go into the src folder for more info...
+In the src folder you will find different Python packages seperated by the main groups of braille, error_reporting, interaction, learning and tests. Go into the src folder for more info.
 
-## Aims and Objectives
+## Aims and Objectives
 
 The main aim of this project is to help people of different abilities and ages to learn braille. The project will deliver a solution developed on the Raspberry Pi this is because of its flexibility and value for money. 
 
