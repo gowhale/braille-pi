@@ -34,5 +34,3 @@ class Speech:
             print("Windows edition coming soon")
             print("WINDOWS OS NOT FI=OUND")
 
-# speech = Speech()
-# speech.say("This class makes the pi speak")

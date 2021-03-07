@@ -13,7 +13,6 @@ class Translator():
         start_time = time.time()
 
         # Forever loop which will ONLY exit if the program is ended
-        expired_events = []
         previous_letter = "_"
 
         # if the lesson is still live then this loop will continue
@@ -27,7 +26,6 @@ class Translator():
             if difference > 0.5:
                 print(difference)
                 # speech.say(current_dots_hash)
-                previous_time = now
 
                 time_since_start = float(now - start_time)
                 print(difference, time_since_start)

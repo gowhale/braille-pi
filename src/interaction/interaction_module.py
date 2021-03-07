@@ -70,4 +70,3 @@ class Interaction ():
             self.dot_has_test = dot_has_test
             self.check_keys = check_keys
 
-# test = Interaction()

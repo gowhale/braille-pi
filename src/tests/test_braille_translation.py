@@ -1,5 +1,5 @@
 import pytest
-# from ..alphabet import Alphabet
+from src.braille.alphabet import Alphabet
 
 @pytest.mark.parametrize(
     "test_input,expected",
@@ -8,4 +8,4 @@ import pytest
 )
 def test_eval(test_input, expected):
     alphabet = Alphabet()
-    assert eval(alphabet.translate_braille_to_alphabet(test_input)) == expected
+    assert (alphabet.translate_braille_to_alphabet(test_input)) == expected
