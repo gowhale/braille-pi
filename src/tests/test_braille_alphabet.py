@@ -1,6 +1,8 @@
 import pytest
 from src.braille.alphabet import Alphabet
 
+# To run this file execute the following:
+# pytest --cov-report term-missing --cov=braille .
 
 @pytest.mark.parametrize(
     "test_input,expected",
