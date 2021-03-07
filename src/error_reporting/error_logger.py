@@ -49,5 +49,3 @@ class ErrorLogger():
         f.close()
 
 
-# logger = ErrorLogger()
-# logger.log_error("NOT ENOUGH DEDICATED WAM")
