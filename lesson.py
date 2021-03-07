@@ -66,12 +66,12 @@ class Lesson():
 
             # Checks timelines every 0.5 seconds
             if difference > 0.5:
-                print(difference)
+                # print(difference)
                 # speech.say(current_dots_hash)
                 previous_time = now
 
                 time_since_start = float(now - self.start_time)
-                print(difference, time_since_start)
+                # print(difference, time_since_start)
 
                 text_to_say, expired_events = self.check_timings(
                     expired_events, time_since_start)
@@ -137,7 +137,7 @@ class Lesson():
             self.speech.say(text_to_say)
             end_pause_timer = time.time()
             elapsed_speech_time = end_pause_timer - start_pause_timer
-            print("It took this long to say that: {}".format(
+            print("It took {} seconds to say that.".format(
                 elapsed_speech_time))
             self.start_time += elapsed_speech_time
 
@@ -169,12 +169,12 @@ class Lesson():
         if len(events_to_go) > 0:
 
             sorted_events = sorted((events_to_go))
-            print(sorted_events, time_elapsed)
+            # print(sorted_events, time_elapsed)
 
             first_event = sorted_events[0]
 
             if time_elapsed > first_event:
-                print("{} is executing...".format(first_event))
+                # print("{} is executing...".format(first_event))
 
                 new_expired_events = events_executed
                 new_expired_events.append(first_event)
