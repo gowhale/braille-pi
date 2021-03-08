@@ -1,9 +1,12 @@
 # Essential Imports
 import time
 from time import sleep
+from src.braille.alphabet import Alphabet
 
 
 class Lesson():
+
+    a_to_z_converstions = Alphabet()
 
     def play(self):
         previous_time = time.time()
@@ -75,6 +78,20 @@ class Lesson():
 
                     self.assert_answer("000001")
 
+                elif text_to_say == 8:
+
+                    print("ACTIVITY 8 -> Representing the letter B.")
+
+                    letter_b_braille_code = self.get_expected_braille_code("b")
+                    self.assert_answer(letter_b_braille_code)
+
+                elif text_to_say == 9:
+
+                    print("ACTIVITY 9 -> Representing the letter C.")
+
+                    letter_c_braille_code = self.get_expected_braille_code("c")
+                    self.assert_answer(letter_c_braille_code)
+
                 else:
 
                     self.say_text_event(text_to_say)
@@ -85,6 +102,9 @@ class Lesson():
         if len(expired_events) == len(list(self.timeline.keys())):
             print("Lesson over...")
             self.lesson_live = False
+
+    def get_expected_braille_code(self, letter):
+        return self.a_to_z_converstions.translate_alphabet_to_braille(letter)
 
     def say_text_event(self, text_to_say):
         if text_to_say != "":
