@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO
-from dot import Dot
+from src.interaction.dot import Dot
 
 
 class BrailleCharacter ():

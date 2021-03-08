@@ -19,10 +19,11 @@ class Interaction ():
         try:
             # Attempting to acces the GPIO Pins Module
             import RPi.GPIO as GPIO
-            from character import BrailleCharacter
+            from src.interaction.character import BrailleCharacter
         except ModuleNotFoundError as e:
             # If the system is unable to import the module it will revert to using the SDFJKL keys
             print("KEYBOARD MODE ACTIVATED")
+            print(e)
             from src.interaction.keyboard_interface import check_keys
             using_raspberry_pi = False
             error_log.log_error(e)
