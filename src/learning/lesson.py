@@ -4,46 +4,6 @@ from time import sleep
 
 
 class Lesson():
-    timeline = {
-        1: "Welcome to your first Braille lesson!",
-        2: "Braille changes lives. It gives thousands of people independence, learning, literacy, and the enjoyment of reading. Braille opens doors, and gives hope and inspiration.",
-        3: "Braille is made up of 6 dots. Two Columns by Three rows",
-        4: "Feel the Braille-Pi to get familiar with how you can interact with the system.",
-        5: "You can press down on the six dots, they will lock in place.",
-        6: "To get you familiar with the six dots we will go through a tutorial where we will press them one by one.",
-        7: "Firstly, make sure all the dots have been pushed down. This is known as an empty cell.",
-        8: 1,
-        9: "Awesome. it looks like you are ready to begin",
-        10: "The top left dot is known as dot 1. Please raise this dot now so that it is the only dot which is high.",
-        11: 2,
-        12: "Fantastic. This is dot 1.",
-        13: "Now as we did previously make sure all the dots are pressed down. The empty cell.",
-        14: 1,
-        15: "Great. The next dot is dot 2. Dot 2 is located on the left column, second row down.",
-        16: 3,
-        17: "Well done, this is dot 2.",
-        18: "Now as we did previously make sure all the dots are pressed down. An empty cell.",
-        19: 1,
-        20: "Great. The next dot is dot 3. Dot 3 is located at the bottum left of the cell.",
-        21: 4,
-        22: "Now as we did previously make sure all the dots are pressed down. An empty cell.",
-        23: 1,
-        24: "Great. The next dot is dot 4. Dot 4 is located at the top right of the cell.",
-        25: 5,
-        26: "Good work. Now as we did previously make sure all the dots are pressed down. An empty cell.",
-        27: 1,
-        28: "Great. The next dot is dot 5. Dot 5 is located on the right column, second row down.",
-        29: 6,
-        30: "Well done that was dot 5. Now as we did previously make sure all the dots are pressed down. An empty cell.",
-        31: 1,
-        32: "Well done thats the one. Last but not least is is dot 6. Dot 6 is located at the bottum right of the cell.",
-        33: 7,
-        34: "YOU DID IT. Your first braille lesson. Congratulations.",
-
-
-    }
-
-    ordered_timings = list(timeline.keys()).sort()
 
     def play(self):
         previous_time = time.time()
@@ -138,7 +98,12 @@ class Lesson():
                 elapsed_speech_time))
             self.start_time += elapsed_speech_time
 
-    def __init__(self, interaction_object):
+    def __init__(self, interaction_object, content):
+
+        self.timeline = content
+
+        self.ordered_timings = list(self.timeline.keys()).sort()
+
         self.speech = interaction_object.speech
         self.using_raspberry_pi = interaction_object.using_raspberry_pi
         self.braille_alphabet = interaction_object.braille_alphabet
