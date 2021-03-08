@@ -14,10 +14,10 @@ def main():
 
     interaction_module = Interaction()
 
-    option = 2
+    option = 1
 
     if option == 1:
-        Translator(interaction_module)
+        Translator(interaction_object=interaction_module)
 
     if option == 2:
         Lesson(interaction_object=interaction_module,
