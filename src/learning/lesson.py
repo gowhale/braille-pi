@@ -8,6 +8,35 @@ class Lesson():
 
     a_to_z_converstions = Alphabet()
 
+    activity_map = {
+        1: "000000",
+        2: "100000",
+        3: "001000",
+        4: "000010",
+        5: "010000",
+        6: "000100",
+        7: "000001",
+        8: a_to_z_converstions.translate_alphabet_to_braille("b"),
+        9: a_to_z_converstions.translate_alphabet_to_braille("c"),
+        10: a_to_z_converstions.translate_alphabet_to_braille("d"),
+        11: a_to_z_converstions.translate_alphabet_to_braille("e"),
+        12: a_to_z_converstions.translate_alphabet_to_braille("f"),
+        13: a_to_z_converstions.translate_alphabet_to_braille("g"),
+        14: a_to_z_converstions.translate_alphabet_to_braille("h"),
+        15: a_to_z_converstions.translate_alphabet_to_braille("i"),
+        16: a_to_z_converstions.translate_alphabet_to_braille("j"),
+    }
+
+    def start_activity(self, activity_id):
+
+        fetched_assertion = self.activity_map[activity_id]
+
+        print("-"*60)
+        print("STARTING ACTIVITY {} -> Match the dot hash of {}.".format(activity_id, fetched_assertion))
+        print("-"*60)
+
+        self.assert_answer(fetched_assertion)
+
     def play(self):
         previous_time = time.time()
 
@@ -36,61 +65,9 @@ class Lesson():
                 text_to_say, expired_events = self.check_timings(
                     expired_events, time_since_start)
 
-                if text_to_say == 1:
+                if isinstance(text_to_say, int):
 
-                    print("ACTIVITY 1 -> Empty Cell activity")
-
-                    self.assert_answer("000000")
-
-                elif text_to_say == 2:
-
-                    print("ACTIVITY 2 -> Dot 1 activity")
-
-                    self.assert_answer("100000")
-
-                elif text_to_say == 3:
-
-                    print("ACTIVITY 3 -> Dot 2 activity")
-
-                    self.assert_answer("001000")
-
-                elif text_to_say == 4:
-
-                    print("ACTIVITY 4 -> Dot 3 activity")
-
-                    self.assert_answer("000010")
-
-                elif text_to_say == 5:
-
-                    print("ACTIVITY 5 -> Dot 4 activity")
-
-                    self.assert_answer("010000")
-
-                elif text_to_say == 6:
-
-                    print("ACTIVITY 6 -> Dot 5 activity")
-
-                    self.assert_answer("000100")
-
-                elif text_to_say == 7:
-
-                    print("ACTIVITY 7 -> Dot 6 activity")
-
-                    self.assert_answer("000001")
-
-                elif text_to_say == 8:
-
-                    print("ACTIVITY 8 -> Representing the letter B.")
-
-                    letter_b_braille_code = self.get_expected_braille_code("b")
-                    self.assert_answer(letter_b_braille_code)
-
-                elif text_to_say == 9:
-
-                    print("ACTIVITY 9 -> Representing the letter C.")
-
-                    letter_c_braille_code = self.get_expected_braille_code("c")
-                    self.assert_answer(letter_c_braille_code)
+                    self.start_activity(text_to_say)
 
                 else:
 
@@ -197,4 +174,4 @@ class Lesson():
         # speech.say("Awesome. it looks like you are ready to begin")
 
         self.graphical_user_interface.draw_dot_hash(
-            current_dots_hash, "")
+            asserted_answer, "")
