@@ -30,12 +30,15 @@ class Lesson():
     def start_activity(self, activity_id):
 
         fetched_assertion = self.activity_map[activity_id]
+        translated_dothash = self.a_to_z_converstions.translate_braille_to_alphabet(
+            fetched_assertion)
 
         print("-"*60)
-        print("STARTING ACTIVITY {} -> Match the dot hash of {}.".format(activity_id, fetched_assertion))
+        print("STARTING ACTIVITY {} -> Letter {} -> Match the dot hash of {}.".format(
+            activity_id, translated_dothash, fetched_assertion))
         print("-"*60)
 
-        self.assert_answer(fetched_assertion)
+        self.assert_answer(fetched_assertion, translated_dothash)
 
     def play(self):
         previous_time = time.time()
@@ -147,8 +150,9 @@ class Lesson():
         else:
             return "", events_executed
 
-    def assert_answer(self, asserted_answer):
+    def assert_answer(self, asserted_answer, fetched_letter):
         current_dots_hash = "INIT"
+        letter_to_learn = fetched_letter + "?"
 
         while current_dots_hash != asserted_answer:
             now = time.time()
@@ -169,9 +173,9 @@ class Lesson():
 
                 if self.show_gui:
                     self.graphical_user_interface.draw_dot_hash(
-                        current_dots_hash, "")
+                        current_dots_hash, letter_to_learn)
 
         # speech.say("Awesome. it looks like you are ready to begin")
 
         self.graphical_user_interface.draw_dot_hash(
-            asserted_answer, "")
+            asserted_answer, letter_to_learn)
