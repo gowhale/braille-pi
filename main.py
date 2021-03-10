@@ -6,6 +6,8 @@ from src.interaction.interaction_module import Interaction
 # Lesson Content Imports
 from src.lesson_content.lesson_introduction import lesson_0_introduction
 from src.lesson_content.lesson_tutorial import lesson_0_tutorial
+from src.lesson_content.lesson_1 import lesson_1_timeline
+from src.lesson_content.lesson_2 import lesson_2_timeline
 
 
 def main():
@@ -14,7 +16,7 @@ def main():
 
     interaction_module = Interaction()
 
-    option = 1
+    option = 5
 
     if option == 1:
         Translator(interaction_object=interaction_module)
@@ -26,6 +28,14 @@ def main():
     if option == 3:
         Lesson(interaction_object=interaction_module,
                content=lesson_0_tutorial)
+
+    if option == 4:
+        Lesson(interaction_object=interaction_module,
+               content=lesson_1_timeline)
+
+    if option == 5:
+        Lesson(interaction_object=interaction_module,
+               content=lesson_2_timeline)
 
 
 if __name__ == "__main__":

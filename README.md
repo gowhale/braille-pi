@@ -29,3 +29,9 @@ To add to that a further aim of the project is to make the product physically in
 The system will aim to be a small tool which could comfortably sit on a bookcase. Then when it is time to learn it can be plugged in with ease and power up and instantly be ready to help people learn.
 
 Finally, an aim for the project is to be tested every week with the teacher who is learning braille. This will mean that I have a user centric design and the sprints will be able to find bugs, and features to implement.
+
+## Sound Prerequisite
+
+The current code uses a module called espeak to sound out words. To install espeak run the following command in the terminal:
+
+    sudo apt-get install espeak

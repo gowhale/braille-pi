@@ -1,9 +1,44 @@
 # Essential Imports
 import time
 from time import sleep
+from src.braille.alphabet import Alphabet
 
 
 class Lesson():
+
+    a_to_z_converstions = Alphabet()
+
+    activity_map = {
+        1: "000000",
+        2: "100000",
+        3: "001000",
+        4: "000010",
+        5: "010000",
+        6: "000100",
+        7: "000001",
+        8: a_to_z_converstions.translate_alphabet_to_braille("b"),
+        9: a_to_z_converstions.translate_alphabet_to_braille("c"),
+        10: a_to_z_converstions.translate_alphabet_to_braille("d"),
+        11: a_to_z_converstions.translate_alphabet_to_braille("e"),
+        12: a_to_z_converstions.translate_alphabet_to_braille("f"),
+        13: a_to_z_converstions.translate_alphabet_to_braille("g"),
+        14: a_to_z_converstions.translate_alphabet_to_braille("h"),
+        15: a_to_z_converstions.translate_alphabet_to_braille("i"),
+        16: a_to_z_converstions.translate_alphabet_to_braille("j"),
+    }
+
+    def start_activity(self, activity_id):
+
+        fetched_assertion = self.activity_map[activity_id]
+        translated_dothash = self.a_to_z_converstions.translate_braille_to_alphabet(
+            fetched_assertion)
+
+        print("-"*60)
+        print("STARTING ACTIVITY {} -> Letter {} -> Match the dot hash of {}.".format(
+            activity_id, translated_dothash, fetched_assertion))
+        print("-"*60)
+
+        self.assert_answer(fetched_assertion, translated_dothash)
 
     def play(self):
         previous_time = time.time()
@@ -33,47 +68,9 @@ class Lesson():
                 text_to_say, expired_events = self.check_timings(
                     expired_events, time_since_start)
 
-                if text_to_say == 1:
+                if isinstance(text_to_say, int):
 
-                    print("ACTIVITY 1 -> Empty Cell activity")
-
-                    self.assert_answer("000000")
-
-                elif text_to_say == 2:
-
-                    print("ACTIVITY 2 -> Dot 1 activity")
-
-                    self.assert_answer("100000")
-
-                elif text_to_say == 3:
-
-                    print("ACTIVITY 3 -> Dot 2 activity")
-
-                    self.assert_answer("001000")
-
-                elif text_to_say == 4:
-
-                    print("ACTIVITY 4 -> Dot 3 activity")
-
-                    self.assert_answer("000010")
-
-                elif text_to_say == 5:
-
-                    print("ACTIVITY 5 -> Dot 4 activity")
-
-                    self.assert_answer("010000")
-
-                elif text_to_say == 6:
-
-                    print("ACTIVITY 6 -> Dot 5 activity")
-
-                    self.assert_answer("000100")
-
-                elif text_to_say == 7:
-
-                    print("ACTIVITY 7 -> Dot 6 activity")
-
-                    self.assert_answer("000001")
+                    self.start_activity(text_to_say)
 
                 else:
 
@@ -85,6 +82,9 @@ class Lesson():
         if len(expired_events) == len(list(self.timeline.keys())):
             print("Lesson over...")
             self.lesson_live = False
+
+    def get_expected_braille_code(self, letter):
+        return self.a_to_z_converstions.translate_alphabet_to_braille(letter)
 
     def say_text_event(self, text_to_say):
         if text_to_say != "":
@@ -150,8 +150,9 @@ class Lesson():
         else:
             return "", events_executed
 
-    def assert_answer(self, asserted_answer):
+    def assert_answer(self, asserted_answer, fetched_letter):
         current_dots_hash = "INIT"
+        letter_to_learn = fetched_letter + "?"
 
         while current_dots_hash != asserted_answer:
             now = time.time()
@@ -172,9 +173,9 @@ class Lesson():
 
                 if self.show_gui:
                     self.graphical_user_interface.draw_dot_hash(
-                        current_dots_hash, "")
+                        current_dots_hash, letter_to_learn)
 
         # speech.say("Awesome. it looks like you are ready to begin")
 
         self.graphical_user_interface.draw_dot_hash(
-            current_dots_hash, "")
+            asserted_answer, letter_to_learn)

@@ -51,3 +51,10 @@ class Alphabet ():
             return self.braille_to_alphabet[braille]
         except KeyError:
             return "_"
+
+    def translate_alphabet_to_braille(self, letter):
+        try:
+            return self.alphabet_to_braille[letter]
+        except KeyError as e:
+            print(e)
+            return "000000"
