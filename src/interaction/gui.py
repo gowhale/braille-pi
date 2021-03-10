@@ -91,7 +91,7 @@ class Gui ():
         self.DISPLAY.fill(WHITE)
 
         for index, dot in enumerate(dot_hash, start=1):
-            print(index, dot)
+            # print(index, dot)
             try:
                 #                print(self.dot_locations[index])
                 BLACK = (0, 0, 0)
