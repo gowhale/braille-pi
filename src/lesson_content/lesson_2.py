@@ -1,11 +1,10 @@
 lesson_2_timeline = {
     1: "Welcome to lesson 2 where you will be taught the letters A to J in braille.",
     2: "These combinations are the building blocks for all the other letters.",
-    3: "Once you leanr these the rest will be easier.",
+    3: "Once you learn these the rest will be easier.",
     4: "Firstly, make sure all dots are lowered. An empty cell.",
     5: 1,
     6: "Nicely done. Now we begin.",
-    7: "The first letter we will start with is A. Lots of words start with A such as Apple, Alligator or Astronaut.",
     8: "In braille the letter A is represented by a single DOT. The top left dot raised represents the letter A.",
     9: "Try it now and raise the top left dot.",
     10: 2,
