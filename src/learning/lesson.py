@@ -223,7 +223,7 @@ class Lesson():
                     self.graphical_user_interface.draw_dot_hash(
                         current_dots_hash, letter_to_learn)
 
-                if (now - self.start_time) > self.max_timeout:
+                if self.max_timeout != None and (now - self.start_time) > self.max_timeout:
                     print(self.max_timeout)
                     print(now - self.start_time)
                     print("MAX TIMEOUT")

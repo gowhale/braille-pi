@@ -27,26 +27,29 @@ def main():
     if option == 2:
         Lesson(interaction_object=interaction_module,
                content=lesson_0_introduction,
-               test_content=None)
+               test_content=None,
+               max_timeout=None)
 
     # TUTORIAL -> Goes through each dot
     if option == 3:
         Lesson(interaction_object=interaction_module,
                content=lesson_0_tutorial,
-               test_content=None)
+               test_content=None,
+               max_timeout=None)
 
     # LESSON 1 -> A, B. C's in braille
     if option == 4:
         Lesson(interaction_object=interaction_module,
                content=lesson_1_timeline,
-               test_content=None)
+               test_content=None,
+               max_timeout=None)
 
     # LESSON 2 -> A-J lesson. These characters are the building blocks of braille
     if option == 5:
         Lesson(interaction_object=interaction_module,
                content=lesson_2_timeline,
                test_content=None,
-               max_timeout=10)
+               max_timeout=None)
 
     # QUIZ 2 -> A-J QUIZ.
     if option == 6:

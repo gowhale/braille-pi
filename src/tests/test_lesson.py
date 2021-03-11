@@ -30,6 +30,6 @@ def test_lesson():
         3: ["d"],
     }
 
-    Lesson(i, test_content, simulated_input)
+    Lesson(i, test_content, simulated_input, max_timeout=None)
 
     assert 1 == 1
