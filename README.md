@@ -35,3 +35,20 @@ Finally, an aim for the project is to be tested every week with the teacher who 
 The current code uses a module called espeak to sound out words. To install espeak run the following command in the terminal:
 
     sudo apt-get install espeak
+
+## BDD Tests Prerequisites
+
+Please install the BDD test modules using the pip and the requirements document. 
+
+Use the following command to install all needed modules:
+
+    pip install -r requirements.txt
+
+Once the requirements have been satisfied run the BDD tests by running the following command:
+
+    behave
+
+To run unit tests run the command:
+
+    pytest
+
