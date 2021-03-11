@@ -6,12 +6,12 @@ from src.interaction.speech import Speech
 # pytest --cov-report term-missing --cov=error_reporting .
 
 def test_interaction_module():
-    interaction = Interaction()
+    interaction = Interaction(testing=False)
 
     assert interaction.show_gui == True
 
 def test_interaction_module_error_logger():
-    interaction = Interaction()
+    interaction = Interaction(testing=False)
 
     assert type(interaction.speech) is Speech
 

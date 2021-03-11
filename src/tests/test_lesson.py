@@ -8,7 +8,7 @@ from src.interaction.interaction_module import Interaction
 
 @pytest.mark.timeout(10)
 def test_lesson():
-    i = Interaction()
+    i = Interaction(testing=True)
 
     CORRECT_ANSWER = "Correct"
     test_content = {

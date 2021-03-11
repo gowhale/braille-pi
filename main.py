@@ -15,7 +15,7 @@ def main():
 
     # TODO: this option value should be entered by the user in the future
 
-    interaction_module = Interaction()
+    interaction_module = Interaction(testing=False)
 
     option = 5
 

@@ -14,7 +14,7 @@ from src.lesson_content.lesson_2 import lesson_2_timeline
 @given(u'an interaction module has been created')
 def step_impl(context):
 
-    context.interaction_module = Interaction()
+    context.interaction_module = Interaction(testing=True)
 
 
 @when(u'An A-J lesson is completed correctly')
