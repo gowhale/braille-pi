@@ -1,7 +1,6 @@
 # Functional Imports
 from src.learning.translator import Translator
 from src.learning.lesson import Lesson
-from src.learning.quiz import Quiz
 from src.interaction.interaction_module import Interaction
 
 # Lesson Content Imports
@@ -9,13 +8,6 @@ from src.lesson_content.lesson_introduction import lesson_0_introduction
 from src.lesson_content.lesson_tutorial import lesson_0_tutorial
 from src.lesson_content.lesson_1 import lesson_1_timeline
 from src.lesson_content.lesson_2 import lesson_2_timeline
-
-
-@given(u'an interaction module has been created')
-def step_impl(context):
-
-    context.interaction_module = Interaction(testing=True)
-    context.interaction_module.speech.say = print
 
 
 @when(u'An A-J lesson is completed correctly')
@@ -115,6 +107,33 @@ def step_impl(context):
     context.lesson = Lesson(context.interaction_module,
                             test_content, simulated_input, max_timeout=60)
 
+@when(u'An A-C lesson is completed correctly')
+def step_impl(context):
+
+    CORRECT_ANSWER = "Correct"
+    test_content = {
+        0: "EMPTY CELL",
+        0.5: 1,
+        1: CORRECT_ANSWER,
+        1.5: "A.",
+        2: 2,
+        2.5: CORRECT_ANSWER,
+        3: "B.",
+        3.5: 3,
+        4: CORRECT_ANSWER,
+        4.5: "C.",
+        5: 4,
+        5.5: CORRECT_ANSWER,
+    }
+
+    simulated_input = {
+        1.5: ["f"],
+        3: ["f", "d"],
+        4.5: ["d", "s"],
+    }
+
+    context.lesson = Lesson(context.interaction_module,
+                            test_content, simulated_input, max_timeout=60)
 
 @then(u'The lesson is completed succesfully')
 def step_impl(context):

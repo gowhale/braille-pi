@@ -6,15 +6,23 @@ from src.braille.alphabet import Alphabet
 class Quiz():
 
     a_to_z_converstions = Alphabet()
-    time_until_hint = 30
+    # time_until_hint = 30
     no_incorrect_answers = 0
     no_correct_answers = 0
     incorrect_characters = []
     correct_characters = []
+    test_failed = False
 
-    def __init__(self, interaction_object, content):
+    def __init__(self, interaction_object, content, time_until_hint, simulations):
+
+        self.simulations_to_go = simulations
+
+        self.quiz_start_time = time.time()
+
+        self.simulations_executed = []
 
         self.quiz_characters = content
+        self.time_until_hint = time_until_hint
 
         self.speech = interaction_object.speech
         self.using_raspberry_pi = interaction_object.using_raspberry_pi
@@ -54,8 +62,9 @@ class Quiz():
 
             # for _ in range(10):
 
-            quiz_chars = random.sample(
-                possible_characters, n_of_characters_to_test)
+            # quiz_chars = random.sample(
+            #     possible_characters, n_of_characters_to_test)
+            quiz_chars = self.quiz_characters
 
             print(quiz_chars)
 
@@ -97,9 +106,13 @@ class Quiz():
                 now = time.time()
                 self.previous_time = now
 
-                time_since_start = float(now-self.start_time)
+                print("NOW: {}".format(now))
+                print("Start Time: {}".format(self.start_time))
+
+                self.time_since_start = float(now-self.start_time)
+                self.simulate_events()
                 # print("TIME SINCE START {}".format(time_since_start))
-                if time_since_start > self.time_until_hint:
+                if self.time_since_start > self.time_until_hint:
 
                     self.reveal_answer(asserted_answer, fetched_letter)
                     now = time.time()
@@ -177,3 +190,41 @@ class Quiz():
         if letter not in self.incorrect_characters:
             self.incorrect_characters.append(letter)
             self.no_incorrect_answers += 1
+
+    def simulate_events(self):
+
+        if self.simulations_to_go != None:
+
+            all_simulations = set(self.simulations_to_go)
+            simulations_executed = set(self.simulations_executed)
+            simulations_to_go = sorted(
+                list(all_simulations - simulations_executed))
+
+            if len(simulations_to_go) > 0:
+
+                now = time.time()
+
+                self.quiz_start_time
+
+                timeline_duration = now - self.quiz_start_time
+
+                print("Time since start:".format(timeline_duration))
+                print(simulations_to_go)
+                print("ALL GOOD?")
+                next_event = simulations_to_go[0]
+                print("EXECUTING: {}".format(next_event))
+
+                if next_event < timeline_duration:
+
+                    self.simulations_executed.append(next_event)
+
+                    keys_to_press = self.simulations_to_go[next_event]
+
+                    for key in keys_to_press:
+                        new_event = self.pygame.event.Event(
+                            self.pygame.KEYDOWN, unicode=key, key=ord(key))
+                        print('Adding event:', new_event)
+                        self.pygame.event.post(new_event)
+
+            else:
+                print("ALL SIMULATIONS COMPLETE")

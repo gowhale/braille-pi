@@ -17,7 +17,7 @@ def main():
 
     interaction_module = Interaction(testing=False)
 
-    option = 5
+    option = 6
 
     # TRANSLATOR OPTION -> Translates entered dots to A-Z chars
     if option == 1:
@@ -54,7 +54,9 @@ def main():
     # QUIZ 2 -> A-J QUIZ.
     if option == 6:
         q = Quiz(interaction_object=interaction_module,
-                 content=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"])
+                 content=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],
+                 time_until_hint=10,
+                 simulations=None)
         q.start_quiz(5)
 
 
