@@ -150,7 +150,10 @@ class Lesson():
         self.braille_alphabet = interaction_object.braille_alphabet
         self.pygame = interaction_object.pygame
 
-        if not interaction_object.using_raspberry_pi:
+        if self.test_content != None:
+            self.using_raspberry_pi = False
+
+        if not self.using_raspberry_pi:
             self.current_char = ""
             self.check_keys = interaction_object.check_keys
             self.dot_has_test = interaction_object.dot_has_test
