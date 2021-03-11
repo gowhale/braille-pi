@@ -81,7 +81,7 @@ class Quiz():
             self.error_log.log_error("NOT ENOUGH CHARS")
 
         self.speech.say("Awesome you scored {} out of {}. Keep it up.".format(
-            self.no_correct_answers, n_of_characters_to_test))
+            self.no_correct_answers, len(self.quiz_characters)))
 
         print(self.no_correct_answers)
         print(self.no_incorrect_answers)
@@ -105,9 +105,6 @@ class Quiz():
             if difference > 0.5:
                 now = time.time()
                 self.previous_time = now
-
-                print("NOW: {}".format(now))
-                print("Start Time: {}".format(self.start_time))
 
                 self.time_since_start = float(now-self.start_time)
                 self.simulate_events()
@@ -155,8 +152,6 @@ class Quiz():
 
         dots_to_say = []
 
-        print(answer)
-
         remap_hash = {
             1: 1,
             2: 4,
@@ -171,7 +166,6 @@ class Quiz():
                 dots_to_say.append(remap_hash[index])
 
         dots_to_say = sorted(dots_to_say)
-        print("Dots to say: {}".format(dots_to_say))
 
         if len(dots_to_say) == 1:
 
@@ -183,7 +177,6 @@ class Quiz():
             self.speech.say("and Dot {}".format(dots_to_say[-1]))
 
         reveal_duration = float(time.time() - reveal_start_time)
-        print("time to reveal answer: {}".format(reveal_duration))
 
         self.start_time = self.start_time - reveal_duration
 
@@ -203,28 +196,17 @@ class Quiz():
             if len(simulations_to_go) > 0:
 
                 now = time.time()
-
-                self.quiz_start_time
-
                 timeline_duration = now - self.quiz_start_time
 
-                print("Time since start:".format(timeline_duration))
-                print(simulations_to_go)
-                print("ALL GOOD?")
                 next_event = simulations_to_go[0]
-                print("EXECUTING: {}".format(next_event))
 
                 if next_event < timeline_duration:
-
                     self.simulations_executed.append(next_event)
-
                     keys_to_press = self.simulations_to_go[next_event]
-
                     for key in keys_to_press:
                         new_event = self.pygame.event.Event(
                             self.pygame.KEYDOWN, unicode=key, key=ord(key))
                         print('Adding event:', new_event)
                         self.pygame.event.post(new_event)
-
             else:
                 print("ALL SIMULATIONS COMPLETE")
