@@ -46,10 +46,10 @@ class Lesson():
 
             all_simulations = set(self.test_content)
             simulations_executed = set(self.simulations_executed)
-            simulations_to_go = sorted(list(all_simulations - simulations_executed))
+            simulations_to_go = sorted(
+                list(all_simulations - simulations_executed))
 
             if len(simulations_to_go) > 0:
-
 
                 print(self.time_since_start)
                 print(simulations_to_go)
@@ -68,7 +68,7 @@ class Lesson():
                             self.pygame.KEYDOWN, unicode=key, key=ord(key))
                         print('Adding event:', new_event)
                         self.pygame.event.post(new_event)
-                
+
             else:
                 print("ALL SIMULATIONS COMPLETE")
 
@@ -133,9 +133,13 @@ class Lesson():
                 elapsed_speech_time))
             self.start_time += elapsed_speech_time
 
-    def __init__(self, interaction_object, content, test_content):
+    def __init__(self, interaction_object, content, test_content, max_timeout):
+
+        self.test_failed = False
 
         self.test_content = test_content
+
+        self.max_timeout = max_timeout
 
         self.time_since_start = 0
 
@@ -219,6 +223,13 @@ class Lesson():
                     self.graphical_user_interface.draw_dot_hash(
                         current_dots_hash, letter_to_learn)
 
+                if (now - self.start_time) > self.max_timeout:
+                    print(self.max_timeout)
+                    print(now - self.start_time)
+                    print("MAX TIMEOUT")
+                    print("TIME SINCE")
+                    self.test_failed = True
+                    current_dots_hash = asserted_answer
         # speech.say("Awesome. it looks like you are ready to begin")
 
         self.graphical_user_interface.draw_dot_hash(

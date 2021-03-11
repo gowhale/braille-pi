@@ -45,7 +45,8 @@ def main():
     if option == 5:
         Lesson(interaction_object=interaction_module,
                content=lesson_2_timeline,
-               test_content=None)
+               test_content=None,
+               max_timeout=10)
 
     # QUIZ 2 -> A-J QUIZ.
     if option == 6:
