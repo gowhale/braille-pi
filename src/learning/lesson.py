@@ -40,6 +40,38 @@ class Lesson():
 
         self.assert_answer(fetched_assertion, translated_dothash)
 
+    def simulate_events(self):
+
+        if self.test_content != None:
+
+            all_simulations = set(self.test_content)
+            simulations_executed = set(self.simulations_executed)
+            simulations_to_go = sorted(
+                list(all_simulations - simulations_executed))
+
+            if len(simulations_to_go) > 0:
+
+                print(self.time_since_start)
+                print(simulations_to_go)
+                print("ALL GOOD?")
+                next_event = simulations_to_go[0]
+                print("EXECUTING: {}".format(next_event))
+
+                if next_event < self.time_since_start:
+
+                    self.simulations_executed.append(next_event)
+
+                    keys_to_press = self.test_content[next_event]
+
+                    for key in keys_to_press:
+                        new_event = self.pygame.event.Event(
+                            self.pygame.KEYDOWN, unicode=key, key=ord(key))
+                        print('Adding event:', new_event)
+                        self.pygame.event.post(new_event)
+
+            else:
+                print("ALL SIMULATIONS COMPLETE")
+
     def play(self):
         previous_time = time.time()
 
@@ -64,6 +96,9 @@ class Lesson():
 
                 time_since_start = float(now - self.start_time)
                 # print(difference, time_since_start)
+                self.time_since_start = time_since_start
+
+                self.simulate_events()
 
                 text_to_say, expired_events = self.check_timings(
                     expired_events, time_since_start)
@@ -98,18 +133,31 @@ class Lesson():
                 elapsed_speech_time))
             self.start_time += elapsed_speech_time
 
-    def __init__(self, interaction_object, content):
+    def __init__(self, interaction_object, content, test_content, max_timeout):
+
+        self.test_failed = False
+
+        self.test_content = test_content
+
+        self.max_timeout = max_timeout
+
+        self.time_since_start = 0
 
         self.timeline = content
 
         self.ordered_timings = list(self.timeline.keys()).sort()
+
+        self.simulations_executed = []
 
         self.speech = interaction_object.speech
         self.using_raspberry_pi = interaction_object.using_raspberry_pi
         self.braille_alphabet = interaction_object.braille_alphabet
         self.pygame = interaction_object.pygame
 
-        if not interaction_object.using_raspberry_pi:
+        if self.test_content != None:
+            self.using_raspberry_pi = False
+
+        if not self.using_raspberry_pi:
             self.current_char = ""
             self.check_keys = interaction_object.check_keys
             self.dot_has_test = interaction_object.dot_has_test
@@ -175,6 +223,13 @@ class Lesson():
                     self.graphical_user_interface.draw_dot_hash(
                         current_dots_hash, letter_to_learn)
 
+                if self.max_timeout != None and (now - self.start_time) > self.max_timeout:
+                    print(self.max_timeout)
+                    print(now - self.start_time)
+                    print("MAX TIMEOUT")
+                    print("TIME SINCE")
+                    self.test_failed = True
+                    current_dots_hash = asserted_answer
         # speech.say("Awesome. it looks like you are ready to begin")
 
         self.graphical_user_interface.draw_dot_hash(

@@ -12,12 +12,17 @@ class Interaction ():
     """A class which allows software to interact with the users enviroment. I.e. via audio, visuals and haptics.
     """
 
-    def __init__(self):
+    def __init__(self, testing):
         error_log = ErrorLogger()
         using_raspberry_pi = True
 
         try:
             # Attempting to acces the GPIO Pins Module
+
+            if testing == True:
+                print("TESTING SO NOT USING KEYS")
+                raise ModuleNotFoundError
+
             import RPi.GPIO as GPIO
             from src.interaction.character import BrailleCharacter
         except ModuleNotFoundError as e:
