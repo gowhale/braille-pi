@@ -15,6 +15,7 @@ from src.lesson_content.lesson_2 import lesson_2_timeline
 def step_impl(context):
 
     context.interaction_module = Interaction(testing=True)
+    context.interaction_module.speech.say = print
 
 
 @when(u'An A-J lesson is completed correctly')
@@ -57,23 +58,62 @@ def step_impl(context):
         16: CORRECT_ANSWER,
     }
 
-    context.interaction_module.speech.say = print
-
     simulated_input = {
         1.5: ["f"],
         3: ["d"],
-        4.5: ["d","j"],
+        4.5: ["d", "j"],
         6: ["k"],
         7.5: ["j"],
-        9: ["d","j","k"],
+        9: ["d", "j", "k"],
         10.5: ["k"],
         12: ["j"],
-        13.5: ["f","j","k"],
+        13.5: ["f", "j", "k"],
         15: ["k"],
     }
 
     context.lesson = Lesson(context.interaction_module,
                             test_content, simulated_input, max_timeout=20)
+
+
+@when(u'Lesson 0 completed correctly')
+def step_impl(context):
+
+    CORRECT_ANSWER = "Correct"
+    test_content = {
+        0: "EMPTY CELL",
+        0.5: 1,
+        1: CORRECT_ANSWER,
+        1.5: "A.",
+        2: 2,
+        2.5: CORRECT_ANSWER,
+        3: "B.",
+        3.5: 3,
+        4: CORRECT_ANSWER,
+        4.5: "C.",
+        5: 4,
+        5.5: CORRECT_ANSWER,
+        6: "D.",
+        6.5: 5,
+        7: CORRECT_ANSWER,
+        7.5: "E.",
+        8: 6,
+        8.5: CORRECT_ANSWER,
+        9: "F.",
+        9.5: 7,
+        10: CORRECT_ANSWER,
+    }
+
+    simulated_input = {
+        1.5: ["f"],
+        3: ["f", "d"],
+        4.5: ["d", "s"],
+        6: ["s", "j"],
+        7.5: ["j", "k"],
+        9: ["k", "l"],
+    }
+
+    context.lesson = Lesson(context.interaction_module,
+                            test_content, simulated_input, max_timeout=60)
 
 
 @then(u'The lesson is completed succesfully')
