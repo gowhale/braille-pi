@@ -1,0 +1,7 @@
+behave==1.2.6
+pygame==1.9.6
+pytest==6.1.2
+pytest-cov==2.11.1
+pytest-timeout==1.4.2
+selenium==3.141.0
+gherkin-official==4.1.3

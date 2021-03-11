@@ -35,11 +35,7 @@ class Quiz():
 
         print("Quizzing the user on the following: {}".format(content))
 
-        self.start_quiz(len(content))
-
-    def ask_question(self, character):
-        self.speech.say(
-            "Enter the combination for the character {}".format(character))
+        # self.start_quiz(5)
 
     def start_quiz(self, n_of_characters_to_test):
         print(n_of_characters_to_test)
@@ -69,7 +65,6 @@ class Quiz():
                     question)
                 print("Character to be quizzed is {} the dothash is {}".format(
                     question, wanted_dot_hash))
-                self.ask_question(question)
                 self.assert_answer(wanted_dot_hash, question)
 
         else:
@@ -85,6 +80,9 @@ class Quiz():
         print("WRONG answers: {}".format(self.incorrect_characters))
 
     def assert_answer(self, asserted_answer, fetched_letter):
+
+        self.speech.say(
+            "Enter the combination for the character {}".format(fetched_letter))
 
         self.start_time = time.time()
 

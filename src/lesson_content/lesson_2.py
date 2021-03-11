@@ -21,7 +21,7 @@ lesson_2_timeline = {
     24: "Up next is the letter E. The letter E is dot 1and 5. Try it now.",
     25: 11,
     26: "Perfect. That is letter E.",
-    27: "Up next is the letter F. The letter D is dot 1, 2 and 4. Try it now.",
+    27: "Up next is the letter F. The letter F is dot 1, 2 and 4. Try it now.",
     28: 12,
     29: "Perfect. That is letter F.",
     30: "Up next is the letter G. The letter G is dot 1, 2, 4 and 5. Try it now.",
