@@ -10,11 +10,13 @@ class Lesson():
 
     Extended description of function. 
 
-    Parameters: 
-    interaction_object  (Interaction): The interaction object which tells the system how the user will interact.
-    content             (dict): This varibale dictates a timeline of content for the lesson
-    test_content        (dict): This parameter dictates whether simulated events will be executed
-    max_timeout         (int): This is the maximum amount of seconds before the lesson is terminated
+    Attributes:: 
+        interaction_object  (Interaction): The interaction object which tells the system how the user will interact.
+        content             (dict): This varibale dictates a timeline of content for the lesson
+        test_content        (dict): This parameter dictates whether simulated events will be executed
+        max_timeout         (int): This is the maximum amount of seconds before the lesson is terminated
+        activity_map        (dict): maps different integers to different activities
+        a_to_z_converstions (Alphabet) Alphabet object which can be used to convert letters to braille codes
     """
 
     a_to_z_converstions = Alphabet()
@@ -94,7 +96,7 @@ class Lesson():
             difference = float(now-self.previous_time)
 
             # Checks timelines every 0.5 seconds
-            if difference > 0.5:
+            if difference > 0.1:
                 self.previous_time = now
                 time_since_start = float(now - self.start_time)
                 self.time_since_start = time_since_start
@@ -214,7 +216,7 @@ class Lesson():
             now = time.time()
             difference = float(now-self.previous_time)
 
-            if difference > 0.5:
+            if difference > 0.1:
                 now = time.time()
                 self.previous_time = now
 
