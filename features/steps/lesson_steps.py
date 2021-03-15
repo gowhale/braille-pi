@@ -66,6 +66,7 @@ def step_impl(context):
     context.lesson = Lesson(context.interaction_module,
                             test_content, simulated_input, max_timeout=20)
 
+
 @when(u'An K-T lesson is completed correctly')
 def step_impl(context):
 
@@ -107,7 +108,7 @@ def step_impl(context):
     }
 
     simulated_input = {
-        1.5: ["f","s"],
+        1.5: ["f", "s"],
         3: ["d"],
         4.5: ["d", "j"],
         6: ["k"],
@@ -163,6 +164,7 @@ def step_impl(context):
     context.lesson = Lesson(context.interaction_module,
                             test_content, simulated_input, max_timeout=60)
 
+
 @when(u'An A-C lesson is completed correctly')
 def step_impl(context):
 
@@ -190,6 +192,7 @@ def step_impl(context):
 
     context.lesson = Lesson(context.interaction_module,
                             test_content, simulated_input, max_timeout=60)
+
 
 @then(u'The lesson is completed succesfully')
 def step_impl(context):

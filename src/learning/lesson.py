@@ -48,6 +48,12 @@ class Lesson():
         24: a_to_z_converstions.translate_alphabet_to_braille("r"),
         25: a_to_z_converstions.translate_alphabet_to_braille("s"),
         26: a_to_z_converstions.translate_alphabet_to_braille("t"),
+        27: a_to_z_converstions.translate_alphabet_to_braille("u"),
+        28: a_to_z_converstions.translate_alphabet_to_braille("v"),
+        29: a_to_z_converstions.translate_alphabet_to_braille("x"),
+        30: a_to_z_converstions.translate_alphabet_to_braille("y"),
+        31: a_to_z_converstions.translate_alphabet_to_braille("z"),
+        32: a_to_z_converstions.translate_alphabet_to_braille("w"),
     }
 
     def __init__(self, interaction_object, content, test_content, max_timeout):
@@ -121,6 +127,8 @@ class Lesson():
                     self.say_text_event(text_to_say)
 
                 self.check_if_lesson_over(expired_events)
+
+                
 
     def start_activity(self, activity_id):
         """This method starts the next activity. i.e. enter the dots for letter A.
@@ -227,6 +235,7 @@ class Lesson():
             difference = float(now-self.previous_time)
 
             if difference > 0.1:
+                # print(current_dots_hash)
                 now = time.time()
                 self.previous_time = now
 
