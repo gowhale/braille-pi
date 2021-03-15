@@ -70,7 +70,7 @@ class Lesson():
         if not self.using_raspberry_pi:
             self.current_char = ""
             self.check_keys = interaction_object.check_keys
-            self.dot_has_test = interaction_object.dot_has_test
+            self.key_presses = interaction_object.key_presses
         else:
             self.current_char = interaction_object.current_char
         self.show_gui = interaction_object.show_gui
@@ -227,7 +227,7 @@ class Lesson():
                 else:
                     # Get dot hash from keyboard
                     current_dots_hash = self.check_keys(
-                        self.pygame, self.dot_has_test)
+                        self.pygame, self.key_presses)
 
                 if self.show_gui:
                     self.graphical_user_interface.draw_dot_hash(
