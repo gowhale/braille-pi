@@ -6,12 +6,22 @@ from pygame.locals import QUIT
 
 class Gui ():
 
+    """The Gui class contains all code regarding the Graphical User Interface.
+
+    Attributes:
+        width           (Int)       The width of the screen.
+        height          (Int)       The height of the screen.
+        window_caption  (String)    The caption of the GUI window.
+        dot_radius      (Int)       The radius of the dots.
+        dot_border      (Int)       The thickness of the dot's border.
+        dot_locations   (dict)      A dictionary of where each dot will be drawn.
+    """
+
     width = 500
     height = 400
     window_caption = "Braille Pi"
     dot_radius = 50
     dot_border = 10
-
     dot_locations = {
         1: {
             "x": 100,
@@ -41,15 +51,19 @@ class Gui ():
     }
 
     def __init__(self):
+        """Initialises the GUI object."""
+
+        WHITE = (255, 255, 255)
+
+        # Initates Screen
         pygame.init()
         screen_info = (pygame.display.Info())
+        pygame.display.set_caption(self.window_caption)
+
+        # Fetches screen width and height dimensions
         self.width = screen_info.current_w
         self.height = screen_info.current_h
-#         print(width,height)
-
         self.DISPLAY = pygame.display.set_mode((self.width, self.height))
-        pygame.display.set_caption(self.window_caption)
-        WHITE = (255, 255, 255)
         self.DISPLAY.fill(WHITE)
 
         row_two = int(self.height / 2)
@@ -76,24 +90,27 @@ class Gui ():
         self.dot_locations[6]["x"] = col_two
 
     def update(self):
+        """Updates the screen."""
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
         pygame.display.update()
 
-    def close_gui(self):
-        pygame.quit()
-        sys.exit()
-
     def draw_dot_hash(self, dot_hash, letter):
+        """Draws the 6 dots to the screen.
+
+        Parameters:
+            dot_hash    (String) The dot hash of what has been entered by user i.e. 100000 represents Dot 1.
+            letter      (String) The letter which represents the dot.
+        """
+
         WHITE = (255, 255, 255)
         self.DISPLAY.fill(WHITE)
 
+        # Drawing the dots to the screen
         for index, dot in enumerate(dot_hash, start=1):
-            # print(index, dot)
             try:
-                #                print(self.dot_locations[index])
                 BLACK = (0, 0, 0)
                 if dot == "0":
                     pygame.draw.circle(
@@ -105,6 +122,7 @@ class Gui ():
             except KeyError:
                 print("Key Error")
 
+        # Drawing the letter to the screen.
         font_size = int(self.height/2)
         scale_text = pygame.font.Font('freesansbold.ttf', font_size)
         current_temp = letter.upper()
@@ -117,6 +135,3 @@ class Gui ():
         self.DISPLAY.blit(text_surface, text_rect)
 
         self.update()
-
-# test = Gui()
-# test.close_gui()

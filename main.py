@@ -57,7 +57,7 @@ def main():
                  content=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],
                  time_until_hint=10,
                  simulations=None)
-        q.start_quiz(5)
+        q.start_quiz()
 
 
 if __name__ == "__main__":

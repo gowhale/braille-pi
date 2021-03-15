@@ -1,5 +1,11 @@
 class Alphabet ():
 
+    """The Alphabet class contains information about braille to A_Z characters.
+    
+    Attributes:
+        alphabet_to_braille (Dict)    Letters identify thier own braille values.
+    """
+
     alphabet_to_braille = {
         "a": "100000",
         "b": "101000",
@@ -30,6 +36,10 @@ class Alphabet ():
     }
 
     def __init__(self):
+        """Initialises the Alphabet Object to have the inverse of the braille alphabet.
+        
+        The unique identifier will be the dothash rather than the letter."""
+
         print("Alphabet Generated")
 
         braille_to_alphabet = {}
@@ -41,18 +51,25 @@ class Alphabet ():
         self.braille_to_alphabet = braille_to_alphabet
 
     def get_braille_to_alphabet(self):
+        """Returns the braille_to_alphabet dictionary."""
+
         return self.braille_to_alphabet
 
     def get_alphabet_to_braille(self):
+        """Returns the alphabet_to_braille dictionary."""
+
         return self.alphabet_to_braille
 
     def translate_braille_to_alphabet(self, braille):
+        """Translate a braille hash into a letter."""
+
         try:
             return self.braille_to_alphabet[braille]
         except KeyError:
             return "_"
 
     def translate_alphabet_to_braille(self, letter):
+        """Translate a letter into a braille hash."""
         try:
             return self.alphabet_to_braille[letter]
         except KeyError as e:
