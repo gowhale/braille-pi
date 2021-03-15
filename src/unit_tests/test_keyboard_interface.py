@@ -48,7 +48,7 @@ def test_keyboard_interface_inverse_value_2():
 
 
 def test_keys_pressed():
-    dot_has_test = {
+    key_presses = {
         "F": 0,
         "D": 0,
         "S": 0,
@@ -57,4 +57,4 @@ def test_keys_pressed():
         "L": 0
     }
 
-    check_keys(pygame, dot_has_test)
+    check_keys(pygame, key_presses)

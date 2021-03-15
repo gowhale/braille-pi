@@ -20,7 +20,7 @@ def step_impl(context):
                               "f", "g", "h", "i", "j"],
                      time_until_hint=5,
                      simulations=simulated_input)
-    context.q.start_quiz(5)
+    context.q.start_quiz()
 
 
 @then(u'The quiz is completed succesfully')

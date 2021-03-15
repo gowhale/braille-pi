@@ -36,7 +36,7 @@ class Translator():
                 else:
                     # Get dot hash from keyboard
                     current_dots_hash = interaction_object.check_keys(
-                        interaction_object.pygame, interaction_object.dot_has_test)
+                        interaction_object.pygame, interaction_object.key_presses)
                 braille_translation = interaction_object.braille_alphabet.translate_braille_to_alphabet(
                     current_dots_hash)
                 previous_time = now
