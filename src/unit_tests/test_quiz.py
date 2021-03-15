@@ -16,6 +16,6 @@ def test_lesson():
 
     quiz = Quiz(interaction_object=i, content="a",
                 time_until_hint=10, simulations=simulated_input)
-    quiz.start_quiz(5)
+    quiz.start_quiz()
 
     assert 1 == 1
