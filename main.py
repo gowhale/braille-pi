@@ -10,6 +10,7 @@ from src.lesson_content.lesson_tutorial import lesson_0_tutorial
 from src.lesson_content.lesson_1 import lesson_1_timeline
 from src.lesson_content.lesson_2 import lesson_2_timeline
 from src.lesson_content.lesson_3 import lesson_3_timeline
+from src.lesson_content.lesson_4 import lesson_4_timeline
 
 
 def main():
@@ -18,7 +19,7 @@ def main():
 
     interaction_module = Interaction(testing=False)
 
-    option = 7
+    option = 8
 
     # TRANSLATOR OPTION -> Translates entered dots to A-Z chars
     if option == 1:
@@ -60,12 +61,20 @@ def main():
                  simulations=None)
         q.start_quiz()
 
-    # LESSON 3 -> K-T lesson. 
+    # LESSON 3 -> K-T lesson.
     if option == 7:
         Lesson(interaction_object=interaction_module,
                content=lesson_3_timeline,
                test_content=None,
                max_timeout=None)
+
+    # LESSON 4 -> U-W lesson.
+    if option == 8:
+        Lesson(interaction_object=interaction_module,
+               content=lesson_4_timeline,
+               test_content=None,
+               max_timeout=None)
+
 
 if __name__ == "__main__":
     main()

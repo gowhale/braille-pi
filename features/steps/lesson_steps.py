@@ -66,6 +66,7 @@ def step_impl(context):
     context.lesson = Lesson(context.interaction_module,
                             test_content, simulated_input, max_timeout=20)
 
+
 @when(u'An K-T lesson is completed correctly')
 def step_impl(context):
 
@@ -107,7 +108,7 @@ def step_impl(context):
     }
 
     simulated_input = {
-        1.5: ["f","s"],
+        1.5: ["f", "s"],
         3: ["d"],
         4.5: ["d", "j"],
         6: ["k"],
@@ -117,6 +118,47 @@ def step_impl(context):
         12: ["j"],
         13.5: ["f", "j", "k"],
         15: ["k"],
+    }
+
+    context.lesson = Lesson(context.interaction_module,
+                            test_content, simulated_input, max_timeout=20)
+
+@when(u'An U-Z lesson is completed correctly')
+def step_impl(context):
+
+    CORRECT_ANSWER = "Correct"
+    test_content = {
+        0: "EMPTY CELL",
+        0.5: 1,
+        1: CORRECT_ANSWER,
+        1.5: "K.",
+        2: 27,
+        2.5: CORRECT_ANSWER,
+        3: "L.",
+        3.5: 28,
+        4: CORRECT_ANSWER,
+        4.5: "M.",
+        5: 29,
+        5.5: CORRECT_ANSWER,
+        6: "N.",
+        6.5: 30,
+        7: CORRECT_ANSWER,
+        7.5: "O.",
+        8: 31,
+        8.5: CORRECT_ANSWER,
+        9: "P.",
+        9.5: 32,
+        10: CORRECT_ANSWER,
+    }
+
+    simulated_input = {
+        1.5: ["f", "s", "l"],
+        3: ["d"],
+        4.5: ["d", "j"],
+        6: ["k"],
+        7.5: ["j"],
+        9: ["d", "j","f","s"],
+        
     }
 
     context.lesson = Lesson(context.interaction_module,
@@ -163,6 +205,7 @@ def step_impl(context):
     context.lesson = Lesson(context.interaction_module,
                             test_content, simulated_input, max_timeout=60)
 
+
 @when(u'An A-C lesson is completed correctly')
 def step_impl(context):
 
@@ -190,6 +233,7 @@ def step_impl(context):
 
     context.lesson = Lesson(context.interaction_module,
                             test_content, simulated_input, max_timeout=60)
+
 
 @then(u'The lesson is completed succesfully')
 def step_impl(context):
