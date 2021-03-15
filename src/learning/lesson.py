@@ -25,6 +25,16 @@ class Lesson():
         14: a_to_z_converstions.translate_alphabet_to_braille("h"),
         15: a_to_z_converstions.translate_alphabet_to_braille("i"),
         16: a_to_z_converstions.translate_alphabet_to_braille("j"),
+        17: a_to_z_converstions.translate_alphabet_to_braille("k"),
+        18: a_to_z_converstions.translate_alphabet_to_braille("l"),
+        19: a_to_z_converstions.translate_alphabet_to_braille("m"),
+        20: a_to_z_converstions.translate_alphabet_to_braille("n"),
+        21: a_to_z_converstions.translate_alphabet_to_braille("o"),
+        22: a_to_z_converstions.translate_alphabet_to_braille("p"),
+        23: a_to_z_converstions.translate_alphabet_to_braille("q"),
+        24: a_to_z_converstions.translate_alphabet_to_braille("r"),
+        25: a_to_z_converstions.translate_alphabet_to_braille("s"),
+        26: a_to_z_converstions.translate_alphabet_to_braille("t"),
     }
 
     def start_activity(self, activity_id):
