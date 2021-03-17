@@ -2,6 +2,7 @@ from src.config import results_folder_name
 from os import listdir
 from os.path import isfile, join
 import csv
+import random
 
 
 class LearningAlgorithm ():
@@ -120,8 +121,10 @@ class LearningAlgorithm ():
             print("Right: {}".format(count_correct))
             print("Total: {}".format(count_attempts))
 
+            success_rate = (count_correct/count_attempts)
+            revision_weighting = 0.1+(1-(success_rate))
             char_success_rate = {"char": key, "success": (
-                count_correct/count_attempts)}
+                success_rate), "weight": revision_weighting}
 
             self.sucess_rates.append(char_success_rate)
 
@@ -155,7 +158,44 @@ class LearningAlgorithm ():
         characters_only = []
         for element in end_of_list:
             characters_only.append(element["char"])
+        random.shuffle(characters_only)
         return characters_only
+
+    def get_weighted_n_characters(self, amount_of_characters):
+
+        all_success_rates = self.get_sucess_rates()
+
+        if len(all_success_rates) > 0:
+
+            elements = []
+            weights = []
+            for element in all_success_rates:
+
+                char = element["char"]
+                success_rate = element["weight"]
+
+                # print("Elem: {:5} Weight:{:5}".format(char, success_rate))
+                elements.append(char)
+                weights.append(success_rate)
+
+            print("Elements:")
+            print(elements)
+            print("Weights:")
+            print(weights)
+
+            choice = (random.choices(
+                elements, weights=weights, k=amount_of_characters,))
+            # print("Choices:")
+            # print(choice)
+
+            characters_only = []
+            for element in choice:
+                characters_only.append(element)
+            random.shuffle(characters_only)
+            return characters_only
+
+        else:
+            return []
 
     def process_results(self):
         self.get_all_file_names()
