@@ -53,6 +53,8 @@ class LearningAlgorithm ():
             else:
                 print("Testing...")
 
+        self.print_result_map()
+
     def fetch_results(self):
 
         for file_name in list(self.files_to_examine):
@@ -66,6 +68,7 @@ class LearningAlgorithm ():
                     self.results_as_list.append(row[0])
 
     def analyse_results(self):
+        print("Results to process: {}".format(self.get_results_as_list()))
         for index, row in enumerate(self.results_as_list, start=1):
             if index > 1:
                 current_row = row.split(",")
@@ -74,5 +77,8 @@ class LearningAlgorithm ():
                 print("CHAR: {} - RESULT: {}".format(char, result))
                 self.update_results_map(char=char, result=result)
 
-    def set_results_as_list(self,val):
+    def set_results_as_list(self, val):
         self.results_as_list = val
+
+    def get_results_as_list(self):
+        return self.results_as_list

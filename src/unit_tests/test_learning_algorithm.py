@@ -1,13 +1,6 @@
 from src.learning.learning_algorithm import LearningAlgorithm
 
 
-def test_learning_algorithm_default():
-    learning_algorithm = LearningAlgorithm()
-    learning_algorithm.fetch_results()
-    learning_algorithm.analyse_results()
-    learning_algorithm.print_result_map()
-
-
 def test_learning_algorithm_mocked():
 
     mocked_logged_results = """date,time,character,result
@@ -45,10 +38,17 @@ def test_learning_algorithm_mocked():
 
     print(mocked_logged_results)
 
-    learning_algorithm = LearningAlgorithm()
-    learning_algorithm.set_results_as_list(mocked_logged_results)
+    l = LearningAlgorithm()
+    l.set_results_as_list(mocked_logged_results)
 
+    l.analyse_results()
+    l.print_result_map()
+
+    assert l.get_results_map() == expected_output
+
+
+def test_learning_algorithm_default():
+    learning_algorithm = LearningAlgorithm()
+    learning_algorithm.fetch_results()
     learning_algorithm.analyse_results()
     learning_algorithm.print_result_map()
-
-    assert learning_algorithm.get_results_map() == expected_output
