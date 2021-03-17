@@ -10,10 +10,16 @@ class LearningAlgorithm ():
     files_to_examine = []
     results_map = {}
     results_as_list = []
+    sucess_rates = []
 
     def __init__(self):
         print("Learning Algorithm Initiated...")
         self.get_all_file_names()
+        self.results_path = results_folder_name
+        self.files_to_examine = []
+        self.results_map = {}
+        self.results_as_list = []
+        self.sucess_rates = []
 
     def print_result_map(self):
         for key, Value in self.results_map.items():
@@ -82,3 +88,29 @@ class LearningAlgorithm ():
 
     def get_results_as_list(self):
         return self.results_as_list
+
+    def calculate_success_rate(self):
+        for key in self.results_map:
+
+            count_correct = self.results_map[key]["right"]
+            count_attempts = self.results_map[key]["total"]
+
+            print("Right: {}".format(count_correct))
+            print("Total: {}".format(count_attempts))
+
+            char_success_rate = {"char": key, "success": (
+                count_correct/count_attempts)}
+
+            self.sucess_rates.append(char_success_rate)
+
+            self.sort_success_rates()
+
+    def sort_success_rates(self):
+        s = sorted(self.sucess_rates, key=lambda k: -k['success'])
+        self.set_sucess_rates(s)
+
+    def get_sucess_rates(self):
+        return self.sucess_rates
+
+    def set_sucess_rates(self, val):
+        self.sucess_rates = val
