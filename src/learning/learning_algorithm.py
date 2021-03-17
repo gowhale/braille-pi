@@ -139,3 +139,26 @@ class LearningAlgorithm ():
     def set_sucess_rates(self, val):
         """Sets results_as_list"""
         self.sucess_rates = val
+
+    def get_worst_n_chars_elements(self, amount_of_characters):
+
+        current_success_rates = self.get_sucess_rates()
+
+        if amount_of_characters > len(current_success_rates):
+            return current_success_rates
+        else:
+            return current_success_rates[-amount_of_characters:]
+
+    def get_worst_n_characters(self, amount_of_characters):
+        end_of_list = self.get_worst_n_chars_elements(amount_of_characters)
+        print(end_of_list)
+        characters_only = []
+        for element in end_of_list:
+            characters_only.append(element["char"])
+        return characters_only
+
+    def process_results(self):
+        self.get_all_file_names()
+        self.fetch_results()
+        self.analyse_results()
+        self.calculate_success_rate()

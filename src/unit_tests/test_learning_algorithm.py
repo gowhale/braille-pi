@@ -85,6 +85,46 @@ def test_learning_algorithm_success_rate_one_char():
     assert a.get_sucess_rates() == expected_output
 
 
+def test_learning_algorithm_get_worst_n_chars_one_char():
+
+    mocked_logged_results = """date,time,character,result
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,-1""".split("\n")
+
+    expected_output = [{"char": "a", "success": 0.5}]
+
+    print(mocked_logged_results)
+
+    a = LearningAlgorithm()
+    a.set_results_as_list(mocked_logged_results)
+
+    a.analyse_results()
+    a.print_result_map()
+    a.calculate_success_rate()
+
+    assert a.get_worst_n_chars_elements(amount_of_characters=1) == expected_output
+
+
+def test_learning_algorithm_get_worst_n_chars_one_char_request_too_big():
+
+    mocked_logged_results = """date,time,character,result
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,-1""".split("\n")
+
+    expected_output = [{"char": "a", "success": 0.5}]
+
+    print(mocked_logged_results)
+
+    a = LearningAlgorithm()
+    a.set_results_as_list(mocked_logged_results)
+
+    a.analyse_results()
+    a.print_result_map()
+    a.calculate_success_rate()
+
+    assert a.get_worst_n_chars_elements(amount_of_characters=5) == expected_output
+
+
 def test_learning_algorithm_success_edge_cases():
 
     mocked_logged_results = """date,time,character,result
@@ -148,6 +188,113 @@ def test_learning_algorithm_success_rate_multiple_chars():
     a.calculate_success_rate()
 
     assert a.get_sucess_rates() == expected_output
+
+
+def test_learning_algorithm_get_worst_n_chars_multiple_chars():
+
+    mocked_logged_results = """date,time,character,result
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,b,+1
+16/03/2021,14:01:21,b,-1
+16/03/2021,14:01:21,d,-1
+16/03/2021,14:01:21,d,-1
+16/03/2021,14:01:21,d,-1
+16/03/2021,14:01:21,d,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,z,+1
+16/03/2021,14:01:21,a,+1""".split("\n")
+
+    expected_output = [{"char": "a", "success": 1},
+                       {"char": "z", "success": 1},
+                       {"char": "b", "success": 0.5},
+                       {"char": "d", "success": 0.25}, ]
+
+    print(mocked_logged_results)
+
+    a = LearningAlgorithm()
+    a.set_results_as_list(mocked_logged_results)
+
+    a.analyse_results()
+    a.print_result_map()
+    a.calculate_success_rate()
+
+    assert a.get_worst_n_chars_elements(amount_of_characters=5) == expected_output
+
+
+def test_learning_algorithm_get_worst_n_chars_multiple_chars_2_return():
+
+    mocked_logged_results = """date,time,character,result
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,b,+1
+16/03/2021,14:01:21,b,-1
+16/03/2021,14:01:21,d,-1
+16/03/2021,14:01:21,d,-1
+16/03/2021,14:01:21,d,-1
+16/03/2021,14:01:21,d,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,z,+1
+16/03/2021,14:01:21,a,+1""".split("\n")
+
+    expected_output = [{"char": "b", "success": 0.5},
+                       {"char": "d", "success": 0.25}, ]
+
+    print(mocked_logged_results)
+
+    a = LearningAlgorithm()
+    a.set_results_as_list(mocked_logged_results)
+
+    a.analyse_results()
+    a.print_result_map()
+    a.calculate_success_rate()
+
+    assert a.get_worst_n_chars_elements(amount_of_characters=2) == expected_output
+
+
+def test_learning_algorithm_get_worst_n_chars_multiple_chars_1_return():
+
+    mocked_logged_results = """date,time,character,result
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,b,+1
+16/03/2021,14:01:21,b,-1
+16/03/2021,14:01:21,d,-1
+16/03/2021,14:01:21,d,-1
+16/03/2021,14:01:21,d,-1
+16/03/2021,14:01:21,d,+1
+16/03/2021,14:01:21,a,+1
+16/03/2021,14:01:21,z,+1
+16/03/2021,14:01:21,a,+1""".split("\n")
+
+    expected_output = [
+        {"char": "d", "success": 0.25}, ]
+
+    print(mocked_logged_results)
+
+    a = LearningAlgorithm()
+    a.set_results_as_list(mocked_logged_results)
+
+    a.analyse_results()
+    a.print_result_map()
+    a.calculate_success_rate()
+
+    assert a.get_worst_n_chars_elements(amount_of_characters=1) == expected_output
 
 
 def test_learning_algorithm_default():

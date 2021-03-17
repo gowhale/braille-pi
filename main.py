@@ -3,6 +3,7 @@ from src.learning.translator import Translator
 from src.learning.lesson import Lesson
 from src.learning.quiz import Quiz
 from src.interaction.interaction_module import Interaction
+from src.learning.learning_algorithm import LearningAlgorithm
 
 # Lesson Content Imports
 from src.lesson_content.lesson_introduction import lesson_0_introduction
@@ -19,7 +20,7 @@ def main():
 
     interaction_module = Interaction(testing=False)
 
-    option = 8
+    option = 9
 
     # TRANSLATOR OPTION -> Translates entered dots to A-Z chars
     if option == 1:
@@ -74,6 +75,22 @@ def main():
                content=lesson_4_timeline,
                test_content=None,
                max_timeout=None)
+
+    # QUIZ Using learning algorithm.
+    if option == 9:
+
+        amount_of_characters = 1
+        learning_algorithm = LearningAlgorithm()
+        learning_algorithm.process_results()
+        print(learning_algorithm.get_sucess_rates())
+
+        user_tailored_content = learning_algorithm.get_worst_n_characters(amount_of_characters)
+
+        q = Quiz(interaction_object=interaction_module,
+                 content=user_tailored_content,
+                 time_until_hint=10,
+                 simulations=None)
+        q.start_quiz()
 
 
 if __name__ == "__main__":
