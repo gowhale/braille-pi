@@ -47,6 +47,24 @@ def test_learning_algorithm_results_map():
     assert l.get_results_map() == expected_output
 
 
+def test_learning_algorithm_success_rate_empty_file():
+
+    mocked_logged_results = """""".split("\n")
+
+    expected_output = []
+
+    print(mocked_logged_results)
+
+    a = LearningAlgorithm()
+    a.set_results_as_list(mocked_logged_results)
+
+    a.analyse_results()
+    a.print_result_map()
+    a.calculate_success_rate()
+
+    assert a.get_sucess_rates() == expected_output
+
+
 def test_learning_algorithm_success_rate_one_char():
 
     mocked_logged_results = """date,time,character,result
