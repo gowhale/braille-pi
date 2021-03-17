@@ -9,13 +9,8 @@ def test_lesson():
 
     i.speech.say = print
 
-    simulated_input = {
-        1.5: ["f"],
-        3: ["d"],
-    }
-
-    quiz = Quiz(interaction_object=i, content="a",
-                time_until_hint=10, simulations=simulated_input)
+    quiz = Quiz(interaction_object=i, content=[],
+                time_until_hint=1, simulations={})
     quiz.start_quiz()
 
     assert 1 == 1

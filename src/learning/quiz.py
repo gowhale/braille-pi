@@ -1,6 +1,7 @@
 import random
 import time
 from src.braille.alphabet import Alphabet
+from src.results_logging.results_logger import ResultsLogger
 
 
 class Quiz():
@@ -28,6 +29,7 @@ class Quiz():
     incorrect_characters = []
     correct_characters = []
     test_failed = False
+    results_logger = ResultsLogger()
 
     def __init__(self, interaction_object, content, time_until_hint, simulations):
         """The constructor for the Quiz class.
@@ -84,8 +86,7 @@ class Quiz():
         self.speech.say("Awesome you scored {} out of {}. Keep it up.".format(
             self.no_correct_answers, len(self.quiz_characters)))
 
-        print("CORRECT answers: {}".format(self.correct_characters))
-        print("WRONG answers: {}".format(self.incorrect_characters))
+        self.log_results()
 
     def assert_answer(self, asserted_answer, fetched_letter):
         """This method checks if the user has completed the activity.
@@ -202,3 +203,8 @@ class Quiz():
                             self.pygame.KEYDOWN, unicode=key, key=ord(key))
                         print('Adding event:', new_event)
                         self.pygame.event.post(new_event)
+
+    def log_results(self):
+        print("CORRECT answers: {}".format(self.correct_characters))
+        print("WRONG answers: {}".format(self.incorrect_characters))
+        self.results_logger.log_results(correct_answers=self.correct_characters, wrong_answers=self.incorrect_characters)

@@ -131,3 +131,4 @@ dmypy.json
 
 #error log
 /error_logs
+/quiz_results
