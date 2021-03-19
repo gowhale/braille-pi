@@ -94,11 +94,15 @@ def main():
             user_tailored_content))
         print("-"*100)
 
-        q = Quiz(interaction_object=interaction_module,
-                 content=user_tailored_content,
-                 time_until_hint=10,
-                 simulations=None)
-        q.start_quiz()
+        if len(user_tailored_content) == 0:
+            interaction_module.speech.say(
+                "Try another quiz so I can tailor a quiz to your strenghts and weakenesses")
+        else:
+            q = Quiz(interaction_object=interaction_module,
+                     content=user_tailored_content,
+                     time_until_hint=10,
+                     simulations=None)
+            q.start_quiz()
 
     # Quiz 3: K to T
     if option == 10:
