@@ -3,6 +3,7 @@ from src.learning.translator import Translator
 from src.learning.lesson import Lesson
 from src.learning.quiz import Quiz
 from src.interaction.interaction_module import Interaction
+from src.learning.learning_algorithm import LearningAlgorithm
 
 # Lesson Content Imports
 from src.lesson_content.lesson_introduction import lesson_0_introduction
@@ -19,7 +20,7 @@ def main():
 
     interaction_module = Interaction(testing=False)
 
-    option = 8
+    option = 9
 
     # TRANSLATOR OPTION -> Translates entered dots to A-Z chars
     if option == 1:
@@ -74,6 +75,51 @@ def main():
                content=lesson_4_timeline,
                test_content=None,
                max_timeout=None)
+
+    # QUIZ Using learning algorithm.
+    if option == 9:
+
+        amount_of_characters = 5
+
+        learning_algorithm = LearningAlgorithm()
+        learning_algorithm.process_results()
+
+        count_occurences = {}
+
+        for _ in range(100):
+            choices = learning_algorithm.get_weighted_n_characters(
+                amount_of_characters)
+            print(choices)
+            for char in choices:
+                if char in count_occurences:
+                    count_occurences[char] += 1
+                else:
+                    count_occurences[char] = 1
+
+        for char in count_occurences:
+            print("Char: {}, Count: {}".format(char, count_occurences[char]))
+
+        user_tailored_content = learning_algorithm.get_worst_n_characters(
+            amount_of_characters)
+
+        print("-"*100)
+        print("Quiz will be on the following characters: {}".format(
+            user_tailored_content))
+        print("-"*100)
+
+        q = Quiz(interaction_object=interaction_module,
+                 content=user_tailored_content,
+                 time_until_hint=10,
+                 simulations=None)
+        q.start_quiz()
+
+    # Quiz 3: K to T
+    if option == 10:
+        q = Quiz(interaction_object=interaction_module,
+                 content=list("klmnopqrst"),
+                 time_until_hint=5,
+                 simulations=None)
+        q.start_quiz()
 
 
 if __name__ == "__main__":
