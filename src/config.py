@@ -1,0 +1,1 @@
+results_folder_name = 'quiz_results'

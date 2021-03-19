@@ -128,8 +128,6 @@ class Lesson():
 
                 self.check_if_lesson_over(expired_events)
 
-                
-
     def start_activity(self, activity_id):
         """This method starts the next activity. i.e. enter the dots for letter A.
 
