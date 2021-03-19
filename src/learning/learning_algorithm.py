@@ -3,6 +3,7 @@ from os import listdir
 from os.path import isfile, join
 import csv
 import random
+import numpy as np
 
 
 class LearningAlgorithm ():
@@ -183,8 +184,24 @@ class LearningAlgorithm ():
             print("Weights:")
             print(weights)
 
+            weight_sum = sum(weights)
+
+            probabilities = []
+
+            for weight in weights:
+                probabilities.append(weight/weight_sum)
+
+            if amount_of_characters > len(elements):
+                amount_of_characters = len(elements)
+
             choice = (random.choices(
                 elements, weights=weights, k=amount_of_characters,))
+
+            print(probabilities)
+
+            choice = np.random.choice(elements,size=amount_of_characters,replace=False, p=probabilities)
+
+
             # print("Choices:")
             # print(choice)
 
