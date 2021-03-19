@@ -20,7 +20,7 @@ def main():
 
     interaction_module = Interaction(testing=False)
 
-    option = 11
+    option = 9
 
     # TRANSLATOR OPTION -> Translates entered dots to A-Z chars
     if option == 1:
@@ -120,28 +120,6 @@ def main():
                  time_until_hint=5,
                  simulations=None)
         q.start_quiz()
-
-    # Simulate quizzes
-    if option == 11:
-        amount_of_characters = 5
-        
-        learning_algorithm = LearningAlgorithm()
-        learning_algorithm.process_results()
-
-        count_occurences = {}
-
-        for _ in range(100):
-            choices = learning_algorithm.get_weighted_n_characters(
-                amount_of_characters)
-            print(choices)
-            for char in choices:
-                if char in count_occurences:
-                    count_occurences[char] += 1
-                else:
-                    count_occurences[char] = 1
-
-        for char in count_occurences:
-            print("Char: {}, Count: {}".format(char, count_occurences[char]))
 
 
 if __name__ == "__main__":
