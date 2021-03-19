@@ -67,8 +67,7 @@ class LearningAlgorithm ():
                     "right": 0,
                     "total": 1,
                 }
-            else:
-                print("Testing...")
+
         else:
             if result == "+1":
                 self.results_map[char]["right"] += 1
@@ -76,17 +75,12 @@ class LearningAlgorithm ():
             elif result == "-1":
                 self.results_map[char]["wrong"] += 1
                 self.results_map[char]["total"] += 1
-            else:
-                print("Testing...")
-
-        self.print_result_map()
 
     def fetch_results(self):
         """Fetches the results from the files."""
         for file_name in list(self.files_to_examine):
             current_log_file_path = "{}/{}".format(
                 self.results_path, file_name)
-            print(current_log_file_path)
 
             with open(current_log_file_path, newline='') as csvfile:
                 spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
@@ -95,13 +89,11 @@ class LearningAlgorithm ():
 
     def analyse_results(self):
         """Analyses the fetched results."""
-        print("Results to process: {}".format(self.get_results_as_list()))
         for index, row in enumerate(self.results_as_list, start=1):
             if index > 1:
                 current_row = row.split(",")
                 char = current_row[2]
                 result = current_row[3]
-                print("CHAR: {} - RESULT: {}".format(char, result))
                 self.update_results_map(char=char, result=result)
 
     def set_results_as_list(self, val):
@@ -118,9 +110,6 @@ class LearningAlgorithm ():
 
             count_correct = self.results_map[key]["right"]
             count_attempts = self.results_map[key]["total"]
-
-            print("Right: {}".format(count_correct))
-            print("Total: {}".format(count_attempts))
 
             success_rate = (count_correct/count_attempts)
             revision_weighting = 0.1+(1-(success_rate))
@@ -155,7 +144,6 @@ class LearningAlgorithm ():
 
     def get_worst_n_characters(self, amount_of_characters):
         end_of_list = self.get_worst_n_chars_elements(amount_of_characters)
-        print(end_of_list)
         characters_only = []
         for element in end_of_list:
             characters_only.append(element["char"])
@@ -174,18 +162,10 @@ class LearningAlgorithm ():
 
                 char = element["char"]
                 success_rate = element["weight"]
-
-                # print("Elem: {:5} Weight:{:5}".format(char, success_rate))
                 elements.append(char)
                 weights.append(success_rate)
 
-            print("Elements:")
-            print(elements)
-            print("Weights:")
-            print(weights)
-
             weight_sum = sum(weights)
-
             probabilities = []
 
             for weight in weights:
@@ -194,16 +174,14 @@ class LearningAlgorithm ():
             if amount_of_characters > len(elements):
                 amount_of_characters = len(elements)
 
-            choice = (random.choices(
-                elements, weights=weights, k=amount_of_characters,))
+            for char, probability in zip(elements, probabilities):
+                probability_percentage = "{}%".format(
+                    round(probability * 100, 2))
+                print(
+                    "Character: {:10} -> Probability it's selected: {:10}".format(char, probability_percentage))
 
-            print(probabilities)
-
-            choice = np.random.choice(elements,size=amount_of_characters,replace=False, p=probabilities)
-
-
-            # print("Choices:")
-            # print(choice)
+            choice = np.random.choice(
+                elements, size=amount_of_characters, replace=False, p=probabilities)
 
             characters_only = []
             for element in choice:

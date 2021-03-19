@@ -86,20 +86,7 @@ def main():
 
         count_occurences = {}
 
-        for _ in range(100):
-            choices = learning_algorithm.get_weighted_n_characters(
-                amount_of_characters)
-            print(choices)
-            for char in choices:
-                if char in count_occurences:
-                    count_occurences[char] += 1
-                else:
-                    count_occurences[char] = 1
-
-        for char in count_occurences:
-            print("Char: {}, Count: {}".format(char, count_occurences[char]))
-
-        user_tailored_content = learning_algorithm.get_worst_n_characters(
+        user_tailored_content = learning_algorithm.get_weighted_n_characters(
             amount_of_characters)
 
         print("-"*100)
