@@ -4,7 +4,7 @@ try:
     from os import system
 except ModuleNotFoundError:
     "OS Note found"
-
+import string
 
 class Speech:
     """The purpose of this class it to verbally speak out strings.
@@ -30,14 +30,17 @@ class Speech:
         Arguments:
             text    (String)    text which will be spoken."""
 
-        print("SAYING -> {}".format(text))
+         
+        sanitised_text = text.translate(str.maketrans('', '', string.punctuation))
+
+        print("SAYING -> {}".format(sanitised_text))
         current_os = self.operating_system
-        text = text.replace(" ", "_")
+        sanitised_text = sanitised_text.replace(" ", "_")
         if current_os == "linux" or current_os == "linux2":
-            call([self.cmd_start+text+self.cmd_finish], shell=True)
+            call([self.cmd_start+sanitised_text+self.cmd_finish], shell=True)
         elif current_os == "darwin":
             # OS X (Macbook)
-            system('say {}'.format(text))
+            system('say {}'.format(sanitised_text))
         elif current_os == "win32":
             # Windows...
             print("Windows edition coming soon.")
