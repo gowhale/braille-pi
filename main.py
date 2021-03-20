@@ -14,6 +14,7 @@ from src.lesson_content.lesson_3 import lesson_3_timeline
 from src.lesson_content.lesson_4 import lesson_4_timeline
 
 
+
 def main():
 
     # TODO: this option value should be entered by the user in the future
