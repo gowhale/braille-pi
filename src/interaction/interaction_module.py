@@ -1,7 +1,6 @@
 # Essential Imports
 import time
 import pygame
-from time import sleep
 
 from src.interaction.speech import Speech
 from src.interaction.gui import Gui

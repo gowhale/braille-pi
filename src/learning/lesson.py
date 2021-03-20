@@ -1,6 +1,5 @@
 # Essential Imports
 import time
-from time import sleep
 from src.braille.alphabet import Alphabet
 
 
