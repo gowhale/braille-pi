@@ -9,6 +9,7 @@ import os
 import fnmatch
 from playsound import playsound
 from string import punctuation
+import pygame
 
 
 class Speech:
@@ -29,19 +30,21 @@ class Speech:
 
     voice_file_directory = 'sounds/voice_files'
     voice_file_file_names = []
+    
+    sound_file_extension = ".mp3"
 
     def __init__(self):
         """Sets the operating system of the object."""
         print("""Speech object initiated!'""")
 
         sound_effects = os.listdir(self.sound_effects_directory)
-        pattern = "*.wav"
+        pattern = "*" + self.sound_file_extension
+
         for entry in sound_effects:
             if fnmatch.fnmatch(entry, pattern):
                 self.sound_effects_file_names.append(entry)
 
         voice_files = os.listdir(self.voice_file_directory)
-        pattern = "*.wav"
         for entry in voice_files:
             if fnmatch.fnmatch(entry, pattern):
                 self.voice_file_file_names.append(entry)
@@ -59,10 +62,11 @@ class Speech:
         self.operating_system = platform
 
     def convert_to_file_name(self, text):
-        sentence = str(text).replace(" ","_")
-        my_punctuation = punctuation.replace("_","")
-        sentence = (sentence.translate(str.maketrans("", "", my_punctuation))).lower()
-        file_name = sentence + ".wav"
+        sentence = str(text).replace(" ", "_")
+        my_punctuation = punctuation.replace("_", "")
+        sentence = (sentence.translate(
+            str.maketrans("", "", my_punctuation))).lower()
+        file_name = sentence + self.sound_file_extension
         return (file_name)
 
     def say(self, text):
@@ -81,7 +85,20 @@ class Speech:
         if file_name in self.voice_file_file_names:
             voice_file_address = "{}/{}".format(
                 self.voice_file_directory, file_name)
-            playsound(voice_file_address)
+
+            if current_os == "linux" or current_os == "linux2":
+                pygame.mixer.init()
+                pygame.mixer.music.load(voice_file_address)
+                pygame.mixer.music.play()
+                while pygame.mixer.music.get_busy() == True:
+                    continue
+
+            elif current_os == "darwin":
+                # OS X (Macbook)
+                playsound(voice_file_address)
+            elif current_os == "win32":
+                # Windows...
+                print("Windows edition coming soon.")
 
         else:
             # sanitised_text = text.translate(

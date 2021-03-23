@@ -14,14 +14,13 @@ from src.lesson_content.lesson_3 import lesson_3_timeline
 from src.lesson_content.lesson_4 import lesson_4_timeline
 
 
-
 def main():
 
     # TODO: this option value should be entered by the user in the future
 
     interaction_module = Interaction(testing=False)
 
-    option = 6
+    option = 3
 
     # TRANSLATOR OPTION -> Translates entered dots to A-Z chars
     if option == 1:
