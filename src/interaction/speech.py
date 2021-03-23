@@ -30,16 +30,17 @@ class Speech:
 
     voice_file_directory = 'sounds/voice_files'
     voice_file_file_names = []
-    
+
     sound_file_extension = ".mp3"
 
     def __init__(self):
         """Sets the operating system of the object."""
         print("""Speech object initiated!'""")
 
-        sound_effects = os.listdir(self.sound_effects_directory)
+        # Finds all sound and voiceover files matching sound file extension
         pattern = "*" + self.sound_file_extension
 
+        sound_effects = os.listdir(self.sound_effects_directory)
         for entry in sound_effects:
             if fnmatch.fnmatch(entry, pattern):
                 self.sound_effects_file_names.append(entry)
@@ -48,16 +49,6 @@ class Speech:
         for entry in voice_files:
             if fnmatch.fnmatch(entry, pattern):
                 self.voice_file_file_names.append(entry)
-
-        print("Voice actor files:")
-        for name in self.voice_file_file_names:
-            print(name)
-        print()
-
-        print("Sound files:")
-        for name in self.sound_effects_file_names:
-            print(name)
-        print()
 
         self.operating_system = platform
 
@@ -83,10 +74,13 @@ class Speech:
         file_name = self.convert_to_file_name(text)
 
         if file_name in self.voice_file_file_names:
+            # If sound file available play it
+
             voice_file_address = "{}/{}".format(
                 self.voice_file_directory, file_name)
 
             if current_os == "linux" or current_os == "linux2":
+                # Raspberry Pi
                 pygame.mixer.init()
                 pygame.mixer.music.load(voice_file_address)
                 pygame.mixer.music.play()
@@ -101,8 +95,7 @@ class Speech:
                 print("Windows edition coming soon.")
 
         else:
-            # sanitised_text = text.translate(
-            #     str.maketrans('', '', string.punctuation))
+            # Narrating the passed text
             if current_os == "linux" or current_os == "linux2":
                 call([self.cmd_start+text+self.cmd_finish], shell=True)
             elif current_os == "darwin":
