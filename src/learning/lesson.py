@@ -255,3 +255,5 @@ class Lesson():
 
         self.graphical_user_interface.draw_dot_hash(
             asserted_answer, letter_to_learn)
+
+        self.speech.play_sound("correct")

@@ -60,6 +60,31 @@ class Speech:
         file_name = sentence + self.sound_file_extension
         return (file_name)
 
+    def play_sound(self, sound):
+        """Plays a sound effect."""
+        current_os = self.operating_system
+        sound_file_name = sound + self.sound_file_extension
+        if sound_file_name in self.sound_effects_file_names:
+            sound_file_address = "{}/{}".format(
+                self.sound_effects_directory, sound_file_name)
+
+            if current_os == "linux" or current_os == "linux2":
+                # Raspberry Pi
+                pygame.mixer.init()
+                pygame.mixer.music.load(sound_file_address)
+                pygame.mixer.music.play()
+                while pygame.mixer.music.get_busy() == True:
+                    continue
+
+            elif current_os == "darwin":
+                # OS X (Macbook)
+                playsound(sound_file_address)
+            elif current_os == "win32":
+                # Windows...
+                print("Windows edition coming soon.")
+        else:
+            print("Sound not available")
+
     def say(self, text):
         """This method says the text which is passed through the function.
 
