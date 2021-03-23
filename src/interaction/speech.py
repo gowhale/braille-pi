@@ -8,6 +8,7 @@ import string
 import os
 import fnmatch
 from playsound import playsound
+from string import punctuation
 
 
 class Speech:
@@ -57,7 +58,12 @@ class Speech:
 
         self.operating_system = platform
 
-        self.say("test_sound.wav")
+    def convert_to_file_name(self, text):
+        sentence = str(text).replace(" ","_")
+        my_punctuation = punctuation.replace("_","")
+        sentence = (sentence.translate(str.maketrans("", "", my_punctuation))).lower()
+        file_name = sentence + ".wav"
+        return (file_name)
 
     def say(self, text):
         """This method says the text which is passed through the function.
@@ -70,19 +76,21 @@ class Speech:
         current_os = self.operating_system
         text = text.replace(" ", "_")
 
-        if text in self.voice_file_file_names:
+        file_name = self.convert_to_file_name(text)
+
+        if file_name in self.voice_file_file_names:
             voice_file_address = "{}/{}".format(
-                self.voice_file_directory, text)
+                self.voice_file_directory, file_name)
             playsound(voice_file_address)
 
         else:
-            sanitised_text = text.translate(
-                str.maketrans('', '', string.punctuation))
+            # sanitised_text = text.translate(
+            #     str.maketrans('', '', string.punctuation))
             if current_os == "linux" or current_os == "linux2":
-                call([self.cmd_start+sanitised_text+self.cmd_finish], shell=True)
+                call([self.cmd_start+text+self.cmd_finish], shell=True)
             elif current_os == "darwin":
                 # OS X (Macbook)
-                system('say {}'.format(sanitised_text))
+                system('say {}'.format(text))
             elif current_os == "win32":
                 # Windows...
                 print("Windows edition coming soon.")

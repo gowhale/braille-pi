@@ -21,7 +21,7 @@ def main():
 
     interaction_module = Interaction(testing=False)
 
-    option = 9
+    option = 6
 
     # TRANSLATOR OPTION -> Translates entered dots to A-Z chars
     if option == 1:
