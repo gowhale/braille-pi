@@ -84,8 +84,6 @@ def main():
         learning_algorithm = LearningAlgorithm()
         learning_algorithm.process_results()
 
-        count_occurences = {}
-
         user_tailored_content = learning_algorithm.get_weighted_n_characters(
             amount_of_characters)
 
