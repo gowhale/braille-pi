@@ -112,6 +112,18 @@ def main():
                  simulations=None)
         q.start_quiz()
 
+    # Voice actor demonstration
+    # Currently Dot tutorial and Lesson 2 contains voice over
+    if option == 11:
+        Lesson(interaction_object=interaction_module,
+               content=lesson_0_tutorial,
+               test_content=None,
+               max_timeout=None)
+        Lesson(interaction_object=interaction_module,
+               content=lesson_2_timeline,
+               test_content=None,
+               max_timeout=None)
+
 
 if __name__ == "__main__":
     main()
