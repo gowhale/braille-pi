@@ -34,8 +34,8 @@ class LearningAlgorithm ():
 
     def print_result_map(self):
         """Prints the results map."""
-        for key, Value in self.results_map.items():
-            print(f"{key} : {Value}")
+        for key, value in self.results_map.items():
+            print(f"{key} : {value}")
 
     def get_all_file_names(self):
         """Gets all results files. Sets the objects value"""
