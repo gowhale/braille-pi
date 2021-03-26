@@ -74,6 +74,7 @@ class Interaction ():
         try:
             show_gui = True
             graphical_user_interface = Gui()
+
         except pygame.error:
             print("No gui available")
             show_gui = False
@@ -85,6 +86,7 @@ class Interaction ():
         self.show_gui = show_gui
         if show_gui:
             self.graphical_user_interface = graphical_user_interface
+            self.graphical_user_interface.show_welcome_screen()
 
         self.speech = speech
         self.braille_alphabet = braille_alphabet
