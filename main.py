@@ -7,6 +7,7 @@ from src.interaction.interaction_module import Interaction
 from src.learning.learning_algorithm import LearningAlgorithm
 
 # Lesson Content Imports
+from src.lesson_content.content_map import initial_menu
 from src.lesson_content.lesson_introduction import lesson_0_introduction
 from src.lesson_content.lesson_tutorial import lesson_0_tutorial
 from src.lesson_content.lesson_1 import lesson_1_timeline
@@ -24,10 +25,11 @@ def main():
     option = 5
 
     content_selection = ContentSelection(interaction_object=interaction_module,
-                                         possible_choices=[
-                                             "100000", "100000", "100000", "100000", "100000"],
+                                         possible_choices=initial_menu,
                                          test_content=None,
                                          max_timeout=None)
+
+    option = content_selection.get_choice()
 
     # TRANSLATOR OPTION -> Translates entered dots to A-Z chars
     if option == 1:

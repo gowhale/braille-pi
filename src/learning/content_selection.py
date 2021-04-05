@@ -3,7 +3,7 @@ import time
 
 class ContentSelection():
 
-    
+    chosen_option = -1
 
     def __init__(self, interaction_object, possible_choices, test_content, max_timeout):
 
@@ -40,16 +40,13 @@ class ContentSelection():
     def choose(self):
         print("CHOOSING")
 
+        self.speech.say("Please choose the content you wish to play.")
+
+        for dot_hash in self.possible_choices:
+            msg = self.possible_choices[dot_hash]["message"]
+            self.speech.say(msg)
 
         self.speech.say("Please choose the content you wish to play.")
-        # self.speech.say(
-        #     "To take part in the tutorial please raise only the top left dot.")
-        # self.speech.say(
-        #     "To take part in the lesson 2 A to J please raise only the top right dot.")
-        # self.speech.say(
-        #     "To take part in the lesson 3 K to T please raise only the bottum left dot.")
-        # self.speech.say(
-        #     "To take part in the lesson 4 U to Z please raise only the bottum left dot.")
 
         current_dots_hash = "INIT"
         asserted_answer = "Test"
@@ -78,13 +75,23 @@ class ContentSelection():
 
                 if self.show_gui:
                     self.graphical_user_interface.draw_dot_hash(
-                        current_dots_hash, "epic")
+                        current_dots_hash, "")
 
                 if self.max_timeout != None and (now - self.start_time) > self.max_timeout:
                     self.test_failed = True
                     current_dots_hash = asserted_answer
 
         self.graphical_user_interface.draw_dot_hash(
-            asserted_answer, "epic")
+            asserted_answer, "")
 
         self.speech.play_sound("correct")
+
+        option = self.possible_choices[current_dots_hash]["option"]
+        msg = self.possible_choices[current_dots_hash]["message"]
+        description = self.possible_choices[current_dots_hash]["description"]
+        text = "You have selected option {}. Or {}".format(option, msg)
+        self.speech.say(description)
+        self.chosen_option = option
+
+    def get_choice(self):
+        return self.chosen_option
