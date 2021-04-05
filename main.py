@@ -2,6 +2,7 @@
 from src.learning.translator import Translator
 from src.learning.lesson import Lesson
 from src.learning.quiz import Quiz
+from src.learning.content_selection import ContentSelection
 from src.interaction.interaction_module import Interaction
 from src.learning.learning_algorithm import LearningAlgorithm
 
@@ -21,6 +22,12 @@ def main():
     interaction_module = Interaction(testing=False)
 
     option = 5
+
+    content_selection = ContentSelection(interaction_object=interaction_module,
+                                         possible_choices=[
+                                             "100000", "100000", "100000", "100000", "100000"],
+                                         test_content=None,
+                                         max_timeout=None)
 
     # TRANSLATOR OPTION -> Translates entered dots to A-Z chars
     if option == 1:
