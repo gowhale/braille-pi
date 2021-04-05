@@ -87,9 +87,7 @@ class ContentSelection():
         self.speech.play_sound("correct")
 
         option = self.possible_choices[current_dots_hash]["option"]
-        msg = self.possible_choices[current_dots_hash]["message"]
         description = self.possible_choices[current_dots_hash]["description"]
-        text = "You have selected option {}. Or {}".format(option, msg)
         self.speech.say(description)
         self.chosen_option = option
 

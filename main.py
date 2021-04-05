@@ -22,8 +22,6 @@ def main():
 
     interaction_module = Interaction(testing=False)
 
-    option = 5
-
     content_selection = ContentSelection(interaction_object=interaction_module,
                                          possible_choices=initial_menu,
                                          test_content=None,
