@@ -83,8 +83,8 @@ class LearningAlgorithm ():
                 self.results_path, file_name)
 
             with open(current_log_file_path, newline='') as csvfile:
-                spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
-                for row in spamreader:
+                csv_reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+                for row in csv_reader:
                     self.results_as_list.append(row[0])
 
     def analyse_results(self):
