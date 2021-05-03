@@ -22,12 +22,13 @@ def main():
 
     interaction_module = Interaction(testing=False)
 
-    content_selection = ContentSelection(interaction_object=interaction_module,
-                                         possible_choices=initial_menu,
-                                         test_content=None,
-                                         max_timeout=None)
+    # content_selection = ContentSelection(interaction_object=interaction_module,
+    #                                      possible_choices=initial_menu,
+    #                                      test_content=None,
+    #                                      max_timeout=None)
 
-    option = content_selection.get_choice()
+    # option = content_selection.get_choice()
+    option = 12
 
     # TRANSLATOR OPTION -> Translates entered dots to A-Z chars
     if option == 1:
@@ -128,6 +129,23 @@ def main():
                content=lesson_2_timeline,
                test_content=None,
                max_timeout=None)
+
+    # User Testing Option
+    if option == 12:
+        Lesson(interaction_object=interaction_module,
+               content=lesson_0_tutorial,
+               test_content=None,
+               max_timeout=None)
+        Lesson(interaction_object=interaction_module,
+               content=lesson_2_timeline,
+               test_content=None,
+               max_timeout=None)
+        q = Quiz(interaction_object=interaction_module,
+                 content=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],
+                 time_until_hint=10,
+                 simulations=None)
+        q.start_quiz()
+                
 
 
 if __name__ == "__main__":
