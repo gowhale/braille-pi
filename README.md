@@ -30,6 +30,12 @@ The system will aim to be a small tool which could comfortably sit on a bookcase
 
 Finally, an aim for the project is to be tested every week with the teacher who is learning braille. This will mean that I have a user centric design and the sprints will be able to find bugs, and features to implement.
 
+## Software Prerequisite
+
+This project uses Python 3.8.5 this project also uses additional modules which need to be installed. To install the additional modules use the following command to install all needed modules:
+
+    pip3 install -r requirements.txt
+
 ## Sound Prerequisite
 
 The current code uses a module called espeak to sound out words. To install espeak run the following command in the terminal:
@@ -42,7 +48,7 @@ Please install the BDD test modules using the pip and the requirements document.
 
 Use the following command to install all needed modules:
 
-    pip install -r requirements.txt
+    pip3 install -r requirements.txt
 
 Once the requirements have been satisfied run the BDD tests by running the following command:
 
