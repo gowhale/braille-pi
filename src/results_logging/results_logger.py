@@ -11,7 +11,7 @@ from src.config import results_folder_name
 
 class ResultsLogger():
 
-    """The purpose of this class is to make a folder to store results.
+    """The purpose of this class is to make a folder to store results from character attempts.
 
     Attributes:
         results_log_directory   (String)    Address of the log directory.

@@ -1,3 +1,5 @@
+# Lesson 1 teaches the user the letter A to C
+
 lesson_1_timeline = {
     1: "Welcome the the ABC lesson. Your first lesson.",
     2: "Firstly, make sure all dots are lowered. An empty cell.",
