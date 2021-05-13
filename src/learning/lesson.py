@@ -91,6 +91,7 @@ class Lesson():
         self.show_gui = interaction_object.show_gui
         if interaction_object.show_gui:
             self.graphical_user_interface = interaction_object.graphical_user_interface
+            self.graphical_user_interface.show_welcome_screen()
 
         self.play()
 

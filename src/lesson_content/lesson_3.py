@@ -1,3 +1,5 @@
+# Lesson 3 teaches the user the letter K to T
+
 lesson_3_timeline = {
     1: "Welcome to lesson 3 where you will be taught the letters K to T in braille.",
     2: "The pattern of letters K to T is just like A to J however with dot 3 also high",

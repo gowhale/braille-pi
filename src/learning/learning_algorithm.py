@@ -34,8 +34,8 @@ class LearningAlgorithm ():
 
     def print_result_map(self):
         """Prints the results map."""
-        for key, Value in self.results_map.items():
-            print(f"{key} : {Value}")
+        for key, value in self.results_map.items():
+            print(f"{key} : {value}")
 
     def get_all_file_names(self):
         """Gets all results files. Sets the objects value"""
@@ -83,8 +83,8 @@ class LearningAlgorithm ():
                 self.results_path, file_name)
 
             with open(current_log_file_path, newline='') as csvfile:
-                spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
-                for row in spamreader:
+                csv_reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+                for row in csv_reader:
                     self.results_as_list.append(row[0])
 
     def analyse_results(self):
@@ -134,6 +134,7 @@ class LearningAlgorithm ():
         self.sucess_rates = val
 
     def get_worst_n_chars_elements(self, amount_of_characters):
+        """This method will return the worst 'n' amount of characters."""
 
         current_success_rates = self.get_sucess_rates()
 
@@ -143,6 +144,8 @@ class LearningAlgorithm ():
             return current_success_rates[-amount_of_characters:]
 
     def get_worst_n_characters(self, amount_of_characters):
+        """This method will return the worst 'n' amount of characters."""
+
         end_of_list = self.get_worst_n_chars_elements(amount_of_characters)
         characters_only = []
         for element in end_of_list:
@@ -151,6 +154,7 @@ class LearningAlgorithm ():
         return characters_only
 
     def get_weighted_n_characters(self, amount_of_characters):
+        """This method will select a certain amount of characters based on weighted probability."""
 
         all_success_rates = self.get_sucess_rates()
 
@@ -193,6 +197,7 @@ class LearningAlgorithm ():
             return []
 
     def process_results(self):
+        """This triggers main loop to process the results."""
         self.get_all_file_names()
         self.fetch_results()
         self.analyse_results()

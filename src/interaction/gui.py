@@ -1,6 +1,7 @@
 import pygame
 import sys
 from pygame.locals import QUIT
+from time import sleep
 
 
 class Gui ():
@@ -15,7 +16,7 @@ class Gui ():
         dot_border      (Int)       The thickness of the dot's border.
         dot_locations   (dict)      A dictionary of where each dot will be drawn.
     """
-
+    WHITE = (255, 255, 255)
     width = 500
     height = 400
     window_caption = "Braille Pi"
@@ -52,7 +53,6 @@ class Gui ():
     def __init__(self):
         """Initialises the GUI object."""
 
-        WHITE = (255, 255, 255)
 
         # Initates Screen
         pygame.init()
@@ -63,7 +63,7 @@ class Gui ():
         self.width = screen_info.current_w
         self.height = screen_info.current_h
         self.DISPLAY = pygame.display.set_mode((self.width, self.height))
-        self.DISPLAY.fill(WHITE)
+        self.DISPLAY.fill(self.WHITE)
 
         row_two = int(self.height / 2)
         row_one = int(row_two / 2)
@@ -88,6 +88,23 @@ class Gui ():
         self.dot_locations[5]["x"] = col_one
         self.dot_locations[6]["x"] = col_two
 
+    def show_welcome_screen(self):
+        self.DISPLAY.fill(self.WHITE)
+
+        font_size = int(self.height/4)
+        scale_text = pygame.font.Font('freesansbold.ttf', font_size)
+        text = "{}".format("Welcome!")
+        text_surface = scale_text.render(text, True, (0, 0, 0))
+        text_surface, text_rect = text_surface, text_surface.get_rect()
+        text_x = self.width/2
+        text_y = self.height/2
+        text_rect.center = (text_x, text_y)
+        self.DISPLAY.blit(text_surface, text_rect)
+
+        sleep(0.1)
+        self.update()
+        sleep(0.1)
+
     def update(self):
         """Updates the screen."""
         for event in pygame.event.get():
@@ -104,8 +121,7 @@ class Gui ():
             letter      (String) The letter which represents the dot.
         """
 
-        WHITE = (255, 255, 255)
-        self.DISPLAY.fill(WHITE)
+        self.DISPLAY.fill(self.WHITE)
 
         # Drawing the dots to the screen
         for index, dot in enumerate(dot_hash, start=1):

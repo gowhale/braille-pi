@@ -2,10 +2,12 @@
 from src.learning.translator import Translator
 from src.learning.lesson import Lesson
 from src.learning.quiz import Quiz
+from src.learning.content_selection import ContentSelection
 from src.interaction.interaction_module import Interaction
 from src.learning.learning_algorithm import LearningAlgorithm
 
 # Lesson Content Imports
+from src.lesson_content.content_map import initial_menu
 from src.lesson_content.lesson_introduction import lesson_0_introduction
 from src.lesson_content.lesson_tutorial import lesson_0_tutorial
 from src.lesson_content.lesson_1 import lesson_1_timeline
@@ -20,7 +22,15 @@ def main():
 
     interaction_module = Interaction(testing=False)
 
-    option = 3
+    # The below object lets the user select what they wish to do i.e. take a lesson or quiz
+    # For testing purposes it is best to comment this out and state the option value (Line 33)
+    content_selection = ContentSelection(interaction_object=interaction_module,
+                                         possible_choices=initial_menu,
+                                         test_content=None,
+                                         max_timeout=None)
+
+    option = content_selection.get_choice()
+    # option = 9            #Option Override
 
     # TRANSLATOR OPTION -> Translates entered dots to A-Z chars
     if option == 1:
@@ -69,12 +79,28 @@ def main():
                test_content=None,
                max_timeout=None)
 
-    # LESSON 4 -> U-W lesson.
+    # Quiz 3: K to T
+    if option == 10:
+        q = Quiz(interaction_object=interaction_module,
+                 content=list("klmnopqrst"),
+                 time_until_hint=5,
+                 simulations=None)
+        q.start_quiz()
+
+    # LESSON 4 -> U-Z lesson.
     if option == 8:
         Lesson(interaction_object=interaction_module,
                content=lesson_4_timeline,
                test_content=None,
                max_timeout=None)
+
+    # QUIZ 3 -> U-Z QUIZ.
+    if option == 15:
+        q = Quiz(interaction_object=interaction_module,
+                 content=[list("uvwxyz")],
+                 time_until_hint=10,
+                 simulations=None)
+        q.start_quiz()
 
     # QUIZ Using learning algorithm.
     if option == 9:
@@ -83,8 +109,6 @@ def main():
 
         learning_algorithm = LearningAlgorithm()
         learning_algorithm.process_results()
-
-        count_occurences = {}
 
         user_tailored_content = learning_algorithm.get_weighted_n_characters(
             amount_of_characters)
@@ -104,14 +128,35 @@ def main():
                      simulations=None)
             q.start_quiz()
 
-    # Quiz 3: K to T
-    if option == 10:
+    # Voice actor demonstration
+    # Currently Dot tutorial and Lesson 2 contains voice over
+    if option == 11:
+        Lesson(interaction_object=interaction_module,
+               content=lesson_0_tutorial,
+               test_content=None,
+               max_timeout=None)
+        Lesson(interaction_object=interaction_module,
+               content=lesson_2_timeline,
+               test_content=None,
+               max_timeout=None)
+
+    # User Testing Sequence Option
+    if option == 12:
+        Lesson(interaction_object=interaction_module,
+               content=lesson_0_tutorial,
+               test_content=None,
+               max_timeout=None)
+        Lesson(interaction_object=interaction_module,
+               content=lesson_2_timeline,
+               test_content=None,
+               max_timeout=None)
         q = Quiz(interaction_object=interaction_module,
-                 content=list("klmnopqrst"),
-                 time_until_hint=5,
+                 content=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],
+                 time_until_hint=10,
                  simulations=None)
         q.start_quiz()
 
 
+# Main loop starts
 if __name__ == "__main__":
     main()

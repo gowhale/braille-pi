@@ -1,3 +1,5 @@
+# Lesson 2 teaches the user the letter A to J
+
 lesson_2_timeline = {
     1: "Welcome to lesson 2 where you will be taught the letters A to J in braille.",
     2: "These combinations are the building blocks for all the other letters.",
@@ -23,7 +25,7 @@ lesson_2_timeline = {
     26: "Perfect. That is letter E.",
     27: "Up next is the letter F. The letter F is dot 1, 2 and 4. Try it now.",
     28: 12,
-    29: "Perfect. That is letter F.",
+    29: "Perfect. That is letter F.", 
     30: "Up next is the letter G. The letter G is dot 1, 2, 4 and 5. Try it now.",
     31: 13,
     32: "Perfect. That is letter G.",
@@ -36,5 +38,5 @@ lesson_2_timeline = {
     39: "Up next is the letter J. The letter J is dot 2, 4 and 5. Try it now.",
     40: 16,
     41: "Perfect. That is letter J.",
-    42: "You have now been shown the letters A to J. Try a quiz to see what ones you can remmeber.",
+    42: "You have now been shown the letters A to J. Try a quiz to see what ones you can remember.",
 }
