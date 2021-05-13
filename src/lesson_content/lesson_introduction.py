@@ -1,3 +1,5 @@
+# Lesson 0 gives the user an introduction to the system
+
 lesson_0_introduction = {
     1: "Welcome to the Braille-Pi!",
     2: "Braille changes lives. It gives thousands of people independence, learning, literacy, and the enjoyment of reading. Braille opens doors, and gives hope and inspiration.",

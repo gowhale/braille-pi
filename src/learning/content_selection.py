@@ -2,7 +2,17 @@ import time
 
 
 class ContentSelection():
+    """ 
+    This class is used to start enable the use to select content using the 6 dots.
 
+    Extended description of function. 
+
+    Attributes: 
+        interaction_object  (Interaction): The interaction object which tells the system how the user will interact.
+        possible_choices    (dict): This varibale dictates the choices a user can make.
+        test_content        (dict): This parameter dictates whether simulated events will be executed.
+        max_timeout         (int): This is the maximum amount of seconds before the lesson is terminated.
+    """
     chosen_option = -1
 
     def __init__(self, interaction_object, possible_choices, test_content, max_timeout):
@@ -38,7 +48,7 @@ class ContentSelection():
         self.choose()
 
     def choose(self):
-        print("CHOOSING")
+        """This method starts process of choosing a choice."""
 
         self.speech.say("Please choose the content you wish to play.")
 
@@ -54,7 +64,8 @@ class ContentSelection():
         now = time.time()
         self.start_time = now
         self.previous_time = now
-        print(current_dots_hash != asserted_answer)
+        
+        # while loop until a possible choice is selected.
         while current_dots_hash not in self.possible_choices:
             now = time.time()
             difference = float(now-self.previous_time)
@@ -92,4 +103,5 @@ class ContentSelection():
         self.chosen_option = option
 
     def get_choice(self):
+        """Returns the value of the chosen option"""
         return self.chosen_option

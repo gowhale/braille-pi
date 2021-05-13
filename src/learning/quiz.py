@@ -113,6 +113,7 @@ class Quiz():
                 self.simulate_events()
 
                 if self.time_since_start > self.time_until_hint:
+                    self.speech.play_sound("incorrect")
                     self.reveal_answer(asserted_answer, fetched_letter)
                     now = time.time()
                     self.start_time = now
@@ -132,6 +133,8 @@ class Quiz():
 
         self.graphical_user_interface.draw_dot_hash(
             asserted_answer, letter_to_learn)
+
+        self.speech.play_sound("correct")
 
         self.speech.say(
             "Congratulations that is the correct answer for letter {}".format(fetched_letter))

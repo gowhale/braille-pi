@@ -1,3 +1,5 @@
+# This lesson helps the user get familiar with the system.
+
 lesson_0_tutorial = {
     1: "To get you familiar with the six dots we will go through a tutorial where we will press them one by one.",
     2: "Firstly, make sure all the dots have been pushed down. This is known as an empty cell.",

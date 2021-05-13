@@ -1,5 +1,9 @@
+# File Description: This unit test ensures that the Learning Algorithm is performing as expected
+
 from src.learning.learning_algorithm import LearningAlgorithm
 from statistics import mean
+
+AMOUNT_OF_SIMULATIONS = 100
 
 
 def test_learning_algorithm_results_map():
@@ -348,7 +352,7 @@ def test_quiz_selection_when_weakness_is_vowels():
 
     count_occurences = {}
 
-    amount_of_tests = 10_000
+    amount_of_tests = AMOUNT_OF_SIMULATIONS
 
     for _ in range(amount_of_tests):
         choices = learning_algorithm.get_weighted_n_characters(
@@ -421,7 +425,7 @@ def test_quiz_selection_when_weakness_is_consonants():
 
     count_occurences = {}
 
-    amount_of_tests = 10_000
+    amount_of_tests = AMOUNT_OF_SIMULATIONS
 
     for _ in range(amount_of_tests):
         choices = learning_algorithm.get_weighted_n_characters(
@@ -494,7 +498,7 @@ def test_quiz_selection_when_weakness_is_vowels():
 
     count_occurences = {}
 
-    amount_of_tests = 10_000
+    amount_of_tests = AMOUNT_OF_SIMULATIONS
 
     for _ in range(amount_of_tests):
         choices = learning_algorithm.get_weighted_n_characters(
@@ -567,7 +571,7 @@ def test_quiz_selection_when_weakness_is_letter_a():
 
     count_occurences = {}
 
-    amount_of_tests = 10_000
+    amount_of_tests = AMOUNT_OF_SIMULATIONS
 
     for _ in range(amount_of_tests):
         choices = learning_algorithm.get_weighted_n_characters(
