@@ -6,7 +6,7 @@ Welcome to Braille-Pi's code!
 
 In this repository you will find all of the code and insfrastucture scripts needed to set up a Braille-Pi.
 
-The main aim of the Braille-Pi is to help people learn Braille. More aims and objectives found below...
+The main aim of the Braille-Pi is to help people learn Braille. Currently, the system teaches characters A-Z.
 
 ## How to run the code?
 
@@ -30,7 +30,13 @@ The system will aim to be a small tool which could comfortably sit on a bookcase
 
 Finally, an aim for the project is to be tested every week with the teacher who is learning braille. This will mean that I have a user centric design and the sprints will be able to find bugs, and features to implement.
 
-## Software Prerequisite
+## Hardware Prerequisites
+
+This code works best on a Raspberry Pi 3 Model A+ running the Raspian OS. To add to that 6 switches should be attached to the Raspberry Pi's GPIO pins like so:
+
+
+
+## Software Prerequisites
 
 This project uses Python 3.8.5 this project also uses additional modules which need to be installed. To install the additional modules use the following command to install all needed modules:
 
@@ -38,7 +44,7 @@ This project uses Python 3.8.5 this project also uses additional modules which n
 
 ## Sound Prerequisite
 
-The current code uses a module called espeak to sound out words. To install espeak run the following command in the terminal:
+The current code uses a module called espeak to sound out words on the Raspberry Pi. To install espeak run the following command in the terminal:
 
     sudo apt-get install espeak
 
@@ -50,6 +56,8 @@ Use the following command to install all needed modules:
 
     pip3 install -r requirements.txt
 
+## Executing The Tests
+
 Once the requirements have been satisfied run the BDD tests by running the following command:
 
     behave
@@ -57,4 +65,12 @@ Once the requirements have been satisfied run the BDD tests by running the follo
 To run unit tests run the command:
 
     pytest
+
+## Future Works
+
+ - More Lessons and Quizzes
+ - More testing with users
+ - More BDD and Unit Tests
+ - Improvements on the Learning Algorithm
+ - Actioning of Tech Debts
 
