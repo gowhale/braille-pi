@@ -1,4 +1,9 @@
 initial_menu = {
+    "001000": {
+        "option": 12,
+        "message": "To start the User Testing Sequence please raise only the left middle dot.",
+        "description": "Starting the User Testing Sequence."
+    },
     "100000": {
         "option": 3,
         "message": "To take part in the tutorial please raise only the top left dot.",
