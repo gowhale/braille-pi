@@ -34,7 +34,17 @@ Finally, an aim for the project is to be tested every week with the teacher who 
 
 This code works best on a Raspberry Pi 3 Model A+ running the Raspian OS. To add to that 6 switches should be attached to the Raspberry Pi's GPIO pins like so:
 
+### Circuit Diagram
 
+<img width="620" alt="Circuit Diagram" src="https://user-images.githubusercontent.com/32711718/118108676-30533780-b3d8-11eb-91a8-7e704b75cff5.png">
+
+### Wiring 
+
+<img width="620" alt="Wiring" src="https://user-images.githubusercontent.com/32711718/118108749-47922500-b3d8-11eb-9f91-c3923b6ef4a0.png">
+
+### Bird's Eye View
+
+<img width="620" alt="Buttons" src="https://user-images.githubusercontent.com/32711718/118108807-57116e00-b3d8-11eb-96da-4160f51bfd02.png">
 
 ## Software Prerequisites
 
