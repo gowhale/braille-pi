@@ -24,13 +24,13 @@ def main():
 
     # The below object lets the user select what they wish to do i.e. take a lesson or quiz
     # For testing purposes it is best to comment this out and state the option value (Line 33)
-    content_selection = ContentSelection(interaction_object=interaction_module,
-                                         possible_choices=initial_menu,
-                                         test_content=None,
-                                         max_timeout=None)
+    # content_selection = ContentSelection(interaction_object=interaction_module,
+    #                                      possible_choices=initial_menu,
+    #                                      test_content=None,
+    #                                      max_timeout=None)
 
-    option = content_selection.get_choice()
-    # option = 9            #Option Override
+    # option = content_selection.get_choice()
+    option = 12            #Option Override
 
     # TRANSLATOR OPTION -> Translates entered dots to A-Z chars
     if option == 1:
