@@ -53,7 +53,6 @@ class Gui ():
     def __init__(self):
         """Initialises the GUI object."""
 
-
         # Initates Screen
         pygame.init()
         screen_info = (pygame.display.Info())
@@ -126,13 +125,29 @@ class Gui ():
         # Drawing the dots to the screen
         for index, dot in enumerate(dot_hash, start=1):
             try:
+
                 BLACK = (0, 0, 0)
+                YELLOW = (247, 211, 92)
+                GREEN = (76, 167, 78)
+                RED = (200, 50, 32)
+                WHITE = (191, 64, 191) # RGB code is for purple,
+                BLUE = (56, 139, 224)
+
+                dot_colour_scheme = {
+                    1: BLUE,
+                    2: RED,
+                    3: WHITE,
+                    4: GREEN,
+                    5: BLACK,
+                    6: YELLOW,
+                }
+
                 if dot == "0":
                     pygame.draw.circle(
-                        self.DISPLAY, BLACK, (self.dot_locations[index]["x"], self.dot_locations[index]["y"]), self.dot_radius, self.dot_border)
+                        self.DISPLAY, dot_colour_scheme[index], (self.dot_locations[index]["x"], self.dot_locations[index]["y"]), self.dot_radius, self.dot_border)
                 elif dot == "1":
                     pygame.draw.circle(
-                        self.DISPLAY, BLACK, (self.dot_locations[index]["x"], self.dot_locations[index]["y"]), self.dot_radius, self.dot_radius)
+                        self.DISPLAY, dot_colour_scheme[index], (self.dot_locations[index]["x"], self.dot_locations[index]["y"]), self.dot_radius, self.dot_radius)
 
             except KeyError:
                 print("Key Error")
