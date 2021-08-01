@@ -156,7 +156,7 @@ class Gui ():
         font_size = int(self.height/2)
         scale_text = pygame.font.Font('freesansbold.ttf', font_size)
         current_temp = letter.upper()
-        text = "{}".format(current_temp)
+        text = "{}".format(current_temp).lower()
         text_surface = scale_text.render(text, True, (0, 0, 0))
         text_surface, text_rect = text_surface, text_surface.get_rect()
         text_x = self.width/4*3
