@@ -64,7 +64,9 @@ def step_impl(context):
     }
 
     context.lesson = Lesson(context.interaction_module,
-                            test_content, simulated_input, max_timeout=20)
+                            test_content, simulated_input, max_timeout=20,
+                            time_until_hint=40
+                            )
 
 
 @when(u'An K-T lesson is completed correctly')
@@ -121,7 +123,8 @@ def step_impl(context):
     }
 
     context.lesson = Lesson(context.interaction_module,
-                            test_content, simulated_input, max_timeout=20)
+                            test_content, simulated_input, max_timeout=20,
+                            time_until_hint=40)
 
 @when(u'An U-Z lesson is completed correctly')
 def step_impl(context):
@@ -162,7 +165,8 @@ def step_impl(context):
     }
 
     context.lesson = Lesson(context.interaction_module,
-                            test_content, simulated_input, max_timeout=20)
+                            test_content, simulated_input, max_timeout=20,
+                            time_until_hint=40)
 
 
 @when(u'Lesson 0 completed correctly')
@@ -203,7 +207,8 @@ def step_impl(context):
     }
 
     context.lesson = Lesson(context.interaction_module,
-                            test_content, simulated_input, max_timeout=60)
+                            test_content, simulated_input, max_timeout=60,
+                            time_until_hint=80)
 
 
 @when(u'An A-C lesson is completed correctly')
@@ -232,7 +237,8 @@ def step_impl(context):
     }
 
     context.lesson = Lesson(context.interaction_module,
-                            test_content, simulated_input, max_timeout=60)
+                            test_content, simulated_input, max_timeout=60,
+                            time_until_hint=90)
 
 
 @then(u'The lesson is completed succesfully')
