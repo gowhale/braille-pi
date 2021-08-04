@@ -134,12 +134,12 @@ class Gui ():
                 BLUE = (56, 139, 224)
 
                 dot_colour_scheme = {
-                    1: BLUE,
-                    2: RED,
-                    3: WHITE,
-                    4: GREEN,
+                    4: BLUE,
+                    3: RED,
+                    2: WHITE,
+                    6: GREEN,
                     5: BLACK,
-                    6: YELLOW,
+                    1: YELLOW,
                 }
 
                 if dot == "0":
