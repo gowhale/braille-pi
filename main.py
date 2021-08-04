@@ -24,13 +24,13 @@ def main():
 
     # The below object lets the user select what they wish to do i.e. take a lesson or quiz
     # For testing purposes it is best to comment this out and state the option value (Line 33)
-    content_selection = ContentSelection(interaction_object=interaction_module,
-                                         possible_choices=initial_menu,
-                                         test_content=None,
-                                         max_timeout=None)
+    # content_selection = ContentSelection(interaction_object=interaction_module,
+    #                                      possible_choices=initial_menu,
+    #                                      test_content=None,
+    #                                      max_timeout=None)
 
-    option = content_selection.get_choice()
-    # option = 9            #Option Override
+    # option = content_selection.get_choice()
+    option = 5  # Option Override
 
     # TRANSLATOR OPTION -> Translates entered dots to A-Z chars
     if option == 1:
@@ -41,28 +41,32 @@ def main():
         Lesson(interaction_object=interaction_module,
                content=lesson_0_introduction,
                test_content=None,
-               max_timeout=None)
+               max_timeout=None,
+               time_until_hint=20)
 
     # TUTORIAL -> Goes through each dot
     if option == 3:
         Lesson(interaction_object=interaction_module,
                content=lesson_0_tutorial,
                test_content=None,
-               max_timeout=None)
+               max_timeout=None,
+               time_until_hint=20)
 
     # LESSON 1 -> A, B. C's in braille
     if option == 4:
         Lesson(interaction_object=interaction_module,
                content=lesson_1_timeline,
                test_content=None,
-               max_timeout=None)
+               max_timeout=None,
+               time_until_hint=20)
 
     # LESSON 2 -> A-J lesson. These characters are the building blocks of braille
     if option == 5:
         Lesson(interaction_object=interaction_module,
                content=lesson_2_timeline,
                test_content=None,
-               max_timeout=None)
+               max_timeout=None,
+               time_until_hint=20)
 
     # QUIZ 2 -> A-J QUIZ.
     if option == 6:
@@ -77,7 +81,8 @@ def main():
         Lesson(interaction_object=interaction_module,
                content=lesson_3_timeline,
                test_content=None,
-               max_timeout=None)
+               max_timeout=None,
+               time_until_hint=20)
 
     # Quiz 3: K to T
     if option == 10:
@@ -92,7 +97,8 @@ def main():
         Lesson(interaction_object=interaction_module,
                content=lesson_4_timeline,
                test_content=None,
-               max_timeout=None)
+               max_timeout=None,
+               time_until_hint=20)
 
     # QUIZ 3 -> U-Z QUIZ.
     if option == 15:
@@ -134,22 +140,26 @@ def main():
         Lesson(interaction_object=interaction_module,
                content=lesson_0_tutorial,
                test_content=None,
-               max_timeout=None)
+               max_timeout=None,
+               time_until_hint=20)
         Lesson(interaction_object=interaction_module,
                content=lesson_2_timeline,
                test_content=None,
-               max_timeout=None)
+               max_timeout=None,
+               time_until_hint=20)
 
     # User Testing Sequence Option
     if option == 12:
         Lesson(interaction_object=interaction_module,
                content=lesson_0_tutorial,
                test_content=None,
-               max_timeout=None)
+               max_timeout=None,
+               time_until_hint=20)
         Lesson(interaction_object=interaction_module,
                content=lesson_2_timeline,
                test_content=None,
-               max_timeout=None)
+               max_timeout=None,
+               time_until_hint=20)
         q = Quiz(interaction_object=interaction_module,
                  content=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],
                  time_until_hint=10,
