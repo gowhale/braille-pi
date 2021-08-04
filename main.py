@@ -1,3 +1,6 @@
+# Additional modules
+import random
+
 # Functional Imports
 from src.learning.translator import Translator
 from src.learning.lesson import Lesson
@@ -30,7 +33,7 @@ def main():
     #                                      max_timeout=None)
 
     # option = content_selection.get_choice()
-    option = 5  # Option Override
+    option = 12  # Option Override
 
     # TRANSLATOR OPTION -> Translates entered dots to A-Z chars
     if option == 1:
@@ -155,6 +158,13 @@ def main():
                test_content=None,
                max_timeout=None,
                time_until_hint=20)
+        quiz_content = ["Dot 1", "Dot 2", "Dot 3", "Dot 4", "Dot 5", "Dot 6", ]
+        random.shuffle(quiz_content)
+        q = Quiz(interaction_object=interaction_module,
+                 content=quiz_content,
+                 time_until_hint=10,
+                 simulations=None)
+        q.start_quiz()
         Lesson(interaction_object=interaction_module,
                content=lesson_2_timeline,
                test_content=None,
@@ -162,6 +172,25 @@ def main():
                time_until_hint=20)
         q = Quiz(interaction_object=interaction_module,
                  content=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],
+                 time_until_hint=10,
+                 simulations=None)
+        q.start_quiz()
+
+    # QUIZ 4 -> SEQUENTIAL Quiz on dots.
+    if option == 16:
+        quiz_content = ["Dot 1", "Dot 2", "Dot 3", "Dot 4", "Dot 5", "Dot 6", ]
+        q = Quiz(interaction_object=interaction_module,
+                 content=quiz_content,
+                 time_until_hint=10,
+                 simulations=None)
+        q.start_quiz()
+
+    # QUIZ 5 -> RANDOM Quiz on dots.
+    if option == 17:
+        quiz_content = ["Dot 1", "Dot 2", "Dot 3", "Dot 4", "Dot 5", "Dot 6", ]
+        random.shuffle(quiz_content)
+        q = Quiz(interaction_object=interaction_module,
+                 content=quiz_content,
                  time_until_hint=10,
                  simulations=None)
         q.start_quiz()
