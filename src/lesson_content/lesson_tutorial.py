@@ -29,5 +29,5 @@ lesson_0_tutorial = {
     26: 1,
     27: "Well done thats the one. Last but not least is is dot 6. Dot 6 is located at the bottum right of the cell.",
     28: 7,
-    29: "YOU DID IT. Your first braille lesson. Congratulations.",
+    29: "YOU DID IT. Your first braille lesson. Congratulations. Now a quick quiz to see what you can remember. no pressure.",
 }
