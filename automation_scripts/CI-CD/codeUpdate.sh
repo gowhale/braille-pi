@@ -1,4 +1,8 @@
-rm -Rf ---DIRECTORY WHERE CODE WILL BE SAVED---
-git clone ---REPO TO CLONE--- ---DIRECTORY WHERE CODE WILL BE SAVED---
-cd ---DIRECTORY WHERE CODE WILL BE SAVED---
-git checkout ---WANTED BRANCH---
+codeDirectory="Desktop/braille-pi"
+branch="dev"
+repoLink="https://github.com/gowhale/braille-pi.git"
+
+rm -Rf $codeDirectory
+git clone $repoLink $codeDirectory
+cd $codeDirectory
+git checkout $branch
