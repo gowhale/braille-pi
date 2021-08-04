@@ -226,7 +226,7 @@ class Lesson():
             asserted_answer (String) the braille code for the correct answer.
             fetched_letter  (String) the letter for the braille code."""
 
-        self.start_time = time.time()
+        self.activity_start_time = time.time()
         current_dots_hash = "INIT"
         letter_to_learn = fetched_letter + "?"
 
@@ -238,13 +238,13 @@ class Lesson():
                 # print(current_dots_hash)
                 now = time.time()
                 self.previous_time = now
-                self.time_since_start = float(now-self.start_time)
+                self.time_since_start_of_activity = float(now-self.activity_start_time)
 
-                if self.time_since_start > self.time_until_hint:
+                if self.time_since_start_of_activity > self.time_until_hint:
                     self.speech.play_sound("incorrect")
                     self.reveal_answer(asserted_answer, fetched_letter)
                     now = time.time()
-                    self.start_time = now
+                    self.activity_start_time = now
 
                 if self.using_raspberry_pi:
                     # Get dot hash from pins
@@ -303,4 +303,4 @@ class Lesson():
             self.speech.say("and Dot {}".format(dots_to_say[-1]))
 
         reveal_duration = float(time.time() - reveal_start_time)
-        self.start_time = self.start_time - reveal_duration
+        self.activity_start_time = self.activity_start_time - reveal_duration
