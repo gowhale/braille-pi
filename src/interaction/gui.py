@@ -130,7 +130,7 @@ class Gui ():
                 YELLOW = (247, 211, 92)
                 GREEN = (76, 167, 78)
                 RED = (200, 50, 32)
-                WHITE = (191, 64, 191) # RGB code is for purple,
+                WHITE = (191, 64, 191)  # RGB code is for purple,
                 BLUE = (56, 139, 224)
 
                 dot_colour_scheme = {
@@ -154,6 +154,10 @@ class Gui ():
 
         # Drawing the letter to the screen.
         font_size = int(self.height/2)
+
+        if len(letter) > 2:
+            font_size = int(font_size/len(letter)*3)
+
         scale_text = pygame.font.Font('freesansbold.ttf', font_size)
         current_temp = letter.upper()
         text = "{}".format(current_temp).lower()

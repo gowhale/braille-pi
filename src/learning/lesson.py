@@ -275,32 +275,38 @@ class Lesson():
         dots_to_say = []
 
         self.speech.say("You were so close.")
-        self.speech.say(
-            "The letter {} goes by the following dot combination".format(letter))
 
-        remap_hash = {
-            1: 1,
-            2: 4,
-            3: 2,
-            4: 5,
-            5: 3,
-            6: 6,
-        }
+        
+        if letter in self.braille_alphabet.custom_hints.keys():
+            self.speech.say(self.braille_alphabet.custom_hints[letter])
+        else:
 
-        # Iterates throught dothas and converts to dothash i.e. 100000 -> Dot 1
-        for index, dot in enumerate(answer, start=1):
-            if dot == "1":
-                dots_to_say.append(remap_hash[index])
+            self.speech.say(
+                "{} goes by the following dot combination".format(letter))
 
-        dots_to_say = sorted(dots_to_say)
+            remap_hash = {
+                1: 1,
+                2: 4,
+                3: 2,
+                4: 5,
+                5: 3,
+                6: 6,
+            }
 
-        if len(dots_to_say) == 1:
-            self.speech.say("Dot {}".format(dots_to_say[0]))
+            # Iterates throught dothas and converts to dothash i.e. 100000 -> Dot 1
+            for index, dot in enumerate(answer, start=1):
+                if dot == "1":
+                    dots_to_say.append(remap_hash[index])
 
-        elif len(dots_to_say) > 1:
-            for dot in dots_to_say[:-1]:
-                self.speech.say("Dot {}".format(dot))
-            self.speech.say("and Dot {}".format(dots_to_say[-1]))
+            dots_to_say = sorted(dots_to_say)
+
+            if len(dots_to_say) == 1:
+                self.speech.say("Dot {}".format(dots_to_say[0]))
+
+            elif len(dots_to_say) > 1:
+                for dot in dots_to_say[:-1]:
+                    self.speech.say("Dot {}".format(dot))
+                self.speech.say("and Dot {}".format(dots_to_say[-1]))
 
         reveal_duration = float(time.time() - reveal_start_time)
         self.activity_start_time = self.activity_start_time - reveal_duration

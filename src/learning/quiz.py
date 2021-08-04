@@ -30,6 +30,12 @@ class Quiz():
     correct_characters = []
     test_failed = False
     results_logger = ResultsLogger()
+    encouraging_phrases = ["So close",
+                           "Unlucky you are getting there",
+                           "Better luck next time",
+                           "Almost",
+                           "Let us try again",
+                           "I am afraid thats not quite right"]
 
     def __init__(self, interaction_object, content, time_until_hint, simulations):
         """The constructor for the Quiz class.
@@ -96,7 +102,7 @@ class Quiz():
             fetched_letter  (String) the letter for the braille code."""
 
         self.speech.say(
-            "Enter the combination for the character {}".format(fetched_letter))
+            "Enter the combination for {}".format(fetched_letter))
 
         self.start_time = time.time()
         current_dots_hash = "INIT"
@@ -137,7 +143,7 @@ class Quiz():
         self.speech.play_sound("correct")
 
         self.speech.say(
-            "Congratulations that is the correct answer for letter {}".format(fetched_letter))
+            "Congratulations that is the correct answer for {}".format(fetched_letter))
 
         if fetched_letter not in self.incorrect_characters:
             self.correct_characters.append(fetched_letter)
@@ -149,33 +155,40 @@ class Quiz():
         reveal_start_time = time.time()
         dots_to_say = []
 
-        self.speech.say("You were so close.")
-        self.speech.say(
-            "The letter {} goes by the following dot combination".format(letter))
+        encouragement_string = random.choice(self.encouraging_phrases)
 
-        remap_hash = {
-            1: 1,
-            2: 4,
-            3: 2,
-            4: 5,
-            5: 3,
-            6: 6,
-        }
+        self.speech.say(encouragement_string)
 
-        # Iterates throught dothas and converts to dothash i.e. 100000 -> Dot 1
-        for index, dot in enumerate(answer, start=1):
-            if dot == "1":
-                dots_to_say.append(remap_hash[index])
+        if letter in self.braille_alphabet.custom_hints.keys():
+            self.speech.say(self.braille_alphabet.custom_hints[letter])
+        else:
 
-        dots_to_say = sorted(dots_to_say)
+            self.speech.say(
+                "{} goes by the following dot combination".format(letter))
 
-        if len(dots_to_say) == 1:
-            self.speech.say("Dot {}".format(dots_to_say[0]))
+            remap_hash = {
+                1: 1,
+                2: 4,
+                3: 2,
+                4: 5,
+                5: 3,
+                6: 6,
+            }
 
-        elif len(dots_to_say) > 1:
-            for dot in dots_to_say[:-1]:
-                self.speech.say("Dot {}".format(dot))
-            self.speech.say("and Dot {}".format(dots_to_say[-1]))
+            # Iterates throught dothas and converts to dothash i.e. 100000 -> Dot 1
+            for index, dot in enumerate(answer, start=1):
+                if dot == "1":
+                    dots_to_say.append(remap_hash[index])
+
+            dots_to_say = sorted(dots_to_say)
+
+            if len(dots_to_say) == 1:
+                self.speech.say("Dot {}".format(dots_to_say[0]))
+
+            elif len(dots_to_say) > 1:
+                for dot in dots_to_say[:-1]:
+                    self.speech.say("Dot {}".format(dot))
+                self.speech.say("and Dot {}".format(dots_to_say[-1]))
 
         reveal_duration = float(time.time() - reveal_start_time)
         self.start_time = self.start_time - reveal_duration
@@ -210,4 +223,5 @@ class Quiz():
     def log_results(self):
         print("CORRECT answers: {}".format(self.correct_characters))
         print("WRONG answers: {}".format(self.incorrect_characters))
-        self.results_logger.log_results(correct_answers=self.correct_characters, wrong_answers=self.incorrect_characters)
+        self.results_logger.log_results(
+            correct_answers=self.correct_characters, wrong_answers=self.incorrect_characters)

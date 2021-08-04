@@ -33,7 +33,24 @@ class Alphabet ():
         "x": "110011",
         "y": "110111",
         "z": "100111",
+        "Dot 1": "100000",
+        "Dot 2": "001000",
+        "Dot 3": "000010",
+        "Dot 4": "010000",
+        "Dot 5": "000100",
+        "Dot 6": "000001",
     }
+
+    custom_hints = {
+        "Dot 1": "Raise the left top dot only",
+        "Dot 2": "Raise the left middle dot only",
+        "Dot 3": "Raise the left bottum dot only",
+        "Dot 4": "Raise the right top dot only",
+        "Dot 5": "Raise the right middle dot only",
+        "Dot 6": "Raise the rigth bottum dot only",
+        "_": "Please make sure all dots are flat with the board or lowered"
+    }
+
 
     def __init__(self):
         """Initialises the Alphabet Object to have the inverse of the braille alphabet.
