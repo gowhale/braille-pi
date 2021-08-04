@@ -83,15 +83,15 @@ class LearningAlgorithm ():
                 self.results_path, file_name)
 
             with open(current_log_file_path, newline='') as csvfile:
-                csv_reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+                csv_reader = csv.reader(csvfile, delimiter=',', quotechar='|')
                 for row in csv_reader:
-                    self.results_as_list.append(row[0])
+                    self.results_as_list.append(row)
 
     def analyse_results(self):
         """Analyses the fetched results."""
         for index, row in enumerate(self.results_as_list, start=1):
             if index > 1:
-                current_row = row.split(",")
+                current_row = row
                 char = current_row[2]
                 result = current_row[3]
                 self.update_results_map(char=char, result=result)
