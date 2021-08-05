@@ -30,7 +30,7 @@ class Quiz(LearningTool):
     correct_characters = []
     results_logger = ResultsLogger()
 
-    def __init__(self, interaction_object, content, time_until_hint, simulations):
+    def __init__(self, interaction_object, content, time_until_hint=20, simulations=None):
         """The constructor for the Quiz class.
 
         Parameters: 
@@ -40,10 +40,9 @@ class Quiz(LearningTool):
             time_until_hint    (int):          The amount of seconds until a hint is given"""
 
         super(Quiz, self).__init__(
-            interaction_object, time_until_hint)
+            interaction_object, time_until_hint, simulations)
 
         # Initialisation of quiz varibales
-        self.simulations_to_go = simulations
         self.quiz_start_time = time.time()
         self.quiz_characters = content
 

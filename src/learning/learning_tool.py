@@ -14,11 +14,11 @@ class LearningTool():
                            "Let us try again",
                            "I am afraid thats not quite right"]
 
-    def __init__(self, interaction_object, time_until_hint):
+    def __init__(self, interaction_object, time_until_hint, simulations):
         """Initialised essential things need for both a lesson or quiz"""
-        
+
         self.time_until_hint = time_until_hint
-        
+
         # Initialisation of interaction elementes
         self.speech = interaction_object.speech
         self.using_raspberry_pi = interaction_object.using_raspberry_pi
@@ -39,6 +39,7 @@ class LearningTool():
         # Test varibales
         self.test_failed = False
         self.simulations_executed = []
+        self.simulations_to_go = simulations
 
         self.tool_start_time = time.time()
 

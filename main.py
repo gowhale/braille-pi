@@ -44,7 +44,7 @@ def main():
     if option == 2:
         Lesson(interaction_object=interaction_module,
                content=lesson_0_introduction,
-               test_content=None,
+               simulations=None,
                max_timeout=None,
                time_until_hint=20)
 
@@ -142,39 +142,23 @@ def main():
     # Currently Dot tutorial and Lesson 2 contains voice over
     if option == 11:
         Lesson(interaction_object=interaction_module,
-               content=lesson_0_tutorial,
-               test_content=None,
-               max_timeout=None,
-               time_until_hint=20)
+               content=lesson_0_tutorial,)
         Lesson(interaction_object=interaction_module,
-               content=lesson_2_timeline,
-               test_content=None,
-               max_timeout=None,
-               time_until_hint=20)
+               content=lesson_2_timeline,)
 
     # User Testing Sequence Option
     if option == 12:
         Lesson(interaction_object=interaction_module,
-               content=lesson_0_tutorial,
-               test_content=None,
-               max_timeout=None,
-               time_until_hint=20)
+               content=lesson_0_tutorial)
         quiz_content = ["Dot 1", "Dot 2", "Dot 3", "Dot 4", "Dot 5", "Dot 6", ]
         random.shuffle(quiz_content)
         q = Quiz(interaction_object=interaction_module,
-                 content=quiz_content,
-                 time_until_hint=10,
-                 simulations=None)
+                 content=quiz_content)
         q.start_quiz()
         Lesson(interaction_object=interaction_module,
-               content=lesson_2_timeline,
-               test_content=None,
-               max_timeout=None,
-               time_until_hint=20)
+               content=lesson_2_timeline)
         q = Quiz(interaction_object=interaction_module,
-                 content=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],
-                 time_until_hint=10,
-                 simulations=None)
+                 content=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"])
         q.start_quiz()
 
     # QUIZ 4 -> SEQUENTIAL Quiz on dots.

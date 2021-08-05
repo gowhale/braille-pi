@@ -8,7 +8,6 @@ def test_learning_tool():
     i = Interaction(testing=True)
     i.mute()
 
-    quiz = LearningTool(interaction_object=i,
-                        time_until_hint=1)
+    learning_tool = LearningTool(interaction_object=i, time_until_hint=1)
 
     assert 1 == 1

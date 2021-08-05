@@ -55,7 +55,7 @@ class Lesson(LearningTool):
         33: "a",
     }
 
-    def __init__(self, interaction_object, content, test_content, max_timeout, time_until_hint):
+    def __init__(self, interaction_object, content, simulations=None, time_until_hint=20, max_timeout=None):
         """The constructor for the Lesson class.
 
         Parameters: 
@@ -65,12 +65,12 @@ class Lesson(LearningTool):
             max_timeout         (int):          This is the maximum amount of seconds before the lesson is terminated"""
 
         super(Lesson, self).__init__(
-            interaction_object, time_until_hint)
+            interaction_object=interaction_object,
+            time_until_hint=time_until_hint,
+            simulations=simulations)
 
         # Testing variables
-        self.test_content = test_content
         self.max_timeout = max_timeout
-        self.simulations_to_go = test_content
 
         # Lesson varibales
         self.time_since_start = 0
