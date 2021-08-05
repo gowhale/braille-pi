@@ -19,8 +19,6 @@ class Lesson(LearningTool):
         a_to_z_converstions (Alphabet) Alphabet object which can be used to convert letters to braille codes
     """
 
-    a_to_z_converstions = Alphabet()
-
     activity_map = {
         1: "_",
         2: "Dot 1",
@@ -67,13 +65,12 @@ class Lesson(LearningTool):
             max_timeout         (int):          This is the maximum amount of seconds before the lesson is terminated"""
 
         super(Lesson, self).__init__(
-            interaction_object, content, time_until_hint)
+            interaction_object, time_until_hint)
 
         # Testing variables
-        self.test_failed = False
         self.test_content = test_content
         self.max_timeout = max_timeout
-        self.simulations_executed = []
+        self.simulations_to_go = test_content
 
         # Lesson varibales
         self.time_since_start = 0
@@ -131,30 +128,6 @@ class Lesson(LearningTool):
         print("-"*60)
 
         self.assert_answer(fetched_dothash, fetched_letter)
-
-    def simulate_events(self):
-        """simulate_events simulates remaining expected actions."""
-
-        if self.test_content != None:
-
-            all_simulations = set(self.test_content)
-            simulations_executed = set(self.simulations_executed)
-            simulations_to_go = sorted(
-                list(all_simulations - simulations_executed))
-
-            if len(simulations_to_go) > 0:
-                next_event = simulations_to_go[0]
-                print("EXECUTING: {}".format(next_event))
-
-                if next_event < self.time_since_start:
-                    self.simulations_executed.append(next_event)
-                    keys_to_press = self.test_content[next_event]
-
-                    for key in keys_to_press:
-                        new_event = self.pygame.event.Event(
-                            self.pygame.KEYDOWN, unicode=key, key=ord(key))
-                        print('Adding event:', new_event)
-                        self.pygame.event.post(new_event)
 
     def check_if_lesson_over(self, expired_events):
         """Checks if there are any remaining events.
@@ -254,45 +227,3 @@ class Lesson(LearningTool):
             asserted_answer, letter_to_learn)
 
         self.speech.play_sound("correct")
-
-    def reveal_answer(self, answer, letter):
-        """Speaks out the required dothash in a user friendly way."""
-
-        reveal_start_time = time.time()
-        dots_to_say = []
-
-        self.speech.say("You were so close.")
-
-        if letter in self.braille_alphabet.custom_hints.keys():
-            self.speech.say(self.braille_alphabet.custom_hints[letter])
-        else:
-
-            self.speech.say(
-                "{} goes by the following dot combination".format(letter))
-
-            remap_hash = {
-                1: 1,
-                2: 4,
-                3: 2,
-                4: 5,
-                5: 3,
-                6: 6,
-            }
-
-            # Iterates throught dothas and converts to dothash i.e. 100000 -> Dot 1
-            for index, dot in enumerate(answer, start=1):
-                if dot == "1":
-                    dots_to_say.append(remap_hash[index])
-
-            dots_to_say = sorted(dots_to_say)
-
-            if len(dots_to_say) == 1:
-                self.speech.say("Dot {}".format(dots_to_say[0]))
-
-            elif len(dots_to_say) > 1:
-                for dot in dots_to_say[:-1]:
-                    self.speech.say("Dot {}".format(dot))
-                self.speech.say("and Dot {}".format(dots_to_say[-1]))
-
-        reveal_duration = float(time.time() - reveal_start_time)
-        self.activity_start_time = self.activity_start_time - reveal_duration

@@ -24,19 +24,11 @@ class Quiz(LearningTool):
         test_failed         (Boolean) Check used by automated tests to ensure BDD tests have passed
     """
 
-    a_to_z_converstions = Alphabet()
     no_incorrect_answers = 0
     no_correct_answers = 0
     incorrect_characters = []
     correct_characters = []
-    test_failed = False
     results_logger = ResultsLogger()
-    encouraging_phrases = ["So close",
-                           "Unlucky you are getting there",
-                           "Better luck next time",
-                           "Almost",
-                           "Let us try again",
-                           "I am afraid thats not quite right"]
 
     def __init__(self, interaction_object, content, time_until_hint, simulations):
         """The constructor for the Quiz class.
@@ -48,10 +40,10 @@ class Quiz(LearningTool):
             time_until_hint    (int):          The amount of seconds until a hint is given"""
 
         super(Quiz, self).__init__(
-            interaction_object, content, time_until_hint)
+            interaction_object, time_until_hint)
+
         # Initialisation of quiz varibales
         self.simulations_to_go = simulations
-        self.simulations_executed = []
         self.quiz_start_time = time.time()
         self.quiz_characters = content
 
@@ -90,7 +82,7 @@ class Quiz(LearningTool):
         self.speech.say(
             "Enter the combination for {}".format(fetched_letter))
 
-        self.start_time = time.time()
+        self.activity_start_time = time.time()
         current_dots_hash = "INIT"
         letter_to_learn = fetched_letter + "?"
 
@@ -101,14 +93,14 @@ class Quiz(LearningTool):
             if difference > 0.1:
                 now = time.time()
                 self.previous_time = now
-                self.time_since_start = float(now-self.start_time)
+                self.time_since_start = float(now-self.activity_start_time)
                 self.simulate_events()
 
                 if self.time_since_start > self.time_until_hint:
                     self.speech.play_sound("incorrect")
                     self.reveal_answer(asserted_answer, fetched_letter)
                     now = time.time()
-                    self.start_time = now
+                    self.activity_start_time = now
 
                 if self.using_raspberry_pi:
                     # Get dot hash from pins
@@ -138,73 +130,11 @@ class Quiz(LearningTool):
     def reveal_answer(self, answer, letter):
         """Speaks out the required dothash in a user friendly way."""
 
-        reveal_start_time = time.time()
-        dots_to_say = []
-
-        encouragement_string = random.choice(self.encouraging_phrases)
-
-        self.speech.say(encouragement_string)
-
-        if letter in self.braille_alphabet.custom_hints.keys():
-            self.speech.say(self.braille_alphabet.custom_hints[letter])
-        else:
-
-            self.speech.say(
-                "{} goes by the following dot combination".format(letter))
-
-            remap_hash = {
-                1: 1,
-                2: 4,
-                3: 2,
-                4: 5,
-                5: 3,
-                6: 6,
-            }
-
-            # Iterates throught dothas and converts to dothash i.e. 100000 -> Dot 1
-            for index, dot in enumerate(answer, start=1):
-                if dot == "1":
-                    dots_to_say.append(remap_hash[index])
-
-            dots_to_say = sorted(dots_to_say)
-
-            if len(dots_to_say) == 1:
-                self.speech.say("Dot {}".format(dots_to_say[0]))
-
-            elif len(dots_to_say) > 1:
-                for dot in dots_to_say[:-1]:
-                    self.speech.say("Dot {}".format(dot))
-                self.speech.say("and Dot {}".format(dots_to_say[-1]))
-
-        reveal_duration = float(time.time() - reveal_start_time)
-        self.start_time = self.start_time - reveal_duration
+        super(Quiz, self).reveal_answer(answer, letter)
 
         if letter not in self.incorrect_characters:
             self.incorrect_characters.append(letter)
             self.no_incorrect_answers += 1
-
-    def simulate_events(self):
-        """simulate_events simulates remaining expected actions."""
-
-        if self.simulations_to_go != None:
-            all_simulations = set(self.simulations_to_go)
-            simulations_executed = set(self.simulations_executed)
-            simulations_to_go = sorted(
-                list(all_simulations - simulations_executed))
-
-            if len(simulations_to_go) > 0:
-                now = time.time()
-                timeline_duration = now - self.quiz_start_time
-                next_event = simulations_to_go[0]
-
-                if next_event < timeline_duration:
-                    self.simulations_executed.append(next_event)
-                    keys_to_press = self.simulations_to_go[next_event]
-                    for key in keys_to_press:
-                        new_event = self.pygame.event.Event(
-                            self.pygame.KEYDOWN, unicode=key, key=ord(key))
-                        print('Adding event:', new_event)
-                        self.pygame.event.post(new_event)
 
     def log_results(self):
         print("CORRECT answers: {}".format(self.correct_characters))
