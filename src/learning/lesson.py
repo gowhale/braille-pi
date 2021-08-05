@@ -21,38 +21,38 @@ class Lesson():
     a_to_z_converstions = Alphabet()
 
     activity_map = {
-        1: "000000",
-        2: "100000",
-        3: "001000",
-        4: "000010",
-        5: "010000",
-        6: "000100",
-        7: "000001",
-        8: a_to_z_converstions.translate_alphabet_to_braille("b"),
-        9: a_to_z_converstions.translate_alphabet_to_braille("c"),
-        10: a_to_z_converstions.translate_alphabet_to_braille("d"),
-        11: a_to_z_converstions.translate_alphabet_to_braille("e"),
-        12: a_to_z_converstions.translate_alphabet_to_braille("f"),
-        13: a_to_z_converstions.translate_alphabet_to_braille("g"),
-        14: a_to_z_converstions.translate_alphabet_to_braille("h"),
-        15: a_to_z_converstions.translate_alphabet_to_braille("i"),
-        16: a_to_z_converstions.translate_alphabet_to_braille("j"),
-        17: a_to_z_converstions.translate_alphabet_to_braille("k"),
-        18: a_to_z_converstions.translate_alphabet_to_braille("l"),
-        19: a_to_z_converstions.translate_alphabet_to_braille("m"),
-        20: a_to_z_converstions.translate_alphabet_to_braille("n"),
-        21: a_to_z_converstions.translate_alphabet_to_braille("o"),
-        22: a_to_z_converstions.translate_alphabet_to_braille("p"),
-        23: a_to_z_converstions.translate_alphabet_to_braille("q"),
-        24: a_to_z_converstions.translate_alphabet_to_braille("r"),
-        25: a_to_z_converstions.translate_alphabet_to_braille("s"),
-        26: a_to_z_converstions.translate_alphabet_to_braille("t"),
-        27: a_to_z_converstions.translate_alphabet_to_braille("u"),
-        28: a_to_z_converstions.translate_alphabet_to_braille("v"),
-        29: a_to_z_converstions.translate_alphabet_to_braille("x"),
-        30: a_to_z_converstions.translate_alphabet_to_braille("y"),
-        31: a_to_z_converstions.translate_alphabet_to_braille("z"),
-        32: a_to_z_converstions.translate_alphabet_to_braille("w"),
+        1: "_",
+        2: "Dot 1",
+        3: "Dot 2",
+        4: "Dot 3",
+        5: "Dot 4",
+        6: "Dot 5",
+        7: "Dot 6",
+        8: "b",
+        9: "c",
+        10: "d",
+        11: "e",
+        12: "f",
+        13: "g",
+        14: "h",
+        15: "i",
+        16: "j",
+        17: "k",
+        18: "l",
+        19: "m",
+        20: "n",
+        21: "o",
+        22: "p",
+        23: "q",
+        24: "r",
+        25: "s",
+        26: "t",
+        27: "u",
+        28: "v",
+        29: "x",
+        30: "y",
+        31: "z",
+        32: "w",
     }
 
     def __init__(self, interaction_object, content, test_content, max_timeout, time_until_hint):
@@ -135,16 +135,16 @@ class Lesson():
         Parameters:
             activity_id (int) the unique identifier to fetch an activity from activity_map."""
 
-        fetched_assertion = self.activity_map[activity_id]
-        translated_dothash = self.a_to_z_converstions.translate_braille_to_alphabet(
-            fetched_assertion)
+        fetched_letter = self.activity_map[activity_id]
+        fetched_dothash = self.a_to_z_converstions.translate_char_to_braille(
+            fetched_letter)
 
         print("-"*60)
         print("STARTING ACTIVITY {} -> Letter {} -> Match the dot hash of {}.".format(
-            activity_id, translated_dothash, fetched_assertion))
+            activity_id, fetched_letter, fetched_dothash))
         print("-"*60)
 
-        self.assert_answer(fetched_assertion, translated_dothash)
+        self.assert_answer(fetched_dothash, fetched_letter)
 
     def simulate_events(self):
         """simulate_events simulates remaining expected actions."""
