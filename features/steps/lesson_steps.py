@@ -63,8 +63,10 @@ def step_impl(context):
         15: ["k"],
     }
 
-    context.lesson = Lesson(context.interaction_module,
-                            test_content, simulated_input, max_timeout=20,
+    context.lesson = Lesson(interaction_object=context.interaction_module,
+                            content=test_content, 
+                            simulations=simulated_input, 
+                            max_timeout=20,
                             time_until_hint=40
                             )
 
@@ -122,9 +124,12 @@ def step_impl(context):
         15: ["k"],
     }
 
-    context.lesson = Lesson(context.interaction_module,
-                            test_content, simulated_input, max_timeout=20,
+    context.lesson = Lesson(interaction_object=context.interaction_module,
+                            content=test_content,
+                            simulations=simulated_input,
+                            max_timeout=20,
                             time_until_hint=40)
+
 
 @when(u'An U-Z lesson is completed correctly')
 def step_impl(context):
@@ -160,12 +165,14 @@ def step_impl(context):
         4.5: ["d", "j"],
         6: ["k"],
         7.5: ["j"],
-        9: ["d", "j","f","s"],
-        
+        9: ["d", "j", "f", "s"],
+
     }
 
-    context.lesson = Lesson(context.interaction_module,
-                            test_content, simulated_input, max_timeout=20,
+    context.lesson = Lesson(interaction_object=context.interaction_module,
+                            content=test_content,
+                            simulations=simulated_input,
+                            max_timeout=20,
                             time_until_hint=40)
 
 
@@ -207,7 +214,9 @@ def step_impl(context):
     }
 
     context.lesson = Lesson(context.interaction_module,
-                            test_content, simulated_input, max_timeout=60,
+                            test_content,
+                            simulated_input,
+                            max_timeout=60,
                             time_until_hint=80)
 
 
@@ -237,7 +246,9 @@ def step_impl(context):
     }
 
     context.lesson = Lesson(context.interaction_module,
-                            test_content, simulated_input, max_timeout=60,
+                            test_content,
+                            simulated_input,
+                            max_timeout=60,
                             time_until_hint=90)
 
 

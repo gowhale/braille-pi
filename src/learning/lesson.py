@@ -1,9 +1,10 @@
 # Essential Imports
 import time
 from src.braille.alphabet import Alphabet
+from src.learning.learning_tool import LearningTool
 
 
-class Lesson():
+class Lesson(LearningTool):
     """ 
     This class is used to start a lesson on specified learning content.
 
@@ -17,8 +18,6 @@ class Lesson():
         activity_map        (dict): maps different integers to different activities
         a_to_z_converstions (Alphabet) Alphabet object which can be used to convert letters to braille codes
     """
-
-    a_to_z_converstions = Alphabet()
 
     activity_map = {
         1: "_",
@@ -56,7 +55,7 @@ class Lesson():
         33: "a",
     }
 
-    def __init__(self, interaction_object, content, test_content, max_timeout, time_until_hint):
+    def __init__(self, interaction_object, content, simulations=None, time_until_hint=20, max_timeout=None):
         """The constructor for the Lesson class.
 
         Parameters: 
@@ -65,35 +64,18 @@ class Lesson():
             test_content        (dict):         This parameter dictates whether simulated events will be executed
             max_timeout         (int):          This is the maximum amount of seconds before the lesson is terminated"""
 
+        super(Lesson, self).__init__(
+            interaction_object=interaction_object,
+            time_until_hint=time_until_hint,
+            simulations=simulations)
+
         # Testing variables
-        self.test_failed = False
-        self.test_content = test_content
         self.max_timeout = max_timeout
-        self.simulations_executed = []
 
         # Lesson varibales
         self.time_since_start = 0
         self.timeline = content
         self.ordered_timings = list(self.timeline.keys()).sort()
-        self.time_until_hint = time_until_hint
-
-        # Initiation of interaction elements
-        self.speech = interaction_object.speech
-        self.using_raspberry_pi = interaction_object.using_raspberry_pi
-        self.braille_alphabet = interaction_object.braille_alphabet
-        self.pygame = interaction_object.pygame
-        if self.test_content != None:
-            self.using_raspberry_pi = False
-        if not self.using_raspberry_pi:
-            self.current_char = ""
-            self.check_keys = interaction_object.check_keys
-            self.key_presses = interaction_object.key_presses
-        else:
-            self.current_char = interaction_object.current_char
-        self.show_gui = interaction_object.show_gui
-        if interaction_object.show_gui:
-            self.graphical_user_interface = interaction_object.graphical_user_interface
-            self.graphical_user_interface.show_welcome_screen()
 
         self.play()
 
@@ -146,30 +128,6 @@ class Lesson():
         print("-"*60)
 
         self.assert_answer(fetched_dothash, fetched_letter)
-
-    def simulate_events(self):
-        """simulate_events simulates remaining expected actions."""
-
-        if self.test_content != None:
-
-            all_simulations = set(self.test_content)
-            simulations_executed = set(self.simulations_executed)
-            simulations_to_go = sorted(
-                list(all_simulations - simulations_executed))
-
-            if len(simulations_to_go) > 0:
-                next_event = simulations_to_go[0]
-                print("EXECUTING: {}".format(next_event))
-
-                if next_event < self.time_since_start:
-                    self.simulations_executed.append(next_event)
-                    keys_to_press = self.test_content[next_event]
-
-                    for key in keys_to_press:
-                        new_event = self.pygame.event.Event(
-                            self.pygame.KEYDOWN, unicode=key, key=ord(key))
-                        print('Adding event:', new_event)
-                        self.pygame.event.post(new_event)
 
     def check_if_lesson_over(self, expired_events):
         """Checks if there are any remaining events.
@@ -239,7 +197,8 @@ class Lesson():
                 # print(current_dots_hash)
                 now = time.time()
                 self.previous_time = now
-                self.time_since_start_of_activity = float(now-self.activity_start_time)
+                self.time_since_start_of_activity = float(
+                    now-self.activity_start_time)
 
                 if self.time_since_start_of_activity > self.time_until_hint:
                     self.speech.play_sound("incorrect")
@@ -268,46 +227,3 @@ class Lesson():
             asserted_answer, letter_to_learn)
 
         self.speech.play_sound("correct")
-
-    def reveal_answer(self, answer, letter):
-        """Speaks out the required dothash in a user friendly way."""
-
-        reveal_start_time = time.time()
-        dots_to_say = []
-
-        self.speech.say("You were so close.")
-
-        
-        if letter in self.braille_alphabet.custom_hints.keys():
-            self.speech.say(self.braille_alphabet.custom_hints[letter])
-        else:
-
-            self.speech.say(
-                "{} goes by the following dot combination".format(letter))
-
-            remap_hash = {
-                1: 1,
-                2: 4,
-                3: 2,
-                4: 5,
-                5: 3,
-                6: 6,
-            }
-
-            # Iterates throught dothas and converts to dothash i.e. 100000 -> Dot 1
-            for index, dot in enumerate(answer, start=1):
-                if dot == "1":
-                    dots_to_say.append(remap_hash[index])
-
-            dots_to_say = sorted(dots_to_say)
-
-            if len(dots_to_say) == 1:
-                self.speech.say("Dot {}".format(dots_to_say[0]))
-
-            elif len(dots_to_say) > 1:
-                for dot in dots_to_say[:-1]:
-                    self.speech.say("Dot {}".format(dot))
-                self.speech.say("and Dot {}".format(dots_to_say[-1]))
-
-        reveal_duration = float(time.time() - reveal_start_time)
-        self.activity_start_time = self.activity_start_time - reveal_duration
