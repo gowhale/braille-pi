@@ -9,7 +9,7 @@ lesson_2_timeline = {
     6: "Nicely done. Now we begin.",
     8: "In braille the letter A is represented by a single DOT. The top left dot raised represents the letter A.",
     9: "Try it now and raise the top left dot.",
-    10: 2,
+    10: 33,
     11: "Fantastic. This represents the letter A in Braille.",
     12: "In braille the letter B is represented by two DOTs. When the top left dot and the middle left dot are raised this represents the letter B.",
     14: 8,

@@ -53,6 +53,7 @@ class Lesson():
         30: "y",
         31: "z",
         32: "w",
+        33: "a",
     }
 
     def __init__(self, interaction_object, content, test_content, max_timeout, time_until_hint):
