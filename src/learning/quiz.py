@@ -80,7 +80,7 @@ class Quiz():
             quiz_chars = self.quiz_characters
 
             for question in quiz_chars:
-                wanted_dot_hash = self.a_to_z_converstions.translate_alphabet_to_braille(
+                wanted_dot_hash = self.a_to_z_converstions.translate_char_to_braille(
                     question)
                 print("Character to be quizzed is {} the dothash is {}".format(
                     question, wanted_dot_hash))

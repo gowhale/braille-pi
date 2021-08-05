@@ -33,12 +33,19 @@ class Alphabet ():
         "x": "110011",
         "y": "110111",
         "z": "100111",
+    }
+
+    dots_to_braille = {
         "Dot 1": "100000",
         "Dot 2": "001000",
         "Dot 3": "000010",
         "Dot 4": "010000",
         "Dot 5": "000100",
         "Dot 6": "000001",
+    }
+
+    custom_chars_to_braille = {
+        "_" : "000000",
     }
 
     custom_hints = {
@@ -51,21 +58,44 @@ class Alphabet ():
         "_": "Please make sure all dots are flat with the board or lowered"
     }
 
+    braille_to_alphabet = {
+        "100000" : "a",
+        "101000" : "b",
+        "110000" : "c",
+        "110100" : "d",
+        "100100" : "e",
+        "111000" : "f",
+        "111100" : "g",
+        "101100" : "h",
+        "011000" : "i",
+        "011100" : "j",
+        "100010" : "k",
+        "101010" : "l",
+        "110010" : "m",
+        "110110" : "n",
+        "100110" : "o",
+        "111010" : "p",
+        "111110" : "q",
+        "101110" : "r",
+        "011010" : "s",
+        "011110" : "t",
+        "100011" : "u",
+        "101011" : "v",
+        "011101" : "w",
+        "110011" : "x",
+        "110111" : "y",
+        "100111" : "z",
+    }
+
+    all_chars_to_braille = {**alphabet_to_braille, **dots_to_braille , **custom_chars_to_braille}
+
 
     def __init__(self):
         """Initialises the Alphabet Object to have the inverse of the braille alphabet.
         
         The unique identifier will be the dothash rather than the letter."""
 
-        print("Alphabet Generated")
 
-        braille_to_alphabet = {}
-
-        for key in self.alphabet_to_braille:
-
-            braille_to_alphabet[self.alphabet_to_braille[key]] = key
-
-        self.braille_to_alphabet = braille_to_alphabet
 
     def get_braille_to_alphabet(self):
         """Returns the braille_to_alphabet dictionary."""
@@ -86,9 +116,17 @@ class Alphabet ():
             return "_"
 
     def translate_alphabet_to_braille(self, letter):
-        """Translate a letter into a braille hash."""
+        """Translate an A-Z letter into a braille hash."""
         try:
             return self.alphabet_to_braille[letter]
+        except KeyError as e:
+            print(e)
+            return "000000"
+
+    def translate_char_to_braille(self, char):
+        """Translate ANY char into a braille hash."""
+        try:
+            return self.all_chars_to_braille[char]
         except KeyError as e:
             print(e)
             return "000000"
