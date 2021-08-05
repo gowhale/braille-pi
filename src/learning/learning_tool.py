@@ -1,5 +1,6 @@
 import time
 import random
+from src.results_logging.results_logger import ResultsLogger
 
 
 class LearningTool():
@@ -13,6 +14,13 @@ class LearningTool():
                            "Almost",
                            "Let us try again",
                            "I am afraid thats not quite right"]
+
+
+    no_incorrect_answers = 0
+    no_correct_answers = 0
+    incorrect_characters = []
+    correct_characters = []
+    results_logger = ResultsLogger()
 
     def __init__(self, interaction_object, time_until_hint, simulations):
         """Initialised essential things need for both a lesson or quiz"""
@@ -113,3 +121,9 @@ class LearningTool():
                             self.pygame.KEYDOWN, unicode=key, key=ord(key))
                         print('Adding event:', new_event)
                         self.pygame.event.post(new_event)
+
+    def log_results(self):
+        print("CORRECT answers: {}".format(self.correct_characters))
+        print("WRONG answers: {}".format(self.incorrect_characters))
+        self.results_logger.log_results(
+            correct_answers=self.correct_characters, wrong_answers=self.incorrect_characters)

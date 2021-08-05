@@ -5,6 +5,7 @@ import random
 from src.learning.translator import Translator
 from src.learning.lesson import Lesson
 from src.learning.quiz import Quiz
+from src.learning.spelling_game import SpellingGame
 from src.learning.content_selection import ContentSelection
 from src.interaction.interaction_module import Interaction
 from src.learning.learning_algorithm import LearningAlgorithm
@@ -17,6 +18,7 @@ from src.lesson_content.lesson_1 import lesson_1_timeline
 from src.lesson_content.lesson_2 import lesson_2_timeline
 from src.lesson_content.lesson_3 import lesson_3_timeline
 from src.lesson_content.lesson_4 import lesson_4_timeline
+from src.lesson_content.simple_spelling_words import spelling_words
 
 
 def main():
@@ -34,7 +36,7 @@ def main():
     #                                      max_timeout=None)
 
     # option = content_selection.get_choice()
-    option = 12  # Option Override
+    option = 19  # Option Override
 
     # TRANSLATOR OPTION -> Translates entered dots to A-Z chars
     if option == 1:
@@ -180,6 +182,21 @@ def main():
                  simulations=None)
         q.start_quiz()
 
+    # Spelling quiz
+    if option == 18:
+        spelling_game = SpellingGame(interaction_object=interaction_module, spelling_word="John")
+        spelling_game.play()
+
+    # Spelling quiz
+    if option == 19:
+        word_selection = list(spelling_words)
+        random.shuffle(word_selection)
+        for word in word_selection:
+            spelling_game = SpellingGame(interaction_object=interaction_module, spelling_word=word, time_until_hint=5)
+            spelling_game.play()
+            spelling_game = None
+
+    
 
 # Main loop starts
 if __name__ == "__main__":

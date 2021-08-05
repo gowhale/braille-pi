@@ -1,6 +1,5 @@
 # Essential Imports
 import time
-from src.braille.alphabet import Alphabet
 from src.learning.learning_tool import LearningTool
 
 

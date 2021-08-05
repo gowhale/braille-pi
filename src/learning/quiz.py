@@ -1,8 +1,5 @@
-import random
 from src.learning.learning_tool import LearningTool
 import time
-from src.braille.alphabet import Alphabet
-from src.results_logging.results_logger import ResultsLogger
 
 
 class Quiz(LearningTool):
@@ -23,12 +20,6 @@ class Quiz(LearningTool):
         incorrect_characters  (List) List of characaters answered incorrectly
         test_failed         (Boolean) Check used by automated tests to ensure BDD tests have passed
     """
-
-    no_incorrect_answers = 0
-    no_correct_answers = 0
-    incorrect_characters = []
-    correct_characters = []
-    results_logger = ResultsLogger()
 
     def __init__(self, interaction_object, content, time_until_hint=20, simulations=None):
         """The constructor for the Quiz class.
@@ -135,8 +126,4 @@ class Quiz(LearningTool):
             self.incorrect_characters.append(letter)
             self.no_incorrect_answers += 1
 
-    def log_results(self):
-        print("CORRECT answers: {}".format(self.correct_characters))
-        print("WRONG answers: {}".format(self.incorrect_characters))
-        self.results_logger.log_results(
-            correct_answers=self.correct_characters, wrong_answers=self.incorrect_characters)
+

@@ -91,7 +91,6 @@ class LearningAlgorithm ():
         """Analyses the fetched results."""
         for index, row in enumerate(self.results_as_list, start=1):
             if index > 1:
-                row = row.split(",")
                 current_row = row
                 char = current_row[2]
                 result = current_row[3]
@@ -99,7 +98,9 @@ class LearningAlgorithm ():
 
     def set_results_as_list(self, val):
         """Sets results_as_list"""
-        self.results_as_list = val
+        self.results_as_list = []
+        for elem in val:
+            self.results_as_list.append(elem.split(","))
 
     def get_results_as_list(self):
         """Gets results_as_list"""
