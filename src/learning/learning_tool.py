@@ -1,5 +1,6 @@
 import time
 import random
+from src.results_logging.results_logger import ResultsLogger
 
 
 class LearningTool():
@@ -13,6 +14,13 @@ class LearningTool():
                            "Almost",
                            "Let us try again",
                            "I am afraid thats not quite right"]
+
+
+    no_incorrect_answers = 0
+    no_correct_answers = 0
+    incorrect_characters = []
+    correct_characters = []
+    results_logger = ResultsLogger()
 
     def __init__(self, interaction_object, time_until_hint, simulations):
         """Initialised essential things need for both a lesson or quiz"""
@@ -89,7 +97,6 @@ class LearningTool():
 
     def simulate_events(self):
         """simulate_events simulates remaining expected actions."""
-
         if self.simulations_to_go != None:
 
             all_simulations = set(self.simulations_to_go)
@@ -99,7 +106,6 @@ class LearningTool():
 
             if len(simulations_to_go) > 0:
                 next_event = simulations_to_go[0]
-                print("EXECUTING: {}".format(next_event))
                 now = time.time()
                 timeline_duration = now - self.tool_start_time
                 next_event = simulations_to_go[0]
@@ -113,3 +119,9 @@ class LearningTool():
                             self.pygame.KEYDOWN, unicode=key, key=ord(key))
                         print('Adding event:', new_event)
                         self.pygame.event.post(new_event)
+
+    def log_results(self):
+        print("CORRECT answers: {}".format(self.correct_characters))
+        print("WRONG answers: {}".format(self.incorrect_characters))
+        self.results_logger.log_results(
+            correct_answers=self.correct_characters, wrong_answers=self.incorrect_characters)
