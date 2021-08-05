@@ -86,3 +86,16 @@ def test_returns_braille_key_dictionary():
     alphabet = Alphabet()
 
     assert alphabet.get_braille_to_alphabet() == expected_output
+    
+@pytest.mark.parametrize(
+    "test_input,expected",
+    [("_","000000"),
+     ("Dot 1","100000"),
+     ("a","100000"),
+     ("l","101010"),
+     ("Dot 4","010000"),
+    ],
+)
+def test_translate_char_to_braille(test_input, expected):
+    alphabet = Alphabet()
+    assert (alphabet.translate_char_to_braille(test_input)) == expected
