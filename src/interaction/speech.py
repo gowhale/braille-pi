@@ -33,6 +33,8 @@ class Speech:
 
     sound_file_extension = ".mp3"
 
+    mute = False
+
     def __init__(self):
         """Sets the operating system of the object."""
         print("""Speech object initiated!'""")
@@ -93,39 +95,45 @@ class Speech:
 
         print("SAYING -> {}".format(text))
 
-        current_os = self.operating_system
-        text = text.replace(" ", "_")
+        if (not self.mute):
 
-        file_name = self.convert_to_file_name(text)
+            current_os = self.operating_system
+            
+            text = text.replace(" ", "_")
 
-        if file_name in self.voice_file_file_names:
-            # If sound file available play it
+            file_name = self.convert_to_file_name(text)
 
-            voice_file_address = "{}/{}".format(
-                self.voice_file_directory, file_name)
+            if file_name in self.voice_file_file_names:
+                # If sound file available play it
 
-            if current_os == "linux" or current_os == "linux2":
-                # Raspberry Pi
-                pygame.mixer.init()
-                pygame.mixer.music.load(voice_file_address)
-                pygame.mixer.music.play()
-                while pygame.mixer.music.get_busy() == True:
-                    continue
+                voice_file_address = "{}/{}".format(
+                    self.voice_file_directory, file_name)
 
-            elif current_os == "darwin":
-                # OS X (Macbook)
-                playsound(voice_file_address)
-            elif current_os == "win32":
-                # Windows...
-                print("Windows edition coming soon.")
+                if current_os == "linux" or current_os == "linux2":
+                    # Raspberry Pi
+                    pygame.mixer.init()
+                    pygame.mixer.music.load(voice_file_address)
+                    pygame.mixer.music.play()
+                    while pygame.mixer.music.get_busy() == True:
+                        continue
 
-        else:
-            # Narrating the passed text
-            if current_os == "linux" or current_os == "linux2":
-                call([self.cmd_start+text+self.cmd_finish], shell=True)
-            elif current_os == "darwin":
-                # OS X (Macbook)
-                system('say {}'.format(text))
-            elif current_os == "win32":
-                # Windows...
-                print("Windows edition coming soon.")
+                elif current_os == "darwin":
+                    # OS X (Macbook)
+                    playsound(voice_file_address)
+                elif current_os == "win32":
+                    # Windows...
+                    print("Windows edition coming soon.")
+
+            else:
+                # Narrating the passed text
+                if current_os == "linux" or current_os == "linux2":
+                    call([self.cmd_start+text+self.cmd_finish], shell=True)
+                elif current_os == "darwin":
+                    # OS X (Macbook)
+                    system('say {}'.format(text))
+                elif current_os == "win32":
+                    # Windows...
+                    print("Windows edition coming soon.")
+
+    def set_mute(self):
+        self.mute = True

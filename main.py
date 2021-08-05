@@ -24,6 +24,7 @@ def main():
     # TODO: this option value should be entered by the user in the future
 
     interaction_module = Interaction(testing=False)
+    # interaction_module.mute() #Mutes audio for faster testing
 
     # The below object lets the user select what they wish to do i.e. take a lesson or quiz
     # For testing purposes it is best to comment this out and state the option value (Line 33)
