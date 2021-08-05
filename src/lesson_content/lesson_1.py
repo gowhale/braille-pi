@@ -8,7 +8,7 @@ lesson_1_timeline = {
     5: "The first letter we will start with is A. Lots of words start with A such as Apple, Alligator or Astronaut.",
     6: "In braille the letter A is represented by a single DOT. The top left dot raised represents the letter A.",
     7: "Try it now and raise the top left dot.",
-    8: 2,
+    8: 33,
     9: "Fantastic. This represents the letter A in Braille.",
     10: "In braille the letter B is represented by two DOTs. When the top left dot and the middle left dot are raised this represents the letter B.",
     11: "Try and raise these dots now.",
