@@ -1,10 +1,11 @@
 import random
+from src.learning.learning_tool import LearningTool
 import time
 from src.braille.alphabet import Alphabet
 from src.results_logging.results_logger import ResultsLogger
 
 
-class Quiz():
+class Quiz(LearningTool):
     """ 
     This class is used to start a qiuz on specified quiz content.
 
@@ -46,28 +47,13 @@ class Quiz():
             simulations        (dict):         This parameter dictates whether simulated events will be executed
             time_until_hint    (int):          The amount of seconds until a hint is given"""
 
+        super(Quiz, self).__init__(
+            interaction_object, content, time_until_hint)
         # Initialisation of quiz varibales
         self.simulations_to_go = simulations
         self.simulations_executed = []
         self.quiz_start_time = time.time()
         self.quiz_characters = content
-        self.time_until_hint = time_until_hint
-
-        # Initialisation of interaction elementes
-        self.speech = interaction_object.speech
-        self.using_raspberry_pi = interaction_object.using_raspberry_pi
-        self.braille_alphabet = interaction_object.braille_alphabet
-        self.pygame = interaction_object.pygame
-        self.error_log = interaction_object.error_log
-        if not interaction_object.using_raspberry_pi:
-            self.current_char = ""
-            self.check_keys = interaction_object.check_keys
-            self.key_presses = interaction_object.key_presses
-        else:
-            self.current_char = interaction_object.current_char
-        self.show_gui = interaction_object.show_gui
-        if interaction_object.show_gui:
-            self.graphical_user_interface = interaction_object.graphical_user_interface
 
     def start_quiz(self):
         """Starts the quiz."""

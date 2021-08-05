@@ -1,9 +1,10 @@
 # Essential Imports
 import time
 from src.braille.alphabet import Alphabet
+from src.learning.learning_tool import LearningTool
 
 
-class Lesson():
+class Lesson(LearningTool):
     """ 
     This class is used to start a lesson on specified learning content.
 
@@ -65,6 +66,9 @@ class Lesson():
             test_content        (dict):         This parameter dictates whether simulated events will be executed
             max_timeout         (int):          This is the maximum amount of seconds before the lesson is terminated"""
 
+        super(Lesson, self).__init__(
+            interaction_object, content, time_until_hint)
+
         # Testing variables
         self.test_failed = False
         self.test_content = test_content
@@ -75,25 +79,6 @@ class Lesson():
         self.time_since_start = 0
         self.timeline = content
         self.ordered_timings = list(self.timeline.keys()).sort()
-        self.time_until_hint = time_until_hint
-
-        # Initiation of interaction elements
-        self.speech = interaction_object.speech
-        self.using_raspberry_pi = interaction_object.using_raspberry_pi
-        self.braille_alphabet = interaction_object.braille_alphabet
-        self.pygame = interaction_object.pygame
-        if self.test_content != None:
-            self.using_raspberry_pi = False
-        if not self.using_raspberry_pi:
-            self.current_char = ""
-            self.check_keys = interaction_object.check_keys
-            self.key_presses = interaction_object.key_presses
-        else:
-            self.current_char = interaction_object.current_char
-        self.show_gui = interaction_object.show_gui
-        if interaction_object.show_gui:
-            self.graphical_user_interface = interaction_object.graphical_user_interface
-            self.graphical_user_interface.show_welcome_screen()
 
         self.play()
 
@@ -239,7 +224,8 @@ class Lesson():
                 # print(current_dots_hash)
                 now = time.time()
                 self.previous_time = now
-                self.time_since_start_of_activity = float(now-self.activity_start_time)
+                self.time_since_start_of_activity = float(
+                    now-self.activity_start_time)
 
                 if self.time_since_start_of_activity > self.time_until_hint:
                     self.speech.play_sound("incorrect")
@@ -277,7 +263,6 @@ class Lesson():
 
         self.speech.say("You were so close.")
 
-        
         if letter in self.braille_alphabet.custom_hints.keys():
             self.speech.say(self.braille_alphabet.custom_hints[letter])
         else:
