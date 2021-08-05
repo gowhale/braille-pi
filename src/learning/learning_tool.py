@@ -97,7 +97,6 @@ class LearningTool():
 
     def simulate_events(self):
         """simulate_events simulates remaining expected actions."""
-
         if self.simulations_to_go != None:
 
             all_simulations = set(self.simulations_to_go)
@@ -107,7 +106,6 @@ class LearningTool():
 
             if len(simulations_to_go) > 0:
                 next_event = simulations_to_go[0]
-                print("EXECUTING: {}".format(next_event))
                 now = time.time()
                 timeline_duration = now - self.tool_start_time
                 next_event = simulations_to_go[0]

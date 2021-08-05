@@ -6,7 +6,7 @@ class SpellingGame(LearningTool):
     """This class provides objects acting as fun spelling games"""
 
 
-    def __init__(self, interaction_object, spelling_word, time_until_hint=20, simulations=None):
+    def __init__(self, interaction_object, spelling_word, time_until_hint=20, simulations=None, max_timeout=None):
         super().__init__(interaction_object, time_until_hint, simulations)
 
         self.no_incorrect_answers = 0
@@ -14,6 +14,8 @@ class SpellingGame(LearningTool):
         self.incorrect_characters = []
         self.correct_characters = []
         self.spelling_word = spelling_word
+        self.max_timeout = max_timeout
+
 
     def play(self):
 
@@ -58,12 +60,12 @@ class SpellingGame(LearningTool):
         while current_dots_hash != asserted_answer:
             now = time.time()
             difference = float(now-self.previous_time)
-
+            self.simulate_events()
             if difference > 0.1:
                 now = time.time()
                 self.previous_time = now
                 self.time_since_start = float(now-self.activity_start_time)
-                self.simulate_events()
+                
 
                 if self.time_since_start > self.time_until_hint:
                     self.speech.play_sound("incorrect")
@@ -84,10 +86,15 @@ class SpellingGame(LearningTool):
                     self.graphical_user_interface.draw_dot_hash(
                         current_dots_hash, letter_to_learn)
 
+                if self.max_timeout != None and (now - self.tool_start_time) > self.max_timeout:
+                    self.test_failed = True
+                    current_dots_hash = asserted_answer
+
         self.graphical_user_interface.draw_dot_hash(
             asserted_answer, letter_to_learn)
 
         self.speech.play_sound("correct")
+        print(self.test_failed)
 
         # self.speech.say(
         #     "Congratulations that is the correct answer for {}".format(fetched_letter))
