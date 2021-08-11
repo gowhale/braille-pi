@@ -67,6 +67,7 @@ class Gui ():
         row_two = int(self.height / 2)
         row_one = int(row_two / 2)
         row_three = int(row_two / 2 * 3)
+        dot_distance = abs(row_two - row_three)
 
         self.dot_locations[1]["y"] = row_one
         self.dot_locations[2]["y"] = row_one
@@ -77,8 +78,8 @@ class Gui ():
 
         cell_height = (row_three-row_one)
 
-        col_one = int((self.width / 4) - (cell_height * 0.4))
-        col_two = int((self.width / 4) + (cell_height * 0.4))
+        col_one = int((self.width / 4) - (dot_distance * 0.5))
+        col_two = int((self.width / 4) + (dot_distance * 0.5))
 
         self.dot_locations[1]["x"] = col_one
         self.dot_locations[2]["x"] = col_two
