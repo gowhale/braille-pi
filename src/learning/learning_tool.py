@@ -65,8 +65,8 @@ class LearningTool():
             self.speech.say(self.braille_alphabet.custom_hints[letter])
         else:
 
-            self.speech.say(
-                "{} goes by the following dot combination".format(letter))
+            self.speech.say("{}".format(letter))
+            self.speech.say("goes by the following dot combination")
 
             remap_hash = {
                 1: 1,
