@@ -133,3 +133,6 @@ dmypy.json
 #error log
 /error_logs
 /quiz_results
+
+unique_lines.txt
+voice_files_needed.txt
