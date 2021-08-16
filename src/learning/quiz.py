@@ -69,8 +69,8 @@ class Quiz(LearningTool):
             asserted_answer (String) the braille code for the correct answer.
             fetched_letter  (String) the letter for the braille code."""
 
-        self.speech.say(
-            "Enter the combination for {}".format(fetched_letter))
+        self.speech.say("Enter the combination for")
+        self.speech.say("{}".format(fetched_letter))
 
         self.activity_start_time = time.time()
         current_dots_hash = "INIT"
@@ -110,8 +110,8 @@ class Quiz(LearningTool):
 
         self.speech.play_sound("correct")
 
-        self.speech.say(
-            "Congratulations that is the correct answer for {}".format(fetched_letter))
+        self.speech.say("Congratulations that is the correct answer for")
+        self.speech.say("{}".format(fetched_letter))
 
         if fetched_letter not in self.incorrect_characters:
             self.correct_characters.append(fetched_letter)

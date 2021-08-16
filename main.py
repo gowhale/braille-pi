@@ -1,5 +1,6 @@
 # Additional modules
 import random
+from time import time
 
 # Functional Imports
 from src.learning.translator import Translator
@@ -20,6 +21,7 @@ from src.lesson_content.lesson_3 import lesson_3_timeline
 from src.lesson_content.lesson_4 import lesson_4_timeline
 from src.lesson_content.simple_spelling_words import spelling_words
 
+TIME_UNTIL_HINT = 5
 
 def main():
 
@@ -31,62 +33,66 @@ def main():
     # MAIN SEQUENCE
     if option == 1:
 
-        # Dot tutorial and quiz
-        Lesson(interaction_object=interaction_module,
-               content=lesson_0_tutorial)
+        # # Dot tutorial and quiz
+        # Lesson(interaction_object=interaction_module,
+        #        content=lesson_0_tutorial,
+        #        time_until_hint=TIME_UNTIL_HINT)
 
-        quiz_content = ["Dot 1", "Dot 2", "Dot 3", "Dot 4", "Dot 5", "Dot 6", ]
-        random.shuffle(quiz_content)
-        q = Quiz(interaction_object=interaction_module,
-                 content=quiz_content)
-        q.start_quiz()
+        # quiz_content = ["Dot 1", "Dot 2", "Dot 3", "Dot 4", "Dot 5", "Dot 6", ]
+        # random.shuffle(quiz_content)
+        # q = Quiz(interaction_object=interaction_module,
+        #          content=quiz_content,
+        #          time_until_hint=TIME_UNTIL_HINT)
+        # q.start_quiz()
 
-        # A-J lesson and quiz
-        Lesson(interaction_object=interaction_module,
-               content=lesson_2_timeline)
+        # # A-J lesson and quiz
+        # Lesson(interaction_object=interaction_module,
+        #        content=lesson_2_timeline,
+        #        time_until_hint=TIME_UNTIL_HINT)
 
-        q = Quiz(interaction_object=interaction_module,
-                 content=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"])
-        q.start_quiz()
+        # q = Quiz(interaction_object=interaction_module,
+        #          content=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],
+        #          time_until_hint=TIME_UNTIL_HINT)
+        # q.start_quiz()
 
-        spelling_game = SpellingGame(
-            interaction_object=interaction_module, spelling_word="dad")
-        spelling_game.play()
+        # spelling_game = SpellingGame(
+        #     interaction_object=interaction_module,
+        #     spelling_word="dad",
+        #     time_until_hint=TIME_UNTIL_HINT)
+        # spelling_game.play()
 
-        # K-T lesson and quiz
-        Lesson(interaction_object=interaction_module,
-               content=lesson_3_timeline,
-               test_content=None,
-               max_timeout=None,
-               time_until_hint=20)
+        # # K-T lesson and quiz
+        # Lesson(interaction_object=interaction_module,
+        #        content=lesson_3_timeline,
+        #        time_until_hint=TIME_UNTIL_HINT)
 
-        q = Quiz(interaction_object=interaction_module,
-                 content=list("klmnopqrst"),
-                 time_until_hint=5,
-                 simulations=None)
-        q.start_quiz()
+        # q = Quiz(interaction_object=interaction_module,
+        #          content=list("klmnopqrst"),
+        #          time_until_hint=TIME_UNTIL_HINT)
+        # q.start_quiz()
 
-        spelling_game = SpellingGame(
-            interaction_object=interaction_module, spelling_word="tail")
-        spelling_game.play()
+        # spelling_game = SpellingGame(
+        #     interaction_object=interaction_module,
+        #     spelling_word="tail",
+        #     time_until_hint=TIME_UNTIL_HINT)
+        # spelling_game.play()
 
-        # U-Z lesson and quiz
-        Lesson(interaction_object=interaction_module,
-               content=lesson_4_timeline,
-               test_content=None,
-               max_timeout=None,
-               time_until_hint=20)
+        # # U-Z lesson and quiz
+        # Lesson(interaction_object=interaction_module,
+        #        content=lesson_4_timeline,
+        #        time_until_hint=TIME_UNTIL_HINT)
 
-        q = Quiz(interaction_object=interaction_module,
-                 content=[list("uvwxyz")],
-                 time_until_hint=10,
-                 simulations=None)
-        q.start_quiz()
+        # q = Quiz(interaction_object=interaction_module,
+        #          content=list("uvwxyz"),
+        #          time_until_hint=TIME_UNTIL_HINT)
+        # q.start_quiz()
 
-        # Spelling game using a new word
-        spelling_game = SpellingGame(
-            interaction_object=interaction_module, spelling_word="umbrella")
-        spelling_game.play()
+        # # Spelling game using a new word
+        # spelling_game = SpellingGame(
+        #     interaction_object=interaction_module, 
+        #     spelling_word="umbrella", 
+        #     time_until_hint=TIME_UNTIL_HINT)
+        # spelling_game.play()
 
         # Final Quiz using the learning algorithm
         amount_of_characters = 10
@@ -108,8 +114,7 @@ def main():
         else:
             q = Quiz(interaction_object=interaction_module,
                      content=user_tailored_content,
-                     time_until_hint=10,
-                     simulations=None)
+                     time_until_hint=TIME_UNTIL_HINT)
             q.start_quiz()
 
 

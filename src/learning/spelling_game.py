@@ -19,7 +19,8 @@ class SpellingGame(LearningTool):
 
     def play(self):
 
-        self.speech.say("In this round we will spell out {}".format(self.spelling_word))
+        self.speech.say("In this round we will spell out")
+        self.speech.say("{}".format(self.spelling_word))
         # self.speech.say("I will take you through the letters one by one")
         # self.speech.say("If you cannot remember how the dot combination goes I will give you a hint")
 
