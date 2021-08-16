@@ -38,5 +38,5 @@ lesson_3_timeline = {
     39: "Up next is the letter T. The letter T is dot 2, 3, 4 and 5. Try it now.",
     40: 26,
     41: "Perfect. That is letter T.",
-    42: "You have now been shown the letters K to T. Try a quiz to see what ones you can remmeber.",
+    42: "You have now been shown the letters K to T. Try a quiz to see what ones you can remember.",
 }
