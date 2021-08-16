@@ -23,101 +23,73 @@ from src.lesson_content.simple_spelling_words import spelling_words
 
 def main():
 
-    # TODO: this option value should be entered by the user in the future
-
     interaction_module = Interaction(testing=False)
     # interaction_module.mute() #Mutes audio for faster testing
 
-    # The below object lets the user select what they wish to do i.e. take a lesson or quiz
-    # For testing purposes it is best to comment this out and state the option value (Line 33)
-    # content_selection = ContentSelection(interaction_object=interaction_module,
-    #                                      possible_choices=initial_menu,
-    #                                      test_content=None,
-    #                                      max_timeout=None)
+    option = 1  # Option Override
 
-    # option = content_selection.get_choice()
-    option = 19  # Option Override
-
-    # TRANSLATOR OPTION -> Translates entered dots to A-Z chars
+    # MAIN SEQUENCE
     if option == 1:
-        Translator(interaction_object=interaction_module)
 
-    # INTROCUTORY LESSON -> Introduces the Braille Pi and the importance of learning braille
-    if option == 2:
+        # Dot tutorial and quiz
         Lesson(interaction_object=interaction_module,
-               content=lesson_0_introduction,
-               simulations=None,
-               max_timeout=None,
-               time_until_hint=20)
+               content=lesson_0_tutorial)
 
-    # TUTORIAL -> Goes through each dot
-    if option == 3:
-        Lesson(interaction_object=interaction_module,
-               content=lesson_0_tutorial,
-               test_content=None,
-               max_timeout=None,
-               time_until_hint=20)
-
-    # LESSON 1 -> A, B. C's in braille
-    if option == 4:
-        Lesson(interaction_object=interaction_module,
-               content=lesson_1_timeline,
-               test_content=None,
-               max_timeout=None,
-               time_until_hint=20)
-
-    # LESSON 2 -> A-J lesson. These characters are the building blocks of braille
-    if option == 5:
-        Lesson(interaction_object=interaction_module,
-               content=lesson_2_timeline,
-               test_content=None,
-               max_timeout=None,
-               time_until_hint=20)
-
-    # QUIZ 2 -> A-J QUIZ.
-    if option == 6:
+        quiz_content = ["Dot 1", "Dot 2", "Dot 3", "Dot 4", "Dot 5", "Dot 6", ]
+        random.shuffle(quiz_content)
         q = Quiz(interaction_object=interaction_module,
-                 content=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],
-                 time_until_hint=10,
-                 simulations=None)
+                 content=quiz_content)
         q.start_quiz()
 
-    # LESSON 3 -> K-T lesson.
-    if option == 7:
+        # A-J lesson and quiz
+        Lesson(interaction_object=interaction_module,
+               content=lesson_2_timeline)
+
+        q = Quiz(interaction_object=interaction_module,
+                 content=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"])
+        q.start_quiz()
+
+        spelling_game = SpellingGame(
+            interaction_object=interaction_module, spelling_word="dad")
+        spelling_game.play()
+
+        # K-T lesson and quiz
         Lesson(interaction_object=interaction_module,
                content=lesson_3_timeline,
                test_content=None,
                max_timeout=None,
                time_until_hint=20)
 
-    # Quiz 3: K to T
-    if option == 10:
         q = Quiz(interaction_object=interaction_module,
                  content=list("klmnopqrst"),
                  time_until_hint=5,
                  simulations=None)
         q.start_quiz()
 
-    # LESSON 4 -> U-Z lesson.
-    if option == 8:
+        spelling_game = SpellingGame(
+            interaction_object=interaction_module, spelling_word="tail")
+        spelling_game.play()
+
+        # U-Z lesson and quiz
         Lesson(interaction_object=interaction_module,
                content=lesson_4_timeline,
                test_content=None,
                max_timeout=None,
                time_until_hint=20)
 
-    # QUIZ 3 -> U-Z QUIZ.
-    if option == 15:
         q = Quiz(interaction_object=interaction_module,
                  content=[list("uvwxyz")],
                  time_until_hint=10,
                  simulations=None)
         q.start_quiz()
 
-    # QUIZ Using learning algorithm.
-    if option == 9:
+        # Spelling game using a new word
+        spelling_game = SpellingGame(
+            interaction_object=interaction_module, spelling_word="umbrella")
+        spelling_game.play()
 
-        amount_of_characters = 5
+        # Final Quiz using the learning algorithm
+        amount_of_characters = 10
 
         learning_algorithm = LearningAlgorithm()
         learning_algorithm.process_results()
@@ -140,63 +112,6 @@ def main():
                      simulations=None)
             q.start_quiz()
 
-    # Voice actor demonstration
-    # Currently Dot tutorial and Lesson 2 contains voice over
-    if option == 11:
-        Lesson(interaction_object=interaction_module,
-               content=lesson_0_tutorial,)
-        Lesson(interaction_object=interaction_module,
-               content=lesson_2_timeline,)
-
-    # User Testing Sequence Option
-    if option == 12:
-        Lesson(interaction_object=interaction_module,
-               content=lesson_0_tutorial)
-        quiz_content = ["Dot 1", "Dot 2", "Dot 3", "Dot 4", "Dot 5", "Dot 6", ]
-        random.shuffle(quiz_content)
-        q = Quiz(interaction_object=interaction_module,
-                 content=quiz_content)
-        q.start_quiz()
-        Lesson(interaction_object=interaction_module,
-               content=lesson_2_timeline)
-        q = Quiz(interaction_object=interaction_module,
-                 content=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"])
-        q.start_quiz()
-
-    # QUIZ 4 -> SEQUENTIAL Quiz on dots.
-    if option == 16:
-        quiz_content = ["Dot 1", "Dot 2", "Dot 3", "Dot 4", "Dot 5", "Dot 6", ]
-        q = Quiz(interaction_object=interaction_module,
-                 content=quiz_content,
-                 time_until_hint=10,
-                 simulations=None)
-        q.start_quiz()
-
-    # QUIZ 5 -> RANDOM Quiz on dots.
-    if option == 17:
-        quiz_content = ["Dot 1", "Dot 2", "Dot 3", "Dot 4", "Dot 5", "Dot 6", ]
-        random.shuffle(quiz_content)
-        q = Quiz(interaction_object=interaction_module,
-                 content=quiz_content,
-                 time_until_hint=10,
-                 simulations=None)
-        q.start_quiz()
-
-    # Spelling quiz
-    if option == 18:
-        spelling_game = SpellingGame(interaction_object=interaction_module, spelling_word="John")
-        spelling_game.play()
-
-    # Spelling quiz
-    if option == 19:
-        word_selection = list(spelling_words)
-        random.shuffle(word_selection)
-        for word in word_selection:
-            spelling_game = SpellingGame(interaction_object=interaction_module, spelling_word=word, time_until_hint=5)
-            spelling_game.play()
-            spelling_game = None
-
-    
 
 # Main loop starts
 if __name__ == "__main__":
