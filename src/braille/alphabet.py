@@ -54,7 +54,7 @@ class Alphabet ():
         "Dot 3": "Raise the left bottum dot only",
         "Dot 4": "Raise the right top dot only",
         "Dot 5": "Raise the right middle dot only",
-        "Dot 6": "Raise the rigth bottum dot only",
+        "Dot 6": "Raise the right bottom dot only",
         "_": "Please make sure all dots are flat with the board or lowered"
     }
 
