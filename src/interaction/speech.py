@@ -127,8 +127,8 @@ class Speech:
             else:
                 print("VOICE FILE NEEDED")
 
-                # with open("voice_files_needed.txt", "a") as myfile:
-                #     myfile.write("-{}\n".format(text))
+                with open("automation_scripts/script_saver/voice_files_needed.txt", "a") as myfile:
+                    myfile.write("-{}\n".format(text))
 
                 # Narrating the passed text
                 if current_os == "linux" or current_os == "linux2":

@@ -57,8 +57,12 @@ class Quiz(LearningTool):
         else:
             self.error_log.log_error("NOT ENOUGH CHARS")
 
-        self.speech.say("Awesome you scored {} out of {}. Keep it up.".format(
-            self.no_correct_answers, len(self.quiz_characters)))
+        self.speech.say("Awesome you scored")
+        self.speech.say(str(self.no_correct_answers))
+        self.speech.say("out of")
+        self.speech.say(str(len(self.quiz_characters)))
+        self.speech.say("Keep it up.")
+        
 
         self.log_results()
 

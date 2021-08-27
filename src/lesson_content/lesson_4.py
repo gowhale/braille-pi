@@ -26,5 +26,5 @@ lesson_4_timeline = {
     27: "Up next is the letter W. The letter W is dot 2, 4, 5 and 6. Try it now.",
     28: 32,
     29: "Perfect. That is letter W.",
-    30: "You have now been shown the letters U to W. Try a quiz to see what ones you can remmeber.",
+    30: "You have now been shown the letters U to W. Try a quiz to see what ones you can remember.",
 }
